@@ -1,0 +1,74 @@
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { CodeEditorViewType } from '../component/const/code-editor-view-type';
+import { Tooltip } from '../component/tooltip';
+import { If } from '../component/if';
+import { Editor } from '../container/editor';
+import { ErrorList } from '../container/error-list';
+import { ParseTreeView } from '../container/parse-tree-view';
+import { useParsing } from '../hook/parsing';
+import { caretDataActions } from '../state/slice/caret-data-slice';
+import { StatusBar } from '../container/status-bar';
+import css from './style/editor-page.module.css';
+
+const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
+  useParsing();
+
+  useEffect(() => {
+    if (viewType === CodeEditorViewType.PARSE_TREE) {
+      return;
+    }
+
+    const textArea = document.getElementById('code-textarea--input');
+
+    if (textArea === null) {
+      return;
+    }
+
+    const selectionStart = textArea.selectionStart;
+    const currentValue = textArea.value;
+    const caretChange = () => onUpdateCaretData(selectionStart, currentValue);
+
+    textArea.addEventListener('click', caretChange);
+    textArea.addEventListener('contextmenu', caretChange);
+    textArea.addEventListener('keypress', caretChange);
+
+    return () => {
+      textArea.removeEventListener('click', caretChange);
+      textArea.removeEventListener('contextmenu', caretChange);
+      textArea.removeEventListener('keypress', caretChange);
+    };
+  }, [viewType]);
+
+  return (
+    <div className={css.editorPage} data-testid="ti-code-editor-column">
+      <Tooltip />
+      <If condition={viewType === CodeEditorViewType.EDITOR}>
+        <>
+          <Editor />
+          <StatusBar />
+          <ErrorList />
+        </>
+      </If>
+      <If condition={viewType === CodeEditorViewType.PARSE_TREE}>
+        <ParseTreeView />
+      </If>
+    </div>
+  );
+};
+
+EditorPageImpl.propTypes = {
+  viewType: PropTypes.oneOf(Object.values(CodeEditorViewType)).isRequired,
+  onUpdateCaretData: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  viewType: state.view.type,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onUpdateCaretData: (selectionStart, value) => dispatch(caretDataActions.update({ selectionStart, value })),
+});
+
+export const EditorPage = connect(mapStateToProps, mapDispatchToProps)(EditorPageImpl);

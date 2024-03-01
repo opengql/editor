@@ -1,0 +1,17 @@
+.parse-state-label {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.parsing-label {
+  margin-left: 0.4rem;
+}
+
+.no-errors-label {
+  margin-left: 0.4rem;
+}
+
+.found-errors-label {
+  margin-left: 0.4rem;
+}

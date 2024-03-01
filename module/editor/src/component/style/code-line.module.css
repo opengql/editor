@@ -1,0 +1,25 @@
+.lineNumberCell {
+  position: relative;
+  width: 1%;
+  min-width: 50px;
+  padding: 0 10px 0 0;
+  font-family: jetbrains-mono,monospace;
+  font-size: 12px;
+  line-height: 20px;
+  color: #a1a1a1;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.codeLine {
+  padding: 0;
+  font-family: 'jetbrains-mono', monospace !important;
+}
+
+.codeLineError {
+  background-color: #ff000022;
+}

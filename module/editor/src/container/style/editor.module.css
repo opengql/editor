@@ -1,0 +1,29 @@
+:root {
+  --editor-height: 500px;
+}
+
+.editor-wrapper {
+  border: 1px solid #ced4da;
+  overflow-y: scroll;
+  position: relative;
+  height: var(--editor-height);
+}
+
+.editor {
+  font-family: 'jetbrains-mono', monospace;
+  counter-reset: line;
+  font-size: 12px;
+  line-height: 20px;
+  vertical-align: top;
+  min-height: var(--editor-height);
+}
+
+.code-area {
+  outline: none;
+  padding-left: 60px !important;
+  min-height: var(--editor-height);
+}
+
+.editor pre {
+  min-height: var(--editor-height);
+}

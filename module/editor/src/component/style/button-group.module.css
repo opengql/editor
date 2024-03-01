@@ -1,0 +1,27 @@
+.buttonGroup {
+  margin: 0.5rem 0;
+}
+
+.buttonGroup:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.buttonGroup button {
+  float: left;
+}
+
+.buttonGroup button:not(:last-child) {
+  border-right: none;
+}
+
+.buttonGroup button:first-child {
+  border-bottom-left-radius: 0.25rem;
+  border-top-left-radius: 0.25rem;
+}
+
+.buttonGroup button:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: jetbrains-mono;
+  src: url('../font/jetbrains-mono.ttf');
+}
+
+@font-face {
+  font-family: roboto;
+  src: url('../font/roboto.ttf');
+}
+
+html {
+  font-family: jetbrains-mono, serif;
+}

@@ -1,0 +1,20 @@
+:root {
+  --error-list-border-color: #ced4da;
+  --error-list-background: #a1a1a110;
+}
+
+.error-wrapper {
+  height: 300px;
+  padding: 0.2rem 0.4rem;
+  border-left: 1px solid var(--error-list-border-color);
+  border-right: 1px solid var(--error-list-border-color);
+  border-bottom: 1px solid var(--error-list-border-color);
+  background: var(--error-list-background);
+  overflow-y: scroll;
+}
+
+.error-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

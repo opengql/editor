@@ -1,0 +1,88 @@
+.codeEditorGrid {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  margin: auto;
+  transition: 0.5s;
+}
+
+.editorColumn {
+  flex: 1;
+  padding-top: 0.5rem;
+  transition: 0.5s;
+}
+
+.editorColumn .editorHeader {
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.editorTooltip {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.5rem;
+}
+
+.editorTooltipSeparator {
+  flex: 1;
+}
+
+.editorWrapper {
+  border: 1px solid #ced4da;
+  overflow-y: scroll;
+  position: relative;
+  height: 500px;
+}
+
+.editor {
+  font-family: 'jetbrains-mono', monospace;
+  counter-reset: line;
+  font-size: 12px;
+  line-height: 20px;
+  vertical-align: top;
+  min-height: 500px;
+}
+
+.codeArea {
+  outline: none;
+  padding-left: 60px !important;
+  min-height: 500px;
+}
+
+.editor pre {
+  min-height: 500px;
+}
+
+.examplesColumn {
+  transition: 0.5s;
+}
+
+@media (min-width: 1000px) {
+  .codeEditorGrid {
+    flex-direction: column;
+  }
+
+  .editorColumn {
+    flex: 1;
+  }
+
+  .examplesColumn {
+    width: 30% !important;
+  }
+}
+
+@media (min-width: 840px) {
+  .codeEditorGrid {
+    flex-direction: row;
+  }
+
+  .editorColumn {
+    flex: 1;
+  }
+
+  .examplesColumn {
+    width: 45%;
+    padding-left: 0.5rem;
+  }
+}

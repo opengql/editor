@@ -1,0 +1,20 @@
+:root {
+  --status-bar-border-color: #ced4da;
+  --status-bar-background: #a1a1a125;
+}
+
+.status-bar {
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  border-left: 1px solid var(--status-bar-border-color);
+  border-right: 1px solid var(--status-bar-border-color);
+  border-bottom: 1px solid var(--status-bar-border-color);
+  background: var(--status-bar-background);
+  height: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.status-bar-separator {
+  flex: 1;
+}
