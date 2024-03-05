@@ -3,11 +3,11 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 import { Provider } from 'react-redux';
 import { appStore } from './state/app-store';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { EditorPage } from './page/editor-page';
 import { ExamplesPage } from './page/examples-page';
 
-const router = createBrowserRouter([
+const router = createMemoryRouter([
   {
     path: '/',
     element: <EditorPage />,

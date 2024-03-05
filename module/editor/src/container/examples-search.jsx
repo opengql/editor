@@ -15,6 +15,12 @@ const ExamplesSearchImpl = ({ examples, options, phrase, setPhrase, setResult })
 
   useEffect(() => {
     setFuse(new Fuse(examples, options));
+
+    if (phrase === '') {
+      setResult(examples);
+      return;
+    }
+
     setResult(searchForExamples(phrase));
   }, [examples]);
 

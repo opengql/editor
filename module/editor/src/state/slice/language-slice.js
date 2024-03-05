@@ -5,15 +5,14 @@ const languageSlice = createSlice({
   initialState: {
     grammarDefinition: {},
     examples: [],
+    isInitialized: false,
   },
   reducers: {
-    initialize: (state, { payload }) => {
-      console.log(payload);
-      return {
-        grammarDefinition: payload.grammarDefinition,
-        examples: payload.examples,
-      };
-    },
+    initialize: (state, { payload }) => ({
+      grammarDefinition: payload.grammarDefinition,
+      examples: payload.examples,
+      isInitialized: true,
+    }),
   },
 });
 

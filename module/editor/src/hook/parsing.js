@@ -8,16 +8,15 @@ import { useDebouncedEffect } from './debounced-effect';
 
 export const useParsing = () => {
   const value = useSelector((state) => state.editor.value);
+  const isInitialized = useSelector((state) => state.language.isInitialized);
   const dispatch = useDispatch();
   const grammarWorkerRef = useRef(null);
   const [parsedValue, setParsedValue] = useState();
-  const [isInitialized, setIsInitialized] = useState(false);
 
   const handleInitResponse = ({ data }) => {
     const { grammarDefinition, examples } = data;
     dispatch(languageActions.initialize({ grammarDefinition, examples }));
     dispatch(editorActions.setState(ParseState.IDLE));
-    setIsInitialized(true);
   };
 
   const handleParseResponse = ({ data }) => {
@@ -28,6 +27,10 @@ export const useParsing = () => {
   useEffect(() => {
     if (grammarWorkerRef.current !== null) {
       grammarWorkerRef.current.terminate();
+    }
+
+    if (isInitialized) {
+      return;
     }
 
     dispatch(editorActions.setState(ParseState.INITIALIZING));
