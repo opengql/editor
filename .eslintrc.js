@@ -20,6 +20,10 @@ module.exports = {
         es6: true,
         browser: true,
       },
+      globals: {
+        editor: true,
+        grammar: true,
+      },
       extends: ['standard', 'plugin:react/recommended', 'prettier'],
       parserOptions: {
         ecmaVersion: 'latest',
@@ -41,6 +45,9 @@ module.exports = {
       env: {
         es6: true,
         worker: true,
+      },
+      globals: {
+        grammar: true,
       },
       extends: ['standard', 'prettier'],
       parserOptions: {

@@ -1,6 +1,8 @@
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 const path = require('path');
+const packageJson = require('./package.json');
 
 const rootPath = path.resolve(__dirname, 'module', 'worker');
 const sourcePath = path.resolve(rootPath, 'src');
@@ -37,6 +39,9 @@ module.exports = {
       extensions: ['.js'],
       emitWarning: false,
       cache: false,
+    }),
+    new DefinePlugin({
+      grammar: JSON.stringify(`{ VERSION: 'v${packageJson.version}' }`),
     }),
   ],
   optimization: {

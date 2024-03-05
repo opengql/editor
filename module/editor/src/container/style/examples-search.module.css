@@ -1,0 +1,17 @@
+.examples-search {
+  padding: 0.25rem 1rem;
+  line-height: 2em;
+  width: calc(100% - 2rem - 2px);
+  color: #696969;
+  background-color: rgba(217, 217, 217, 0.15);
+  background-image: none;
+  background-clip: padding-box;
+  border: 1px solid rgba(133, 133, 133, 0.3);
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  -webkit-appearance: none;
+  font-size: 14px;
+  height: 1.775rem;
+}

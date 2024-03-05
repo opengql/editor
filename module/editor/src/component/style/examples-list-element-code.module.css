@@ -1,0 +1,11 @@
+.example-code {
+  position: relative;
+  font-family: 'jetbrains-mono', monospace;
+  font-size: 0.75rem !important;
+  margin: 0;
+  background-color: #fff;
+  opacity: 0.75;
+  border-top: 1px solid #e3e9ef;
+  border-bottom: 1px solid #e3e9ef;
+  white-space: pre-wrap;
+}

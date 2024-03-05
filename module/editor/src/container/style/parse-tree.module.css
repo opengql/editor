@@ -6,6 +6,7 @@
 .parseTree {
   display: flex;
   border: 1px solid #ced4da;
+  flex: 1;
 }
 
 .parseTreeLoadingWrapper {

@@ -12,3 +12,12 @@
 .error-list-element:hover {
   background-color: #aa330022;
 }
+
+.error-position-label {
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.error-message {
+  font-size: 14px;
+}

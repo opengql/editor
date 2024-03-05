@@ -14,8 +14,8 @@ export const useParsing = () => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const handleInitResponse = ({ data }) => {
-    const { grammarDefinition } = data;
-    dispatch(languageActions.initialize({ grammarDefinition, examples: [] }));
+    const { grammarDefinition, examples } = data;
+    dispatch(languageActions.initialize({ grammarDefinition, examples }));
     dispatch(editorActions.setState(ParseState.IDLE));
     setIsInitialized(true);
   };

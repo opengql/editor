@@ -11,6 +11,7 @@ import { useParsing } from '../hook/parsing';
 import { caretDataActions } from '../state/slice/caret-data-slice';
 import { StatusBar } from '../container/status-bar';
 import css from './style/editor-page.module.css';
+import { AppContainer } from '../component/app-container';
 
 const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
   useParsing();
@@ -42,19 +43,21 @@ const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
   }, [viewType]);
 
   return (
-    <div className={css.editorPage} data-testid="ti-code-editor-column">
-      <Tooltip />
-      <If condition={viewType === CodeEditorViewType.EDITOR}>
-        <>
-          <Editor />
-          <StatusBar />
-          <ErrorList />
-        </>
-      </If>
-      <If condition={viewType === CodeEditorViewType.PARSE_TREE}>
-        <ParseTreeView />
-      </If>
-    </div>
+    <AppContainer>
+      <div className={css.editorPage} data-testid="ti-code-editor-column">
+        <Tooltip />
+        <If condition={viewType === CodeEditorViewType.EDITOR}>
+          <>
+            <Editor />
+            <StatusBar />
+            <ErrorList />
+          </>
+        </If>
+        <If condition={viewType === CodeEditorViewType.PARSE_TREE}>
+          <ParseTreeView />
+        </If>
+      </div>
+    </AppContainer>
   );
 };
 

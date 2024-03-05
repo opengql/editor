@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { viewActions } from '../state/slice/view-slice';
 import { CodeEditorViewType } from '../component/const/code-editor-view-type';
 import { ParseTreeNode } from '../type/parse-tree-node';
+import { EditorIcon } from '../icon/editor-icon';
+import { ParseTreeIcon } from '../icon/parse-tree-icon';
 
 const ViewSelectImpl = ({ viewType, parseTree, onViewSelectChange }) => {
   const getClassName = useCallback(
@@ -20,7 +22,14 @@ const ViewSelectImpl = ({ viewType, parseTree, onViewSelectChange }) => {
         className={getClassName(CodeEditorViewType.EDITOR)}
         data-testid="ti-view-select--editor-button"
       >
-        Editor
+        <div className={css.selectOptionContentWrapper} data-testid={`ti-select-option--content`}>
+          <div className={css.selectOptionIconWrapper} data-testid={`ti-select-option--btn-icon-left`}>
+            <EditorIcon />
+          </div>
+          <div className={css.selectOptionLabelWrapper} data-testid={`ti-select-option--btn-label`}>
+            Editor
+          </div>
+        </div>
       </button>
       <button
         onClick={() => onViewSelectChange(CodeEditorViewType.PARSE_TREE)}
@@ -28,7 +37,14 @@ const ViewSelectImpl = ({ viewType, parseTree, onViewSelectChange }) => {
         data-testid="ti-view-select--wrapper--parse-tree"
         disabled={parseTree.length === 0}
       >
-        Parse Tree
+        <div className={css.selectOptionContentWrapper} data-testid={`ti-select-option--content`}>
+          <div className={css.selectOptionIconWrapper} data-testid={`ti-select-option--btn-icon-left`}>
+            <ParseTreeIcon />
+          </div>
+          <div className={css.selectOptionLabelWrapper} data-testid={`ti-select-option--btn-label`}>
+            Parse Tree
+          </div>
+        </div>
       </button>
     </div>
   );

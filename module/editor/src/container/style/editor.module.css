@@ -6,7 +6,7 @@
   border: 1px solid #ced4da;
   overflow-y: scroll;
   position: relative;
-  height: var(--editor-height);
+  flex: 2;
 }
 
 .editor {
@@ -15,15 +15,15 @@
   font-size: 12px;
   line-height: 20px;
   vertical-align: top;
-  min-height: var(--editor-height);
+  min-height: 100%;
 }
 
 .code-area {
   outline: none;
   padding-left: 60px !important;
-  min-height: var(--editor-height);
+  min-height: 100%;
 }
 
 .editor pre {
-  min-height: var(--editor-height);
+  min-height: 100%;
 }

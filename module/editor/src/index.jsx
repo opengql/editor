@@ -5,11 +5,16 @@ import { Provider } from 'react-redux';
 import { appStore } from './state/app-store';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { EditorPage } from './page/editor-page';
+import { ExamplesPage } from './page/examples-page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <EditorPage />,
+  },
+  {
+    path: '/examples',
+    element: <ExamplesPage />,
   },
 ]);
 

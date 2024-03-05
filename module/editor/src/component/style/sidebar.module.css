@@ -1,0 +1,19 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  /*background-color: #e7e7e7;*/
+  border-right: 1px solid dimgrey;
+  /*padding: 0.25rem;*/
+  /*width: 300px;*/
+  background-color: #333;
+  color: #fff;
+  height: 100%;
+  width: 200px;
+  transition: width 0.3s;
+}
+
+@media (max-width: 520px) {
+  .sidebar {
+    width: 50px;
+  }
+}

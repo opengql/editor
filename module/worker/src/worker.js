@@ -6,6 +6,7 @@ import { CaseKind } from './const/case-kind';
 import { createLexer } from './create-lexer';
 import { GrammarBuilder } from './grammar-builder';
 import { CommonSyntaxObjects } from './common-syntax-objects';
+import { GqlExamples } from './generated/gql-examples';
 
 onmessage = ({ data }) => {
   const { type } = data;
@@ -44,7 +45,7 @@ onmessage = ({ data }) => {
         .withSyntaxObject(CommonSyntaxObjects.STRING)
         .build();
 
-      postMessage({ grammarDefinition });
+      postMessage({ grammarDefinition, examples: GqlExamples });
     }
   }
 };

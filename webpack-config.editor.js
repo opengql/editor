@@ -4,7 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 // const StylelintPlugin = require('stylelint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { DefinePlugin } = require('webpack');
 const path = require('path');
+const packageJson = require('./package.json');
 
 const rootPath = path.resolve(__dirname, 'module', 'editor');
 const sourcePath = path.resolve(rootPath, 'src');
@@ -93,6 +95,14 @@ module.exports = {
           to: 'css',
         },
       ],
+    }),
+    new DefinePlugin({
+      editor: {
+        VERSION: `'v${packageJson.version}'`,
+      },
+      grammar: {
+        VERSION: `'v${packageJson.version}'`,
+      },
     }),
   ],
   optimization: {

@@ -7,10 +7,13 @@ const languageSlice = createSlice({
     examples: [],
   },
   reducers: {
-    initialize: (state, { payload }) => ({
-      grammarDefinition: payload.grammarDefinition,
-      examples: payload.examples,
-    }),
+    initialize: (state, { payload }) => {
+      console.log(payload);
+      return {
+        grammarDefinition: payload.grammarDefinition,
+        examples: payload.examples,
+      };
+    },
   },
 });
 

@@ -4,13 +4,13 @@
 }
 
 .error-wrapper {
-  height: 300px;
   padding: 0.2rem 0.4rem;
   border-left: 1px solid var(--error-list-border-color);
   border-right: 1px solid var(--error-list-border-color);
   border-bottom: 1px solid var(--error-list-border-color);
   background: var(--error-list-background);
   overflow-y: scroll;
+  flex: 1;
 }
 
 .error-list {
