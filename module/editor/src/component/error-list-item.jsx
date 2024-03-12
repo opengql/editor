@@ -16,8 +16,6 @@ export const ErrorListItem = ({ error, errorIndex }) => {
 
     const index = sumOfPrevLines + error.charPosition;
 
-    console.log(lines, sumOfPrevLines, index);
-
     textArea.setSelectionRange(index, index);
     textArea.focus();
   };

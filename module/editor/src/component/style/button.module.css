@@ -27,14 +27,14 @@
   border: 1px solid rgba(133, 133, 133, 0.5);
 }
 
-.buttonContentWrapper {
+.button-content-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 1.5rem;
 }
 
-.buttonContentWrapper .buttonLabelWrapper {
+.button-content-wrapper .button-label-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,7 +43,7 @@
   transition: 1s;
 }
 
-.buttonContentWrapper .buttonIconWrapper {
+.button-content-wrapper .button-icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +52,7 @@
 }
 
 @media only screen and (max-width: 500px) {
-  .buttonContentWrapper .buttonLabelWrapper {
+  .button-content-wrapper .button-label-wrapper {
     display: none;
   }
 }

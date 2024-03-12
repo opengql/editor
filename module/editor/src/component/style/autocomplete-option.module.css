@@ -1,0 +1,21 @@
+.autocomplete-modal-element {
+  padding-left: 1rem;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  cursor: pointer;
+  transition: 0.25s;
+  border: solid 1px transparent;
+  margin-bottom: 2px;
+  font-family: 'jetbrains-mono', monospace;
+  font-size: 12px;
+}
+
+.autocomplete-modal-element:last-child {
+  margin-bottom: 0;
+}
+
+.autocomplete-modal-selected-element {
+  background: #007cc2;
+  color: #ced4da;
+  border-color: #005381;
+}

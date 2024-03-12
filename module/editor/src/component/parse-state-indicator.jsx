@@ -29,19 +29,19 @@ export const ParseStateIndicator = ({ parseState, parseErrors }) => {
     <span className={css.parseStateLabel} style={getStyles()} data-testid="ti-parsing-state">
       <If condition={parseState === ParseState.INITIALIZING}>
         <SpinnerIcon width={iconSize} height={iconSize} />
-        <span className={css.parsingLabel} data-testid="ti-parsing-status--label">
+        <span className={css.parsingLabel} data-testid="ti-parsing-status--label-init">
           Initializing...
         </span>
       </If>
       <If condition={parseState === ParseState.PARSING}>
         <SpinnerIcon width={iconSize} height={iconSize} />
-        <span className={css.parsingLabel} data-testid="ti-parsing-status--label">
+        <span className={css.parsingLabel} data-testid="ti-parsing-status--label-parsing">
           Parsing...
         </span>
       </If>
       <If condition={parseState === ParseState.IDLE && parseErrors.length === 0}>
         <CheckIcon width={iconSize} height={iconSize} />
-        <span className={css.noErrorsLabel} data-testid="ti-parsing-status--label">
+        <span className={css.noErrorsLabel} data-testid="ti-parsing-status--label-no-errors">
           No errors!
         </span>
       </If>
@@ -49,7 +49,7 @@ export const ParseStateIndicator = ({ parseState, parseErrors }) => {
         <ExclamationIcon width={iconSize} height={iconSize} />
         <span
           className={css.foundErrorsLabel}
-          data-testid="ti-parsing-status--label"
+          data-testid="ti-parsing-status--label-errors"
         >{`Found '${parseErrors.length}' parser errors`}</span>
       </If>
     </span>

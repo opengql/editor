@@ -7,6 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const path = require('path');
 const packageJson = require('./package.json');
+const babelConfig = require('./babel-config.editor.js');
 
 const rootPath = path.resolve(__dirname, 'module', 'editor');
 const sourcePath = path.resolve(rootPath, 'src');
@@ -36,9 +37,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: require.resolve('babel-loader'),
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-          },
+          options: { ...babelConfig },
         },
       },
       {

@@ -75,6 +75,40 @@ module.exports = {
       },
     },
     {
+      files: ['**/test/**/*.js', '**/test/**/*.jsx', 'e2e/**/*.js'],
+      env: {
+        es6: true,
+        jest: true,
+      },
+      globals: {
+        grammar: true,
+      },
+      extends: ['standard', 'prettier'],
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      plugins: ['prettier', 'sort-class-members'],
+      rules: {
+        'prettier/prettier': ['error', prettierConfig],
+        'sort-class-members/sort-class-members': [
+          2,
+          {
+            order: [
+              '[static-properties]',
+              '[static-methods]',
+              '[properties]',
+              '[conventional-private-properties]',
+              'constructor',
+              '[methods]',
+              '[conventional-private-methods]',
+            ],
+            accessorPairPositioning: 'getThenSet',
+          },
+        ],
+      },
+    },
+    {
       files: ['script/**/*.ts'],
       env: {
         es6: true,

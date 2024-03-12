@@ -2,7 +2,7 @@
   border-spacing: 0;
 }
 
-.highlightBackground {
+.highlight-background {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -10,14 +10,14 @@
   height: 100%;
 }
 
-.highlightLineNumberBackground {
+.highlight-line-number-background {
   width: 55px;
   height: 100%;
   border-right: 1px solid #e3e9ef;
   background-color: #efefef88;
 }
 
-.highlightLineBackground {
+.highlight-line-background {
   flex: 1;
   height: 100%;
 }

@@ -21,9 +21,10 @@
 .code-area {
   outline: none;
   padding-left: 60px !important;
-  min-height: 100%;
 }
 
 .editor pre {
+  width: 100%;
   min-height: 100%;
+  position: static !important;
 }

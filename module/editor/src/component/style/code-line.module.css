@@ -1,4 +1,4 @@
-.lineNumberCell {
+.line-number-cell {
   position: relative;
   width: 1%;
   min-width: 50px;
@@ -15,11 +15,11 @@
   user-select: none;
 }
 
-.codeLine {
+.code-line {
   padding: 0;
   font-family: 'jetbrains-mono', monospace !important;
 }
 
-.codeLineError {
+.code-line-error {
   background-color: #ff000022;
 }

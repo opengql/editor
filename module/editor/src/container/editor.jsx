@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import SimpleCodeEditor from 'react-simple-code-editor';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,61 +7,41 @@ import { useHighlights } from '../hook/highlights';
 import { caretDataActions } from '../state/slice/caret-data-slice';
 import { Autocomplete } from './autocomplete';
 import css from './style/editor.module.css';
+import { useEditorTextArea } from '../hook/editor-text-area';
 
 const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, updateNextCaretIndex }) => {
-  const [textArea, setTextArea] = useState(undefined);
-
+  const editorTextArea = useEditorTextArea();
   const { highlight } = useHighlights();
 
   const handleValueChange = (newValue) => {
-    if (textArea === undefined || value === newValue) {
+    if (editorTextArea === undefined || value === newValue) {
       return;
     }
 
-    const selectionStart = textArea.selectionStart;
-    const currentValue = textArea.value;
+    const selectionStart = editorTextArea.selectionStart;
+    const currentValue = editorTextArea.value;
 
     onValueChange(newValue);
     updateCaretData(selectionStart, currentValue);
   };
 
-  const handleSelectCapture = useCallback(() => {
-    if (nextCaretIndex === -1 || textArea === undefined) {
+  useEffect(() => {
+    if (nextCaretIndex === -1 || editorTextArea === undefined) {
       return;
     }
 
-    textArea.setSelectionRange(nextCaretIndex, nextCaretIndex);
+    editorTextArea.setSelectionRange(nextCaretIndex, nextCaretIndex);
+    updateCaretData(nextCaretIndex, editorTextArea.value);
     updateNextCaretIndex(-1);
-  }, [textArea, nextCaretIndex]);
-
-  const handleSuggestionAccept = (suggestion, wordData) => {
-    if (wordData === undefined) {
-      return;
-    }
-
-    let tmpValue = value;
-
-    if (wordData.startIndex !== -1) {
-      const before = tmpValue.substring(0, wordData.startIndex);
-      const after = tmpValue.substring(wordData.startIndex + wordData.length);
-      tmpValue = `${before}${suggestion} ${after}`;
-    }
-
-    updateNextCaretIndex(wordData.startIndex + suggestion.length + 1);
-    handleValueChange(tmpValue);
-  };
+  }, [editorTextArea, nextCaretIndex]);
 
   useEffect(() => {
-    const tmpTextArea = document.getElementById('code-textarea--input');
-
-    if (tmpTextArea === null) {
+    if (editorTextArea === undefined) {
       return;
     }
 
-    setTextArea(tmpTextArea);
-
-    const selectionStart = tmpTextArea.selectionStart;
-    const currentValue = tmpTextArea.value;
+    const selectionStart = editorTextArea.selectionStart;
+    const currentValue = editorTextArea.value;
 
     updateCaretData(selectionStart, currentValue);
   }, []);
@@ -77,11 +57,10 @@ const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, upd
           textareaId="code-textarea--input"
           textareaClassName={css.codeArea}
           className={css.editor}
-          onSelectCapture={handleSelectCapture}
           autoFocus
         />
       </div>
-      <Autocomplete textAreaElement={textArea} onSuggestionAccept={handleSuggestionAccept} />
+      <Autocomplete />
     </>
   );
 };

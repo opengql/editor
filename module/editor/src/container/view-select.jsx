@@ -34,8 +34,7 @@ const ViewSelectImpl = ({ viewType, parseTree, onViewSelectChange }) => {
       <button
         onClick={() => onViewSelectChange(CodeEditorViewType.PARSE_TREE)}
         className={getClassName(CodeEditorViewType.PARSE_TREE)}
-        data-testid="ti-view-select--wrapper--parse-tree"
-        disabled={parseTree.length === 0}
+        data-testid="ti-view-select--parse-tree"
       >
         <div className={css.selectOptionContentWrapper} data-testid={`ti-select-option--content`}>
           <div className={css.selectOptionIconWrapper} data-testid={`ti-select-option--btn-icon-left`}>

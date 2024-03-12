@@ -1,4 +1,4 @@
-.autocompleteModal {
+.autocomplete-modal {
   position: absolute;
   width: 200px;
   background: #f3f3f3;
@@ -13,30 +13,10 @@
   box-sizing: border-box;
 }
 
-.autocompleteModalList {
+.autocomplete-modal-list {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-.autocompleteModalElement {
-  padding-left: 1rem;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  cursor: pointer;
-  transition: 0.25s;
-  border: solid 1px transparent;
-  margin-bottom: 2px;
-  font-family: 'jetbrains-mono', monospace;
-  font-size: 12px;
-}
 
-.autocompleteModalElement:last-child {
-  margin-bottom: 0;
-}
-
-.autocompleteModalSelectedElement {
-  background: #007cc2;
-  color: #ced4da;
-  border-color: #005381;
-}

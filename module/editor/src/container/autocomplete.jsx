@@ -1,197 +1,128 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import css from './style/autocomplete.module.css';
 import PropTypes from 'prop-types';
-import { CaretData, defaultCaretData } from '../type/caret-data';
-import { useDebouncedEffect } from '../hook/debounced-effect';
+import { CaretData } from '../type/caret-data';
 import { connect } from 'react-redux';
+import { useStringUtil } from '../hook/string-util';
+import { useSuggestionUtil } from '../hook/suggestion-util';
+import { AutocompleteOption } from '../component/autocomplete-option';
+import { editorActions } from '../state/slice/editor-slice';
+import { useEditorTextArea } from '../hook/editor-text-area';
+import { caretDataActions } from '../state/slice/caret-data-slice';
 
-const AutocompleteImpl = ({ caretData, code, keywords, textAreaElement, onSuggestionAccept }) => {
+const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChange, onUpdateCaretData }) => {
+  const suggestionUtil = useSuggestionUtil();
+  const stringUtil = useStringUtil();
+  const editorTextArea = useEditorTextArea();
+
   const [suggestions, setSuggestions] = useState([]);
-  const [wordData, setWordData] = useState({ startIndex: 0, length: 0 });
   const [shouldShowModal, setShouldShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState(-1);
-  const [shouldSkipNextChange, setShouldSkipNextChange] = useState(false);
+  const [lastWord, setLastWord] = useState(undefined);
+  const [lastWordData, setLastWordData] = useState(undefined);
+
   const optionsRef = useRef(null);
 
-  const handleOptionClick = (index) => {
-    onSuggestionAccept(suggestions[index], wordData);
-    setShouldSkipNextChange(true);
-    textAreaElement?.focus();
+  const resetAutocompleteData = () => {
+    setLastWordData(undefined);
+    setSelectedOption(-1);
+    setShouldShowModal(false);
   };
 
-  const assemblyOption = (value, index) => {
-    const isSelectedClass = selectedOption === index ? css.autocompleteModalSelectedElement : '';
+  const handleSuggestionAccept = (index) => {
+    const suggestion = suggestions[index];
+    const suggestionWordData = { ...lastWordData, length: suggestion.length };
 
-    return (
-      <li
-        className={`${css.autocompleteModalElement} ${isSelectedClass}`}
-        key={`autocomplete-option-${index}`}
-        data-testid={`ti-autocomplete-option-${index}`}
-        onClick={() => handleOptionClick(index)}
-      >
-        {value}
-      </li>
-    );
-  };
+    let tmpValue = editorValue;
 
-  const isWhiteSpace = (char) => /[\s \r\n]/.test(char);
-
-  const getWordBackwards = (input, startIndex) => {
-    let word = '';
-    let lastIndex = startIndex;
-
-    for (let i = startIndex - 1; i >= 0; i--) {
-      if (isWhiteSpace(input[i])) {
-        break;
-      }
-
-      word = input[i] + word;
-      lastIndex = i;
+    if (suggestionWordData.startIndex !== -1) {
+      const before = tmpValue.substring(0, suggestionWordData.startIndex);
+      const after = tmpValue.substring(suggestionWordData.startIndex + suggestionWordData.length);
+      tmpValue = `${before}${suggestion} ${after}`;
     }
 
-    const wordData = {
-      startIndex: lastIndex,
-      length: startIndex - lastIndex,
-    };
+    onEditorValueChange(tmpValue);
 
-    return { word, wordData };
+    const newIndex = suggestionWordData.startIndex + suggestion.length + 1;
+    editorTextArea.setSelectionRange(newIndex, newIndex);
+    onUpdateCaretData(newIndex, editorTextArea.value);
+
+    resetAutocompleteData();
+    editorTextArea?.focus();
   };
 
-  const calculateAccuracy = (word1, word2) => {
-    const word1Upper = word1.toUpperCase();
-    const word2Upper = word2.toUpperCase();
+  const getTextAreaTop = () => editorTextArea?.getBoundingClientRect().top ?? 0;
 
-    if (word1.length > word2.length && word1Upper.startsWith(word2Upper)) {
-      return (word2.length / word1.length) * 2;
-    }
+  const getTextAreaLeft = () => editorTextArea?.getBoundingClientRect().left ?? 0;
 
-    const set1 = new Set(word1Upper);
-    const set2 = new Set(word2Upper);
-    const intersection = new Set([...set1].filter((char) => set2.has(char)));
-    const union = new Set([...set1, ...set2]);
-    return intersection.size / union.size;
-  };
-
-  const assemblySuggestionForWords = (word1, word2) => ({
-    word: word2,
-    accuracy: calculateAccuracy(word2, word1),
+  const getModalStyles = () => ({
+    top: `calc(${getTextAreaTop() + caretData.position.x * 20}px + 10px)`,
+    left: `calc(${getTextAreaLeft() + caretData.position.y * 7.2}px + 60px)`,
   });
 
-  const findSimilarWords = (inputWord, wordsList) =>
-    wordsList
-      .map((word) => assemblySuggestionForWords(inputWord, word))
-      .sort((a, b) => b.accuracy - a.accuracy)
-      .filter((suggestion) => suggestion.accuracy > 0.6);
+  const handleEnterKey = (event) => {
+    event.preventDefault();
+    handleSuggestionAccept(selectedOption);
+  };
 
-  useDebouncedEffect(
-    () => {
-      setSuggestions([]);
-      setShouldShowModal(false);
+  const handleUpKey = (event) => {
+    event.preventDefault();
 
-      if (shouldSkipNextChange) {
-        setShouldSkipNextChange(false);
-        setWordData(undefined);
-        return;
+    let newSelectedOption = selectedOption - 1;
+
+    if (newSelectedOption < 0) {
+      newSelectedOption = suggestions.length - 1;
+    }
+
+    setSelectedOption(newSelectedOption);
+  };
+
+  const handleDownKey = (event) => {
+    event.preventDefault();
+
+    let newSelectedOption = selectedOption + 1;
+
+    if (newSelectedOption > suggestions.length - 1) {
+      newSelectedOption = 0;
+    }
+
+    setSelectedOption(newSelectedOption);
+  };
+
+  const handleEscapeKey = (event) => {
+    event.preventDefault();
+    setShouldShowModal(false);
+    editorTextArea?.focus();
+  };
+
+  const handleCtrlEnterKey = (event) => {
+    event.preventDefault();
+    setShouldShowModal(suggestions.length !== 0);
+  };
+
+  const handleKeyDownEvent = (event) => {
+    if (shouldShowModal) {
+      if (event.key === 'Enter') {
+        handleEnterKey(event);
       }
 
-      const { word, wordData } = getWordBackwards(code, caretData.index);
-
-      if (word.length <= 1) {
-        return;
+      if (event.key === 'ArrowUp') {
+        handleUpKey(event);
       }
 
-      const suggestions = findSimilarWords(word, keywords).map((suggestion) => suggestion.word);
-      setSuggestions(suggestions);
-      setSelectedOption(suggestions.length !== 0 ? 0 : -1);
-      setWordData(wordData);
-      setShouldShowModal(suggestions.length !== 0);
-    },
-    {
-      deps: [caretData, keywords, code],
-    },
-  );
-
-  const handleEnterKey = useCallback(
-    (event) => {
-      event.preventDefault();
-      onSuggestionAccept(suggestions[selectedOption], wordData);
-      setShouldSkipNextChange(true);
-    },
-    [suggestions, wordData, selectedOption],
-  );
-
-  const handleUpKey = useCallback(
-    (event) => {
-      event.preventDefault();
-
-      let newSelectedOption = selectedOption - 1;
-
-      if (newSelectedOption < 0) {
-        newSelectedOption = suggestions.length - 1;
+      if (event.key === 'ArrowDown') {
+        handleDownKey(event);
       }
 
-      setSelectedOption(newSelectedOption);
-    },
-    [selectedOption],
-  );
-
-  const handleDownKey = useCallback(
-    (event) => {
-      event.preventDefault();
-
-      let newSelectedOption = selectedOption + 1;
-
-      if (newSelectedOption > suggestions.length - 1) {
-        newSelectedOption = 0;
+      if (event.key === 'Escape') {
+        handleEscapeKey(event);
       }
-
-      setSelectedOption(newSelectedOption);
-    },
-    [selectedOption],
-  );
-
-  const handleEscapeKey = useCallback(
-    (event) => {
-      event.preventDefault();
-      setShouldShowModal(false);
-    },
-    [selectedOption],
-  );
-
-  const handleCtrlEnterKey = useCallback(
-    (event) => {
-      event.preventDefault();
-      setShouldShowModal(suggestions.length !== 0);
-    },
-    [selectedOption],
-  );
-
-  const handleKeyDownEvent = useCallback(
-    (event) => {
-      if (shouldShowModal) {
-        if (event.key === 'Enter') {
-          handleEnterKey(event);
-        }
-
-        if (event.key === 'ArrowUp') {
-          handleUpKey(event);
-        }
-
-        if (event.key === 'ArrowDown') {
-          handleDownKey(event);
-        }
-
-        if (event.key === 'Escape') {
-          handleEscapeKey(event);
-        }
-      } else {
-        if (event.ctrlKey && event.key === 'Enter') {
-          handleCtrlEnterKey(event);
-        }
+    } else {
+      if (event.ctrlKey && event.key === 'Enter') {
+        handleCtrlEnterKey(event);
       }
-    },
-    [shouldShowModal, handleEnterKey, handleUpKey, handleDownKey],
-  );
+    }
+  };
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDownEvent);
@@ -202,25 +133,39 @@ const AutocompleteImpl = ({ caretData, code, keywords, textAreaElement, onSugges
   }, [shouldShowModal, handleKeyDownEvent]);
 
   useEffect(() => {
-    if (wordData !== undefined) {
+    if (lastWordData !== undefined) {
       return;
     }
 
     setSuggestions([]);
-  }, [wordData]);
+  }, [lastWordData]);
 
-  const getOptions = () => suggestions.map((suggestion, index) => assemblyOption(suggestion, index));
+  useEffect(() => {
+    const { word, wordData } = stringUtil.getLastWordByIndex(editorValue, caretData.index);
+    setLastWordData(wordData);
+    setLastWord(word);
+  }, [editorValue, caretData]);
 
-  const getTextAreaTop = () => textAreaElement?.getBoundingClientRect().top ?? 0;
+  useEffect(() => {
+    if (lastWord === undefined || lastWord.length <= 1 || lastWordData === undefined) {
+      return;
+    }
 
-  const getTextAreaLeft = () => textAreaElement?.getBoundingClientRect().left ?? 0;
+    setSuggestions([]);
+    setShouldShowModal(false);
 
-  const getModalStyles = () => ({
-    top: `calc(${getTextAreaTop() + caretData.position.x * 20}px + 10px)`,
-    left: `calc(${getTextAreaLeft() + caretData.position.y * 7.2}px + 60px)`,
-  });
+    const tmpSuggestions = suggestionUtil
+      .getSimilarWords(lastWord, keywords)
+      .map((suggestion) => suggestion.word)
+      .filter((suggestion) => suggestion !== lastWord);
+
+    setSuggestions(tmpSuggestions);
+    setSelectedOption(tmpSuggestions.length !== 0 ? 0 : -1);
+    setShouldShowModal(tmpSuggestions.length !== 0);
+  }, [keywords, lastWord, lastWordData]);
 
   return (
+    // <If condition={shouldShowModal}>
     <div
       hidden={!shouldShowModal}
       className={css.autocompleteModal}
@@ -228,22 +173,28 @@ const AutocompleteImpl = ({ caretData, code, keywords, textAreaElement, onSugges
       data-testid="ti-autocomplete-modal"
     >
       <ul className={css.autocompleteModalList} ref={optionsRef} data-testid="ti-autocomplete-list">
-        {getOptions()}
+        {suggestions.map((suggestion, index) => (
+          <AutocompleteOption
+            key={`autocomplete-option-${index}`}
+            index={index}
+            value={suggestion}
+            selectedIndex={selectedOption}
+            onOptionClick={handleSuggestionAccept}
+          />
+        ))}
       </ul>
     </div>
+    // </If>
   );
 };
 
 AutocompleteImpl.propTypes = {
-  caretData: CaretData,
-  code: PropTypes.string,
-  keywords: PropTypes.arrayOf(PropTypes.string),
-  textAreaElement: PropTypes.element,
-  onSuggestionAccept: PropTypes.func,
-};
-
-AutocompleteImpl.defaultProps = {
-  caretData: defaultCaretData,
+  caretData: CaretData.isRequired,
+  editorValue: PropTypes.string.isRequired,
+  keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
+  textAreaElement: PropTypes.element.isRequired,
+  onEditorValueChange: PropTypes.func.isRequired,
+  onUpdateCaretData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -251,8 +202,13 @@ const mapStateToProps = (state) => ({
     position: state.caretData.position,
     index: state.caretData.index,
   },
-  code: state.editor.value,
+  editorValue: state.editor.value,
   keywords: state.language.grammarDefinition?.keywords ?? [],
 });
 
-export const Autocomplete = connect(mapStateToProps)(AutocompleteImpl);
+const mapDispatchToProps = (dispatch) => ({
+  onEditorValueChange: (value) => dispatch(editorActions.setValue(value)),
+  onUpdateCaretData: (selectionStart, value) => dispatch(caretDataActions.update({ selectionStart, value })),
+});
+
+export const Autocomplete = connect(mapStateToProps, mapDispatchToProps)(AutocompleteImpl);

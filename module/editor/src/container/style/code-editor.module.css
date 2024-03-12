@@ -1,4 +1,4 @@
-.codeEditorGrid {
+.code-editor-grid {
   display: flex;
   flex-direction: column;
   min-width: 300px;
@@ -6,29 +6,29 @@
   transition: 0.5s;
 }
 
-.editorColumn {
+.editor-column {
   flex: 1;
   padding-top: 0.5rem;
   transition: 0.5s;
 }
 
-.editorColumn .editorHeader {
+.editor-column .editor-header {
   font-weight: bold;
   font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 
-.editorTooltip {
+.editor-tooltip {
   display: flex;
   flex-direction: row;
   margin-bottom: 0.5rem;
 }
 
-.editorTooltipSeparator {
+.editor-tooltip-separator {
   flex: 1;
 }
 
-.editorWrapper {
+.editor-wrapper {
   border: 1px solid #ced4da;
   overflow-y: scroll;
   position: relative;
@@ -44,7 +44,7 @@
   min-height: 500px;
 }
 
-.codeArea {
+.code-area {
   outline: none;
   padding-left: 60px !important;
   min-height: 500px;
@@ -54,34 +54,34 @@
   min-height: 500px;
 }
 
-.examplesColumn {
+.examples-column {
   transition: 0.5s;
 }
 
 @media (min-width: 1000px) {
-  .codeEditorGrid {
+  .code-editor-grid {
     flex-direction: column;
   }
 
-  .editorColumn {
+  .editor-column {
     flex: 1;
   }
 
-  .examplesColumn {
+  .examples-column {
     width: 30% !important;
   }
 }
 
 @media (min-width: 840px) {
-  .codeEditorGrid {
+  .code-editor-grid {
     flex-direction: row;
   }
 
-  .editorColumn {
+  .editor-column {
     flex: 1;
   }
 
-  .examplesColumn {
+  .examples-column {
     width: 45%;
     padding-left: 0.5rem;
   }

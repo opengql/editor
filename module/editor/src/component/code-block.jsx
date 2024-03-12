@@ -11,6 +11,7 @@ export const CodeBlock = ({ parserErrors, highlightResult }) => {
     (line, index) => {
       const lineIndex = index + 1;
       const hasError = (parserErrors ?? []).some((error) => error.lineIndex === lineIndex);
+
       return <CodeLine key={`line-${lineIndex}`} line={line} index={index} hasError={hasError} />;
     },
     [parserErrors],

@@ -10,4 +10,10 @@ export class TokenizationErrorListener extends ErrorListener {
   syntaxError(recognizer, offendingSymbol, line, column, msg, e) {
     this.textNotTokenized = this.inputStr.substring(column);
   }
+
+  reportAmbiguity() {}
+
+  reportAttemptingFullContext() {}
+
+  reportContextSensitivity() {}
 }

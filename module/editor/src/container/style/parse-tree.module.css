@@ -1,15 +1,15 @@
-.parseTreeView {
+.parse-tree-view {
   width: 100%;
   height: 800px;
 }
 
-.parseTree {
+.parse-tree {
   display: flex;
   border: 1px solid #ced4da;
   flex: 1;
 }
 
-.parseTreeLoadingWrapper {
+.parse-tree-loading-wrapper {
   height: 400px;
   width: 100%;
   display: flex;

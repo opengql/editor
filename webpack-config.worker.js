@@ -3,6 +3,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const path = require('path');
 const packageJson = require('./package.json');
+const babelConfig = require('./babel-config.worker.js');
 
 const rootPath = path.resolve(__dirname, 'module', 'worker');
 const sourcePath = path.resolve(rootPath, 'src');
@@ -27,9 +28,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: require.resolve('babel-loader'),
-          options: {
-            presets: ['@babel/preset-env'],
-          },
+          options: { ...babelConfig },
         },
       },
     ],
