@@ -8,8 +8,10 @@ import { caretDataActions } from '../state/slice/caret-data-slice';
 import { Autocomplete } from './autocomplete';
 import css from './style/editor.module.css';
 import { useEditorTextArea } from '../hook/editor-text-area';
+import { useCodeLoader } from '../hook/code-loader';
 
 const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, updateNextCaretIndex }) => {
+  const loadedCode = useCodeLoader();
   const editorTextArea = useEditorTextArea();
   const { highlight } = useHighlights();
 
@@ -24,6 +26,14 @@ const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, upd
     onValueChange(newValue);
     updateCaretData(selectionStart, currentValue);
   };
+
+  useEffect(() => {
+    if (loadedCode === undefined) {
+      return;
+    }
+
+    handleValueChange(loadedCode);
+  }, [loadedCode]);
 
   useEffect(() => {
     if (nextCaretIndex === -1 || editorTextArea === undefined) {

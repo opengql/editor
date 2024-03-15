@@ -14,12 +14,20 @@ export const useParsing = () => {
   const [parsedValue, setParsedValue] = useState();
 
   const handleInitResponse = ({ data }) => {
+    if ('errors' in data || 'tree' in data) {
+      return;
+    }
+
     const { grammarDefinition, examples } = data;
     dispatch(languageActions.initialize({ grammarDefinition, examples }));
     dispatch(editorActions.setState(ParseState.IDLE));
   };
 
   const handleParseResponse = ({ data }) => {
+    if ('grammarDefinition' in data || 'examples' in data) {
+      return;
+    }
+
     dispatch(parseResultActions.update(data));
     dispatch(editorActions.setState(ParseState.IDLE));
   };

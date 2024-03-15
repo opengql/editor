@@ -10,7 +10,7 @@ describe('Button', () => {
   const mockOnClick = jest.fn();
   const mockTestId = 'test-button';
 
-  it('renders Button component with default props', () => {
+  it('should render button component with default props', () => {
     render(<Button label={mockLabel} icon={mockIcon} onClick={mockOnClick} testId={mockTestId} />);
 
     const buttonElement = screen.getByTestId(mockTestId);
@@ -23,7 +23,7 @@ describe('Button', () => {
     expect(screen.queryByTestId(`${mockTestId}--btn-icon-right`)).toBeNull();
   });
 
-  it('calls onClick when the button is clicked', () => {
+  it('should call click method when the button is clicked', () => {
     render(<Button label={mockLabel} icon={mockIcon} onClick={mockOnClick} testId={mockTestId} />);
 
     const buttonElement = screen.getByTestId(mockTestId);
@@ -32,7 +32,7 @@ describe('Button', () => {
     expect(mockOnClick).toHaveBeenCalled();
   });
 
-  it('renders Button component with icon on the right', () => {
+  it('should renders button component with icon on the right', () => {
     render(
       <Button
         label={mockLabel}
@@ -49,7 +49,7 @@ describe('Button', () => {
     expect(screen.queryByTestId(`${mockTestId}--btn-icon-left`)).toBeNull();
   });
 
-  it('renders Button component with isLoading state', () => {
+  it('should render button component with isLoading state', () => {
     render(<Button label={mockLabel} icon={mockIcon} onClick={mockOnClick} isLoading testId={mockTestId} />);
 
     const buttonElement = screen.getByTestId(mockTestId);
@@ -57,7 +57,7 @@ describe('Button', () => {
     expect(screen.getByTestId('ti-button-spinner-icon')).toBeInTheDocument();
   });
 
-  it('renders Button component with isCopied state', () => {
+  it('should render button component with isCopied state', () => {
     render(<Button label={mockLabel} icon={mockIcon} onClick={mockOnClick} isCopied testId={mockTestId} />);
 
     const buttonElement = screen.getByTestId(mockTestId);

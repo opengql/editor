@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import css from './style/autocomplete.module.css';
 import PropTypes from 'prop-types';
 import { CaretData } from '../type/caret-data';
@@ -51,14 +51,15 @@ const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChang
     editorTextArea?.focus();
   };
 
-  const getTextAreaTop = () => editorTextArea?.getBoundingClientRect().top ?? 0;
+  const getModalStyles = useCallback(() => {
+    const rect = editorTextArea?.getBoundingClientRect();
+    const { top, left } = rect ?? { top: 0, left: 0 };
 
-  const getTextAreaLeft = () => editorTextArea?.getBoundingClientRect().left ?? 0;
-
-  const getModalStyles = () => ({
-    top: `calc(${getTextAreaTop() + caretData.position.x * 20}px + 10px)`,
-    left: `calc(${getTextAreaLeft() + caretData.position.y * 7.2}px + 60px)`,
-  });
+    return {
+      top: `calc(${top + caretData.position.x * 20}px + 5px)`,
+      left: `calc(${left + caretData.position.y * 7.2}px + 50px)`,
+    };
+  }, [editorTextArea, caretData]);
 
   const handleEnterKey = (event) => {
     event.preventDefault();
@@ -165,7 +166,6 @@ const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChang
   }, [keywords, lastWord, lastWordData]);
 
   return (
-    // <If condition={shouldShowModal}>
     <div
       hidden={!shouldShowModal}
       className={css.autocompleteModal}
@@ -184,7 +184,6 @@ const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChang
         ))}
       </ul>
     </div>
-    // </If>
   );
 };
 
@@ -192,7 +191,6 @@ AutocompleteImpl.propTypes = {
   caretData: CaretData.isRequired,
   editorValue: PropTypes.string.isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  textAreaElement: PropTypes.element.isRequired,
   onEditorValueChange: PropTypes.func.isRequired,
   onUpdateCaretData: PropTypes.func.isRequired,
 };

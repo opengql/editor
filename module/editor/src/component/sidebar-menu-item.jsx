@@ -15,7 +15,7 @@ export const SidebarMenuItem = ({ path, icon, label, testId }) => {
 
   useEffect(() => {
     setIsSelected(location.pathname === path);
-  }, [location]);
+  }, [location, path]);
 
   return (
     <li

@@ -7,7 +7,7 @@ import Prism from 'prismjs';
 const mockGrammar = Prism.languages.javascript;
 
 describe('ExamplesListElementCode', () => {
-  it('renders ExamplesListElementCode component with provided example and grammar', () => {
+  it('should render examples list element code component with provided example and grammar', () => {
     const mockCode = `
     const greeting = "Hello, world!";
     console.log(greeting);
@@ -21,16 +21,17 @@ describe('ExamplesListElementCode', () => {
     render(<ExamplesListElementCode example={mockExample} grammar={mockGrammar} />);
 
     const exampleCodeElement = screen.getByTestId('ti-examples-list-item--code');
+
     expect(exampleCodeElement).toBeInTheDocument();
 
     const codeLines = screen.getAllByTestId(/^ti-code-line-\d+$/);
-    expect(codeLines).toHaveLength(2);
 
+    expect(codeLines).toHaveLength(2);
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });
 
-  it('handles multiline code properly', () => {
+  it('should handle multiline code properly', () => {
     const multilineCode = `
       <div>
         <p>This is a multiline</p>
@@ -46,8 +47,8 @@ describe('ExamplesListElementCode', () => {
     render(<ExamplesListElementCode example={multilineExample} grammar={mockGrammar} />);
 
     const codeLines = screen.getAllByTestId(/^ti-code-line-\d+$/);
-    expect(codeLines).toHaveLength(4);
 
+    expect(codeLines).toHaveLength(4);
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
   });

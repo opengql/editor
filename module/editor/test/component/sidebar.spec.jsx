@@ -4,8 +4,8 @@ import '@testing-library/jest-dom';
 import { Sidebar } from '../../src/component/sidebar';
 import { routerRender } from '../helper/router-render';
 
-describe('Sidebar component', () => {
-  it('renders Sidebar component with SidebarMenu and Versions', () => {
+describe('Sidebar', () => {
+  it('should render sidebar component with sidebar menu and versions', () => {
     routerRender(<Sidebar />);
 
     const sidebarElement = screen.getByTestId('ti-sidebar');

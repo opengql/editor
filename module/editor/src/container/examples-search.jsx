@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import css from './style/examples-search.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
-import { useDebouncedEffect } from '../hook/debounced-effect';
 import { CodeExample } from '../type/code-example';
 import { ParseState } from '../const/parse-state';
 import { exampleSearchActions } from '../state/slice/examples-search-slice';
@@ -11,7 +10,7 @@ import { exampleSearchActions } from '../state/slice/examples-search-slice';
 const ExamplesSearchImpl = ({ examples, options, phrase, setPhrase, setResult }) => {
   const [fuse, setFuse] = useState(new Fuse([], options));
 
-  const searchForExamples = (pattern) => fuse.search(pattern).map((result) => result.item);
+  const searchForExamples = useCallback((pattern) => fuse.search(pattern).map((result) => result.item), [fuse]);
 
   useEffect(() => {
     setFuse(new Fuse(examples, options));
@@ -22,20 +21,7 @@ const ExamplesSearchImpl = ({ examples, options, phrase, setPhrase, setResult })
     }
 
     setResult(searchForExamples(phrase));
-  }, [examples]);
-
-  useDebouncedEffect(
-    () => {
-      if (phrase === '') {
-        setResult(examples);
-        return;
-      }
-
-      setResult(searchForExamples(phrase));
-    },
-    500,
-    [phrase, examples],
-  );
+  }, [examples, phrase]);
 
   return (
     <input

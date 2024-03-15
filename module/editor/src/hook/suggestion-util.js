@@ -23,7 +23,7 @@ export const useSuggestionUtil = () => {
     wordsList
       .map((word) => assemblySuggestionForWords(inputWord, word))
       .sort((a, b) => b.accuracy - a.accuracy)
-      .filter((suggestion) => suggestion.accuracy > 0.6);
+      .filter((suggestion) => suggestion.accuracy > 0.75);
 
   return { getSimilarWords };
 };

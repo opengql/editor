@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { viewActions } from '../state/slice/view-slice';
 import { CodeEditorViewType } from '../component/const/code-editor-view-type';
-import { ParseTreeNode } from '../type/parse-tree-node';
 import { EditorIcon } from '../icon/editor-icon';
 import { ParseTreeIcon } from '../icon/parse-tree-icon';
 
-const ViewSelectImpl = ({ viewType, parseTree, onViewSelectChange }) => {
+const ViewSelectImpl = ({ viewType, onViewSelectChange }) => {
   const getClassName = useCallback(
     (currentViewType) =>
       viewType === currentViewType ? `${css.selectOption} ${css.selectedOption}` : css.selectOption,
@@ -51,13 +50,11 @@ const ViewSelectImpl = ({ viewType, parseTree, onViewSelectChange }) => {
 
 ViewSelectImpl.propTypes = {
   viewType: PropTypes.oneOf(Object.values(CodeEditorViewType)).isRequired,
-  parseTree: PropTypes.arrayOf(ParseTreeNode).isRequired,
   onViewSelectChange: PropTypes.func.isRequired,
 };
 
 const mapStateToAction = (state) => ({
   viewType: state.view.type,
-  parseTree: state.parserResult.tree,
 });
 
 const mapActionToCallback = (dispatch) => ({

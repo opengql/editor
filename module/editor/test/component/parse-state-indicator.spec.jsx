@@ -11,7 +11,7 @@ describe('ParseStateIndicator', () => {
     message: 'Syntax error',
   };
 
-  it('renders ParseStateIndicator component when parse state is INITIALIZING', () => {
+  it('should render parse state indicator component when parse state is INITIALIZING', () => {
     render(<ParseStateIndicator parseState={ParseState.INITIALIZING} parseErrors={[]} />);
 
     const parsingStatusLabel = screen.getByTestId('ti-parsing-status--label-init');
@@ -21,7 +21,7 @@ describe('ParseStateIndicator', () => {
     expect(spinnerIcon).toBeInTheDocument();
   });
 
-  it('renders ParseStateIndicator component when parse state is PARSING', () => {
+  it('should render parse state indicator component when parse state is PARSING', () => {
     render(<ParseStateIndicator parseState={ParseState.PARSING} parseErrors={[]} />);
 
     const parsingStatusLabel = screen.getByTestId('ti-parsing-status--label-parsing');
@@ -31,7 +31,7 @@ describe('ParseStateIndicator', () => {
     expect(spinnerIcon).toBeInTheDocument();
   });
 
-  it('renders ParseStateIndicator component when parse state is IDLE and no errors', () => {
+  it('should render parse state indicator component when parse state is IDLE and no errors', () => {
     render(<ParseStateIndicator parseState={ParseState.IDLE} parseErrors={[]} />);
 
     const noErrorsLabel = screen.getByTestId('ti-parsing-status--label-no-errors');
@@ -41,7 +41,7 @@ describe('ParseStateIndicator', () => {
     expect(checkIcon).toBeInTheDocument();
   });
 
-  it('renders ParseStateIndicator component when parse state is IDLE and there are errors', () => {
+  it('should render parse state indicator component when parse state is IDLE and there are errors', () => {
     render(<ParseStateIndicator parseState={ParseState.IDLE} parseErrors={[mockParsingError]} />);
 
     const errorsLabel = screen.getByTestId('ti-parsing-status--label-errors');

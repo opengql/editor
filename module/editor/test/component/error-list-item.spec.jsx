@@ -12,7 +12,7 @@ describe('ErrorListItem', () => {
 
   const mockErrorIndex = 1;
 
-  it('renders ErrorListItem component with correct error data', () => {
+  it('should render error list item component with correct error data', () => {
     render(<ErrorListItem error={mockError} errorIndex={mockErrorIndex} />);
 
     const errorListElement = screen.getByTestId(`ti-parsing-status-errors--errors-list-element-${mockErrorIndex}`);
@@ -25,7 +25,7 @@ describe('ErrorListItem', () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  it('triggers handleClick function when clicked', () => {
+  it('should trigger handle click function when clicked', () => {
     render(
       <>
         <textarea id="code-textarea--input" defaultValue="Line 1\nLine 2\nLine 3\n" />
@@ -34,9 +34,11 @@ describe('ErrorListItem', () => {
     );
 
     const errorListElement = screen.getByTestId(`ti-parsing-status-errors--errors-list-element-${mockErrorIndex}`);
+
     expect(errorListElement).toBeInTheDocument();
 
     const handleClickSpy = jest.spyOn(global.document, 'getElementById');
+
     fireEvent.click(errorListElement);
 
     expect(handleClickSpy).toHaveBeenCalled();
@@ -45,7 +47,7 @@ describe('ErrorListItem', () => {
     handleClickSpy.mockRestore();
   });
 
-  it('sets selection range and focuses textarea when clicked', () => {
+  it('should sets selection range and focuses textarea when clicked', () => {
     const result = render(
       <>
         <textarea id="code-textarea--input" defaultValue="Line 1\nLine 2\nLine 3\n" />
@@ -54,6 +56,7 @@ describe('ErrorListItem', () => {
     );
 
     const errorListElement = screen.getByTestId(`ti-parsing-status-errors--errors-list-element-${mockErrorIndex}`);
+
     expect(errorListElement).toBeInTheDocument();
 
     const textArea = result.container.querySelector('#code-textarea--input');

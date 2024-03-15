@@ -1,43 +1,54 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { act, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { SidebarMenu } from '../../src/component/sidebar-menu';
-import { routerRender, routerWithPathsRender } from '../helper/router-render';
+import { SidebarMenuItem } from '../../src/component/sidebar-menu-item';
+import { routerRender } from '../helper/router-render';
 
-describe('SidebarMenu component', () => {
-  it('renders SidebarMenu component with SidebarMenuItem components', () => {
-    routerRender(<SidebarMenu />);
+describe('SidebarMenuItem', () => {
+  const mockPath = '/';
+  const mockIcon = <div data-testid="ti-mock-icon">Icon</div>;
+  const mockLabel = 'Editor';
+  const mockTestId = 'ti-editor-page-button';
 
-    const sidebarMenuElement = screen.getByTestId('ti-sidebar-menu');
-    expect(sidebarMenuElement).toBeInTheDocument();
+  it('should render with provided path and icon and label', () => {
+    routerRender(<SidebarMenuItem path={mockPath} icon={mockIcon} label={mockLabel} testId={mockTestId} />);
 
-    const editorMenuItem = screen.getByTestId('ti-editor-page-button');
-    expect(editorMenuItem).toBeInTheDocument();
-    expect(editorMenuItem).toHaveTextContent('Editor');
+    const sidebarMenuItemElement = screen.getByTestId(mockTestId);
+    expect(sidebarMenuItemElement).toBeInTheDocument();
+    expect(sidebarMenuItemElement).toHaveTextContent(mockLabel);
 
-    const examplesMenuItem = screen.getByTestId('ti-examples-page-button');
-    expect(examplesMenuItem).toBeInTheDocument();
-    expect(examplesMenuItem).toHaveTextContent('Examples');
+    const iconElement = screen.getByTestId('ti-mock-icon');
+    expect(iconElement).toBeInTheDocument();
+    expect(iconElement).toHaveTextContent('Icon');
   });
 
-  it('should move to explicit path after clicking SidebarMenuItem', () => {
-    const paths = ['/', '/examples'];
+  it('should add class if current path is equals to component class', () => {
+    const initialEntries = ['/', '/examples'];
 
-    routerWithPathsRender(<SidebarMenu />, paths);
+    const { rerender } = routerRender(
+      <SidebarMenuItem path={initialEntries[0]} icon={mockIcon} label={mockLabel} testId={mockTestId} />,
+    );
 
-    const pageHeader1 = screen.getByTestId('ti-header');
-    expect(pageHeader1.innerHTML).toBe(paths[0]);
+    const sidebarMenuItemElement1 = screen.getByTestId(mockTestId);
+    expect(sidebarMenuItemElement1).toHaveClass('sidebarMenuItemSelected');
 
-    const sidebarExamplesButton = screen.getByTestId('ti-examples-page-button');
-    sidebarExamplesButton.click();
+    rerender(<SidebarMenuItem path={initialEntries[1]} icon={mockIcon} label={mockLabel} testId={mockTestId} />);
 
-    const pageHeader2 = screen.getByTestId('ti-header');
-    expect(pageHeader2.innerHTML).toBe(paths[1]);
+    const sidebarMenuItemElement2 = screen.getByTestId(mockTestId);
+    expect(sidebarMenuItemElement2).not.toHaveClass('sidebarMenuItemSelected');
+  });
 
-    const sidebarEditorButton = screen.getByTestId('ti-editor-page-button');
-    sidebarEditorButton.click();
+  it('should navigate to the specified path on click', () => {
+    routerRender(<SidebarMenuItem path={mockPath} icon={mockIcon} label={mockLabel} testId={mockTestId} />, {
+      init: 1,
+    });
 
-    const pageHeader3 = screen.getByTestId('ti-header');
-    expect(pageHeader3.innerHTML).toBe(paths[0]);
+    const sidebarMenuItemElement = screen.getByTestId(mockTestId);
+
+    expect(sidebarMenuItemElement).not.toHaveClass('sidebarMenuItemSelected');
+
+    act(() => fireEvent.click(sidebarMenuItemElement));
+
+    expect(sidebarMenuItemElement).toHaveClass('sidebarMenuItemSelected');
   });
 });

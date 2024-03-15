@@ -24,7 +24,7 @@ const ExamplesListImpl = ({ result, isLoading, setEditorValue }) => {
   return (
     <>
       <If condition={isLoading}>
-        <div className={css.examplesLoadingWrapper}>
+        <div className={css.examplesLoadingWrapper} data-testid="ti-loading-examples-wrapper">
           <SpinnerIcon testId="ti-loading-examples" width="64" height="64" />
         </div>
       </If>

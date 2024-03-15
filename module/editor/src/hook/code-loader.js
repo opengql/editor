@@ -3,7 +3,7 @@ import { useEncoding } from './encoding';
 
 export const useCodeLoader = () => {
   const { decode } = useEncoding();
-  const [loadedCode, setLoadedCode] = useState('');
+  const [loadedCode, setLoadedCode] = useState(undefined);
 
   useEffect(() => {
     const queryString = window.location.search;

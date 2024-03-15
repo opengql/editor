@@ -55,7 +55,7 @@ ParseTreeViewImpl.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isParsing: state.editor.state === ParseState.PARSING,
+  isParsing: state.editor.state !== ParseState.IDLE,
   parseTree: state.parserResult.tree,
 });
 

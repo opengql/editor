@@ -7,8 +7,8 @@ import { ParsingError } from '../type/parsing-error';
 import { ParseState } from '../const/parse-state';
 import { ParseStateIndicator } from '../component/parse-state-indicator';
 
-export const StatusBarImpl = ({ parseErrors, parseState, caretPosition }) => (
-  <div className={css.statusBar}>
+const StatusBarImpl = ({ parseErrors, parseState, caretPosition }) => (
+  <div className={css.statusBar} data-testid="ti-status-bar">
     <ParseStateIndicator parseErrors={parseErrors} parseState={parseState} />
     <div className={css.statusBarSeparator} />
     <CaretData position={caretPosition} />

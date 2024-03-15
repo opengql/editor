@@ -2,6 +2,7 @@ import { environment } from './environment';
 
 export const overrideClipboardPermissions = async (browser) => {
   const context = await browser.defaultBrowserContext();
+
   await context.overridePermissions(environment.websiteUrl, [
     'clipboard-read',
     'clipboard-write',
@@ -10,7 +11,7 @@ export const overrideClipboardPermissions = async (browser) => {
 };
 
 export const getClipboardValue = async (browser, page) => {
-  return await page.evaluate(async () => navigator.clipboard.readText());
+  return await page.evaluate(`(async () => await navigator.clipboard.readText())()`);
 };
 
 export const waitForClipboardValueToChange = async (browser, page) => {

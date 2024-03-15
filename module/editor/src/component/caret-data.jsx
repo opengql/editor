@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import css from './style/caret-data.module.css';
 
 export const CaretData = ({ position }) => (
-  <div className={css.caretDataWrapper}>
+  <div className={css.caretDataWrapper} data-testid="ti-caret-data">
     {position.x}:{position.y}
   </div>
 );

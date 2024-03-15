@@ -12,7 +12,8 @@
     "serve:worker": "cross-env NODE_ENV='development' webpack watch --config ./webpack-config.worker.js",
     "generate:parser": "node ./script/antlr-generate.js",
     "test:e2e": "jest --config=jest-config.e2e.js --runInBand",
-    "test:editor": "jest --config=./jest-config.editor.js"
+    "test:editor": "jest --config=./jest-config.editor.js",
+    "test:worker": "jest --config=./jest-config.worker.js"
   },
   "browserslist": {
     "production": [
@@ -61,11 +62,13 @@
     "jest-css-modules": "^2.1.0",
     "jest-cucumber": "^3.0.1",
     "jest-environment-jsdom": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^16.0.0",
     "mini-css-extract-plugin": "^2.8.0",
     "prettier": "^3.2.4",
     "prop-types": "^15.8.1",
     "puppeteer": "^21.5.0",
+    "redux-mock-store": "^1.5.4",
     "style-loader": "^3.3.4",
     "stylelint": "^16.2.1",
     "stylelint-config-standard": "^36.0.0",

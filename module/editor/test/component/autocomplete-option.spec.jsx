@@ -9,7 +9,7 @@ describe('AutocompleteOption', () => {
   const mockSelectedIndex = 0;
   const mockOnOptionClick = jest.fn();
 
-  it('renders AutocompleteOption component with correct props', () => {
+  it('should render AutocompleteOption component with correct props', () => {
     render(
       <AutocompleteOption
         value={mockValue}
@@ -20,13 +20,14 @@ describe('AutocompleteOption', () => {
     );
 
     const autocompleteOptionElement = screen.getByTestId(`ti-autocomplete-option-${mockIndex}`);
+
     expect(autocompleteOptionElement).toBeInTheDocument();
     expect(autocompleteOptionElement).toHaveTextContent(mockValue);
     expect(autocompleteOptionElement).toHaveClass('autocompleteModalElement');
     expect(autocompleteOptionElement).toHaveClass('autocompleteModalSelectedElement');
   });
 
-  it('calls onOptionClick when clicked', () => {
+  it('should call option click method when clicked', () => {
     render(
       <AutocompleteOption
         value={mockValue}

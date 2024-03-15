@@ -7,7 +7,7 @@ describe('CodeLine', () => {
   const mockLine = '<div>Code line content</div>';
   const mockIndex = 2;
 
-  it('renders CodeLine component without error', () => {
+  it('should render code line component without error', () => {
     render(
       <table>
         <tbody>
@@ -17,18 +17,21 @@ describe('CodeLine', () => {
     );
 
     const codeLineElement = screen.getByTestId('ti-higlights-code-line');
+
     expect(codeLineElement).toBeInTheDocument();
 
     const lineNumberCellElement = screen.getByTestId('ti-higlights-code-line--number-cell');
+
     expect(lineNumberCellElement).toBeInTheDocument();
     expect(lineNumberCellElement).toHaveTextContent(`${mockIndex + 1}`);
 
     const codeCellElement = screen.getByTestId('ti-higlights-code-line--code-cell');
+
     expect(codeCellElement).toBeInTheDocument();
     expect(codeCellElement).toContainHTML('Code line content');
   });
 
-  it('renders CodeLine component with error', () => {
+  it('should render code line component with error', () => {
     render(
       <table>
         <tbody>
@@ -38,16 +41,18 @@ describe('CodeLine', () => {
     );
 
     const errorLineElement = screen.getByTestId('ti-higlights-code-line-error');
+
     expect(errorLineElement).toBeInTheDocument();
 
     const lineNumberCellElement = screen.getByTestId('ti-higlights-code-line--number-cell');
+
     expect(lineNumberCellElement).toBeInTheDocument();
     expect(lineNumberCellElement).toHaveTextContent(`${mockIndex + 1}`);
 
     const codeCellElement = screen.getByTestId('ti-higlights-code-line--code-cell');
+
     expect(codeCellElement).toBeInTheDocument();
     expect(codeCellElement).toContainHTML('Code line content');
-
     expect(errorLineElement).toHaveClass('codeLineError');
   });
 });

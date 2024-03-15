@@ -2,7 +2,13 @@ module.exports = {
   verbose: true,
   roots: ['<rootDir>/module/editor/test'],
   testRegex: '(.*|(\\.|/)(test|spec))\\.(js|jsx)$',
-  testPathIgnorePatterns: ['/node_modules/', '/build/', 'module/editor/test/helper', 'module/editor/test/script'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/build/',
+    'module/editor/test/helper',
+    'module/editor/test/script',
+    'module/editor/test/mock',
+  ],
   testEnvironment: 'jest-environment-jsdom',
   testEnvironmentOptions: {
     url: 'http://localhost/',
