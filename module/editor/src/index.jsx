@@ -6,6 +6,7 @@ import { appStore } from './state/app-store';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { EditorPage } from './page/editor-page';
 import { ExamplesPage } from './page/examples-page';
+import { useParsing } from './hook/parsing';
 
 const router = createMemoryRouter([
   {
@@ -26,10 +27,16 @@ if (rootElement === null) {
 
 const root = createRoot(rootElement);
 
+const App = () => {
+  useParsing();
+
+  return <RouterProvider router={router}></RouterProvider>;
+};
+
 root.render(
   <StrictMode>
     <Provider store={appStore}>
-      <RouterProvider router={router}></RouterProvider>
+      <App />
     </Provider>
   </StrictMode>,
 );

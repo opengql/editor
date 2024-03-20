@@ -7,15 +7,12 @@ import { If } from '../component/if';
 import { Editor } from '../container/editor';
 import { ErrorList } from '../container/error-list';
 import { ParseTreeView } from '../container/parse-tree-view';
-import { useParsing } from '../hook/parsing';
 import { caretDataActions } from '../state/slice/caret-data-slice';
 import { StatusBar } from '../container/status-bar';
 import css from './style/editor-page.module.css';
 import { AppContainer } from '../component/app-container';
 
 const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
-  useParsing();
-
   useEffect(() => {
     if (viewType === CodeEditorViewType.PARSE_TREE) {
       return;

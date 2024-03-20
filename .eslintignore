@@ -1,4 +1,6 @@
 .idea
 build
 node_modules
-module/worker/src/generated
+module/worker/src/generated/gql-lexer.js
+module/worker/src/generated/gql-listener.js
+module/worker/src/generated/gql-parser.js

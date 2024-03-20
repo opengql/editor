@@ -5,7 +5,7 @@ module.exports = {
   testEnvironment: 'jest-environment-node',
   moduleFileExtensions: ['js', 'json', 'node'],
   transform: {
-    '\\js$': [
+    '\\.js$': [
       'babel-jest',
       {
         configFile: './babel-config.worker.js',

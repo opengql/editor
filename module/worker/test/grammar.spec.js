@@ -14,7 +14,7 @@ describe('Grammar Test', () => {
 
       parser.gqlProgram();
 
-      console.log(JSON.stringify(errorListener.errors));
+      console.log(example.name, JSON.stringify(errorListener.errors));
 
       expect(errorListener.errors.length).toEqual(0);
     });

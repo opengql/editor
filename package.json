@@ -10,10 +10,12 @@
     "build:prod": "cross-env NODE_ENV='production' webpack --config ./webpack-config.all.js",
     "serve:editor": "cross-env NODE_ENV='development' webpack serve --config ./webpack-config.editor.js",
     "serve:worker": "cross-env NODE_ENV='development' webpack watch --config ./webpack-config.worker.js",
-    "generate:parser": "node ./script/antlr-generate.js",
+    "grammar:build": "node ./script/grammar-build.js",
+    "grammar:download": "node ./script/grammar-download.js",
     "test:e2e": "jest --config=jest-config.e2e.js --runInBand",
     "test:editor": "jest --config=./jest-config.editor.js",
-    "test:worker": "jest --config=./jest-config.worker.js"
+    "test:worker": "jest --config=./jest-config.worker.js",
+    "deploy": "node ./script/editor-deploy.js"
   },
   "browserslist": {
     "production": [
@@ -30,12 +32,14 @@
   "devDependencies": {
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
+    "@octokit/core": "^6.0.1",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "babel-jest": "^29.7.0",
     "copy-webpack-plugin": "^12.0.2",
     "cross-env": "^7.0.3",
     "css-loader": "^6.10.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
@@ -47,6 +51,7 @@
     "eslint-plugin-sort-class-members": "^1.19.0",
     "eslint-webpack-plugin": "^4.0.1",
     "file-loader": "^6.2.0",
+    "gh-pages": "^6.1.1",
     "html-webpack-plugin": "^5.6.0",
     "jest": "^29.7.0",
     "jest-css-modules": "^2.1.0",
@@ -55,6 +60,7 @@
     "jest-fetch-mock": "^3.0.3",
     "jest-junit": "^16.0.0",
     "mini-css-extract-plugin": "^2.8.0",
+    "node-fetch": "^3.3.2",
     "prettier": "^3.2.4",
     "prop-types": "^15.8.1",
     "puppeteer": "^21.5.0",

@@ -1,23 +1,10 @@
 const fs = require('fs');
 
 const replaceTextInFile = (filePath, searchStr, replacementStr) => {
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(`Error reading file: ${err.message}`);
-      return;
-    }
+  const data = fs.readFileSync(filePath, 'utf8');
+  const updatedData = data.replace(new RegExp(searchStr, 'g'), replacementStr);
 
-    const updatedData = data.replace(new RegExp(searchStr, 'g'), replacementStr);
-
-    fs.writeFile(filePath, updatedData, 'utf8', (writeErr) => {
-      if (writeErr) {
-        console.error(`Error writing to file: ${writeErr.message}`);
-        return;
-      }
-
-      console.log(`Text replaced successfully in ${filePath}`);
-    });
-  });
+  fs.writeFileSync(filePath, updatedData, 'utf8');
 };
 
 module.exports = { replaceTextInFile };

@@ -109,12 +109,12 @@ module.exports = {
       },
     },
     {
-      files: ['script/**/*.ts'],
+      files: ['script/**/*.js'],
       env: {
         es6: true,
         node: true,
       },
-      extends: ['standard-with-typescript', 'prettier'],
+      extends: ['standard', 'prettier'],
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',

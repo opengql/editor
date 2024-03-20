@@ -18,7 +18,7 @@ module.exports = {
     '\\.css$': 'jest-css-modules',
   },
   transform: {
-    '\\jsx?$': [
+    '\\.jsx?$': [
       'babel-jest',
       {
         configFile: './babel-config.editor.js',

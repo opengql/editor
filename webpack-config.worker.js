@@ -2,8 +2,8 @@ const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const path = require('path');
-const packageJson = require('./package.json');
 const babelConfig = require('./babel-config.worker.js');
+const grammarVersion = require('./tmp/version.json');
 
 const rootPath = path.resolve(__dirname, 'module', 'worker');
 const sourcePath = path.resolve(rootPath, 'src');
@@ -40,7 +40,9 @@ module.exports = {
       cache: false,
     }),
     new DefinePlugin({
-      grammar: JSON.stringify(`{ VERSION: 'v${packageJson.version}' }`),
+      grammar: {
+        VERSION: `'v${grammarVersion.major}.${grammarVersion.minor}.${grammarVersion.patch}'`,
+      },
     }),
   ],
   optimization: {
