@@ -1,0 +1,73 @@
+name: Synchronize with grammar repository
+
+on:
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  createPullRequest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: fregante/setup-git-user@v2
+
+      - name: Use Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install -g yarn
+
+      - name: Delete origin update_grammar branch if exists
+        run: |
+          if git ls-remote --exit-code --heads origin update_grammar; then
+            git push origin --delete -f update_grammar
+          fi
+
+      - name: Create update_grammar branch
+        run: |
+          git switch -c update_grammar
+
+      - name: Build grammar sources
+        run: |
+          yarn
+          yarn grammar:download
+          yarn grammar:build
+          MAJOR=$(jq -r '.major' tmp/version.json)
+          MINOR=$(jq -r '.minor' tmp/version.json)
+          PATCH=$(jq -r '.patch' tmp/version.json)
+          VERSION="$MAJOR.$MINOR.$PATCH"
+          jq ".grammarVersion = \"$VERSION\"" package.json >> temp.json
+          mv temp.json package.json
+
+      - name: Check for any changes
+        id: check
+        run: |
+          CHANGED_FILES=$(git diff --name-only $(git merge-base --fork-point remotes/origin/main || git merge-base remotes/origin/main HEAD))
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "skip_steps=false" >> $GITHUB_OUTPUT
+          else
+            echo "skip_steps=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create update_grammar pull request
+        if: steps.check.outputs.skip_steps != 'true'
+        run: |
+          git add .
+          git commit -m "updated grammar source code;"
+          git push -u origin update_grammar --force
+          gh pr create -B main -H update_grammar --title 'Grammar Update' --body 'Updated grammar sources from grammar repository changes.'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

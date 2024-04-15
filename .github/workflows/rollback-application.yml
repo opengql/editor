@@ -1,0 +1,52 @@
+name: Rollback Application
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to use for deployment'
+        required: true
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Fetch tag
+        run: git fetch --tags origin ${{ github.event.inputs.tag }}
+
+      - name: Determine commit hash of the tag
+        id: get_commit_hash
+        run: |
+          commit_hash=$(git ls-remote --tags origin refs/tags/${{ github.event.inputs.tag }} | cut -f1)
+          echo "commit_hash=$commit_hash" >> $GITHUB_OUTPUT
+
+      - name: Create new branch at the commit associated with the tag
+        run: |
+          git checkout -b new_branch ${{ steps.get_commit_hash.outputs.commit_hash }}
+
+      - name: Setup Environment
+        run: |
+          npm install -g yarn
+          yarn
+
+      - name: Verify is application valid
+        run: yarn test:editor && yarn test:worker
+
+      - name: Build application
+        run: yarn build:prod
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build

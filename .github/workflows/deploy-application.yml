@@ -1,0 +1,63 @@
+name: Deploy application
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: fregante/setup-git-user@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      
+      - name: Setup environment
+        run: |
+          npm install -g yarn
+          yarn
+
+      - name: Check is tag exists
+        id: check_tag
+        run: |
+          EXISTING_TAGS=$(gh api repos/:owner/:repo/tags --jq '.[].name')
+          APP_VERSION=$(jq -r '.version' package.json)
+          GRAMMAR_VERSION=$(jq -r '.dependencies."grammarVersion"' package.json)
+          TAG_TO_CREATE="v$APP_VERSION-$GRAMMAR_VERSION"
+          if echo "$EXISTING_TAGS" | grep -q "$TAG_TO_CREATE"; then
+            echo "should_create=false" >> $GITHUB_OUTPUT
+          else 
+            echo "should_create=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create new tag
+        if: steps.check_tag.outputs.should_create == 'true'
+        run: |
+          APP_VERSION=$(jq -r '.version' package.json)
+          GRAMMAR_VERSION=$(jq -r '.dependencies."grammarVersion"' package.json)
+          TAG_TO_CREATE="v$APP_VERSION-$GRAMMAR_VERSION"
+          git tag -a "$TAG_TO_CREATE" -m "Tag for app version $APP_VERSION and grammar version $GRAMMAR_VERSION."
+
+      - name: Verify is application valid
+        if: steps.check_tag.outputs.should_create == 'true'
+        run: yarn test:editor && yarn test:worker
+
+      - name: Build application
+        if: steps.check_tag.outputs.should_create == 'true'
+        run: yarn build:prod
+
+      - name: Deploy to GitHub Pages
+        if: steps.check_tag.outputs.should_create == 'true'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
