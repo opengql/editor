@@ -52,6 +52,9 @@ jobs:
           jq ".grammarVersion = \"$VERSION\"" package.json >> temp.json
           mv temp.json package.json
 
+      - name: Verify is application valid
+        run: yarn test:editor && yarn test:worker
+
       - name: Check for any changes
         id: check
         run: |
