@@ -31,7 +31,7 @@ jobs:
         run: |
           EXISTING_TAGS=$(gh api repos/:owner/:repo/tags --jq '.[].name')
           APP_VERSION=$(jq -r '.version' package.json)
-          GRAMMAR_VERSION=$(jq -r '.dependencies."grammarVersion"' package.json)
+          GRAMMAR_VERSION=$(jq -r '.grammarVersion' package.json)
           TAG_TO_CREATE="v$APP_VERSION-$GRAMMAR_VERSION"
           if echo "$EXISTING_TAGS" | grep -q "$TAG_TO_CREATE"; then
             echo "should_create=false" >> $GITHUB_OUTPUT
