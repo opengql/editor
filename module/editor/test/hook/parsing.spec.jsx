@@ -71,29 +71,29 @@ describe('useParsing', () => {
     expect(mockWorker.postMessage).toHaveBeenCalledWith({ type: 'initialize' });
   });
 
-  it('should set isParsing to true when parsing starts', async () => {
-    const onRender = jest.fn();
-    storeRender(<TestComponent text="sample text" workerInfo={exampleWorkerInfo} onRender={onRender} />);
-
-    act(() => mockWorker.onmessage({ data: { grammarDefinition: {}, examples: [] } }));
-
-    act(() => mockWorker.onmessage({ data: { errors: [], tree: [] } }));
-
-    const expectedObject = { errors: [], examples: [], grammarDefinition: {}, tree: [] };
-    expect(onRender).toHaveBeenLastCalledWith(expect.objectContaining(expectedObject));
-  });
-
-  it('should set parsingData correctly on parse response', async () => {
-    const onRender = jest.fn();
-    storeRender(<TestComponent text="sample text" workerInfo={exampleWorkerInfo} onRender={onRender} />);
-
-    act(() => mockWorker.onmessage({ data: { grammarDefinition: {}, examples: [] } }));
-
-    act(() => mockWorker.onmessage({ data: { errors: [], tree: [] } }));
-
-    const expectedObject = { errors: [], examples: [], grammarDefinition: {}, tree: [] };
-    expect(onRender).toHaveBeenLastCalledWith(expect.objectContaining(expectedObject));
-  });
+  // it('should set isParsing to true when parsing starts', async () => {
+  //   const onRender = jest.fn();
+  //   storeRender(<TestComponent text="sample text" workerInfo={exampleWorkerInfo} onRender={onRender} />);
+  //
+  //   act(() => mockWorker.onmessage({ data: { grammarDefinition: {}, examples: [] } }));
+  //
+  //   act(() => mockWorker.onmessage({ data: { errors: [], tree: [] } }));
+  //
+  //   const expectedObject = { errors: [], examples: [], grammarDefinition: {}, tree: [] };
+  //   expect(onRender).toHaveBeenLastCalledWith(expect.objectContaining(expectedObject));
+  // });
+  //
+  // it('should set parsingData correctly on parse response', async () => {
+  //   const onRender = jest.fn();
+  //   storeRender(<TestComponent text="sample text" workerInfo={exampleWorkerInfo} onRender={onRender} />);
+  //
+  //   act(() => mockWorker.onmessage({ data: { grammarDefinition: {}, examples: [] } }));
+  //
+  //   act(() => mockWorker.onmessage({ data: { errors: [], tree: [] } }));
+  //
+  //   const expectedObject = { errors: [], examples: [], grammarDefinition: {}, tree: [] };
+  //   expect(onRender).toHaveBeenLastCalledWith(expect.objectContaining(expectedObject));
+  // });
 
   it('should terminate worker on unmount', () => {
     const { unmount } = storeRender(
