@@ -43,7 +43,7 @@ jobs:
         if: steps.check_tag.outputs.should_create == 'true'
         run: |
           APP_VERSION=$(jq -r '.version' package.json)
-          GRAMMAR_VERSION=$(jq -r '.dependencies."grammarVersion"' package.json)
+          GRAMMAR_VERSION=$(jq -r '.grammarVersion' package.json)
           TAG_TO_CREATE="v$APP_VERSION-$GRAMMAR_VERSION"
           git tag -a "$TAG_TO_CREATE" -m "Tag for app version $APP_VERSION and grammar version $GRAMMAR_VERSION."
 
