@@ -3,8 +3,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const path = require('path');
 const babelConfig = require('./babel-config.worker.js');
-const grammarVersion = require('./tmp/version.json');
-
+const packageJson = require('./package.json');
 const rootPath = path.resolve(__dirname, 'module', 'worker');
 const sourcePath = path.resolve(rootPath, 'src');
 const buildPath = path.resolve(rootPath, '..', '..', 'build');
@@ -41,7 +40,7 @@ module.exports = {
     }),
     new DefinePlugin({
       grammar: {
-        VERSION: `'v${grammarVersion.major}.${grammarVersion.minor}.${grammarVersion.patch}'`,
+        VERSION: `'v${packageJson.grammarVersion}'`,
       },
     }),
   ],

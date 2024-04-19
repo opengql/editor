@@ -7,7 +7,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { DefinePlugin } = require('webpack');
 const path = require('path');
 const packageJson = require('./package.json');
-const grammarVersion = require('./tmp/version.json');
 const babelConfig = require('./babel-config.editor.js');
 
 const rootPath = path.resolve(__dirname, 'module', 'editor');
@@ -101,7 +100,7 @@ module.exports = {
         VERSION: `'v${packageJson.version}'`,
       },
       grammar: {
-        VERSION: `'v${grammarVersion.major}.${grammarVersion.minor}.${grammarVersion.patch}'`,
+        VERSION: `'v${packageJson.grammarVersion}'`,
       },
     }),
   ],

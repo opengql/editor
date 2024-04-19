@@ -1,6 +1,7 @@
 {
   "name": "gql-editor",
   "version": "1.0.0",
+  "grammarVersion": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/opengql/editor",
   "license": "MIT",
@@ -14,8 +15,7 @@
     "grammar:download": "node ./script/grammar-download.js",
     "test:e2e": "jest --config=jest-config.e2e.js --runInBand",
     "test:editor": "jest --config=./jest-config.editor.js",
-    "test:worker": "jest --config=./jest-config.worker.js",
-    "deploy": "node ./script/editor-deploy.js"
+    "test:worker": "jest --config=./jest-config.worker.js"
   },
   "browserslist": {
     "production": [
