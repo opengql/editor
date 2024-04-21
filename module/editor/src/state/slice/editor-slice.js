@@ -5,7 +5,7 @@ const editorSlice = createSlice({
   name: 'editor',
   initialState: {
     state: ParseState.IDLE,
-    value: 'MATCH (p:Person)-[:LIVES_IN]->(c:City)',
+    value: 'MATCH (p:Person)-[:LIVES_IN]->(c:City) RETURN p',
   },
   reducers: {
     setValue: (state, action) => ({
