@@ -54,6 +54,18 @@ require('dotenv').config();
 
   execSync(command);
 
+  const tmpOutputDir = path.join(outputDir, 'tmp');
+
+  if (fs.existsSync(tmpOutputDir)) {
+    getFilenamesInDir(tmpOutputDir).forEach((fileName) => {
+      const sourceFile = path.join(tmpOutputDir, fileName);
+      const destinationFile = path.join(outputDir, fileName);
+      fs.renameSync(sourceFile, destinationFile);
+    });
+
+    removeDirectory(tmpOutputDir);
+  }
+
   console.log('Removing unnecessary files from generation process...');
 
   const unnecessaryFiles = getFilenamesInDir(outputDir)
@@ -85,8 +97,10 @@ require('dotenv').config();
 
     const code = `${fs.readFileSync(sampleFilePath)}`.replace(/\n/g, '\\n').replace(/'/g, "\\'").replace(/"/g, '\\"');
 
+    const exampleName = sampleFileName.replace(/\.gql/g, '').replace(/\\_/g, ' ');
+
     return `{
-      name: "${sampleFileName.replace(/\.gql/g, '').replace(/\\_/g, ' ')}",
+      name: "${exampleName}",
       code: "${code}",
     }`;
   });
