@@ -28,10 +28,15 @@ require('dotenv').config();
 
   console.log('Checking ANTLR4 binary...');
 
-  const antlrBinFilePath = path.join(workingDir, 'bin', 'antlr4.jar');
+  const binDirectoryPath = path.join(workingDir, 'bin');
+  const antlrBinFilePath = path.join(binDirectoryPath, 'antlr4.jar');
   const antlrBinFileUrl = 'https://www.antlr.org/download/antlr-4.13.1-complete.jar';
 
   if (!fs.existsSync(antlrBinFilePath)) {
+    if (!fs.existsSync(binDirectoryPath)) {
+      fs.mkdirSync(binDirectoryPath);
+    }
+
     await downloadFile(antlrBinFileUrl, antlrBinFilePath);
   }
 
