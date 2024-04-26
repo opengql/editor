@@ -5,6 +5,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GRAMMAR_REPOSITORY_TOKEN: ${{ secrets.GRAMMAR_REPOSITORY_TOKEN }}
 
 jobs:
   createPullRequest:
@@ -72,5 +73,3 @@ jobs:
           git commit -m "updated grammar source code;"
           git push -u origin update_grammar --force
           gh pr create -B main -H update_grammar --title 'Grammar Update' --body 'Updated grammar sources from grammar repository changes.'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
