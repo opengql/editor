@@ -45,6 +45,7 @@ require('dotenv').config();
   const outputDir = path.join(workingDir, 'module', 'worker', 'src', 'generated');
 
   removeDirectory(outputDir);
+  fs.mkdirSync(outputDir);
 
   console.log('Generating grammar code...');
 
