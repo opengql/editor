@@ -1,7 +1,7 @@
 {
   "name": "gql-editor",
   "version": "1.0.0",
-  "grammarVersion": "1.0.0",
+  "grammarVersion": "1.0.1",
   "main": "index.js",
   "repository": "https://github.com/opengql/editor",
   "license": "MIT",
