@@ -31,12 +31,12 @@ describe('ParseTreeExtractor', () => {
           ruleChildren: [
             {
               symbolText: 'session',
-              symbolType: 180,
+              symbolType: GQLParser.SESSION,
               type: 'TERMINAL',
             },
             {
               symbolText: 'start',
-              symbolType: 191,
+              symbolType: GQLParser.START,
               type: 'TERMINAL',
             },
           ],
