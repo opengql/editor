@@ -45,6 +45,7 @@ require('dotenv').config();
   const outputDir = path.join(workingDir, 'module', 'worker', 'src', 'generated');
 
   removeDirectory(outputDir);
+  fs.mkdirSync(outputDir);
 
   console.log('Generating grammar code...');
 
@@ -52,6 +53,18 @@ require('dotenv').config();
   const command = `java -jar ${antlrBinFilePath} -Dlanguage=JavaScript -o ${outputDir} ${grammarFile}`;
 
   execSync(command);
+
+  const tmpOutputDir = path.join(outputDir, 'tmp');
+
+  if (fs.existsSync(tmpOutputDir)) {
+    getFilenamesInDir(tmpOutputDir).forEach((fileName) => {
+      const sourceFile = path.join(tmpOutputDir, fileName);
+      const destinationFile = path.join(outputDir, fileName);
+      fs.renameSync(sourceFile, destinationFile);
+    });
+
+    removeDirectory(tmpOutputDir);
+  }
 
   console.log('Removing unnecessary files from generation process...');
 
@@ -84,8 +97,10 @@ require('dotenv').config();
 
     const code = `${fs.readFileSync(sampleFilePath)}`.replace(/\n/g, '\\n').replace(/'/g, "\\'").replace(/"/g, '\\"');
 
+    const exampleName = sampleFileName.replace(/\.gql/g, '').replace(/\\_/g, ' ');
+
     return `{
-      name: "${sampleFileName.replace(/\.gql/g, '').replace(/\\_/g, ' ')}",
+      name: "${exampleName}",
       code: "${code}",
     }`;
   });
