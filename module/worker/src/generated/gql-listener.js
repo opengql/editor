@@ -653,15 +653,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#simpleDataAccessingStatement.
-	enterSimpleDataAccessingStatement(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#simpleDataAccessingStatement.
-	exitSimpleDataAccessingStatement(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#simpleDataModifyingStatement.
 	enterSimpleDataModifyingStatement(ctx) {
 	}
@@ -1976,84 +1967,57 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#labelTermLabel.
-	enterLabelTermLabel(ctx) {
+	// Enter a parse tree produced by GQLParser#labelExpressionNegation.
+	enterLabelExpressionNegation(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#labelTermLabel.
-	exitLabelTermLabel(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#labelDisjunctionLabel.
-	enterLabelDisjunctionLabel(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#labelDisjunctionLabel.
-	exitLabelDisjunctionLabel(ctx) {
+	// Exit a parse tree produced by GQLParser#labelExpressionNegation.
+	exitLabelExpressionNegation(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#labelConjunctionLabel.
-	enterLabelConjunctionLabel(ctx) {
+	// Enter a parse tree produced by GQLParser#labelExpressionDisjunction.
+	enterLabelExpressionDisjunction(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#labelConjunctionLabel.
-	exitLabelConjunctionLabel(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#labelFactorLabel.
-	enterLabelFactorLabel(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#labelFactorLabel.
-	exitLabelFactorLabel(ctx) {
+	// Exit a parse tree produced by GQLParser#labelExpressionDisjunction.
+	exitLabelExpressionDisjunction(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#labelFactor.
-	enterLabelFactor(ctx) {
+	// Enter a parse tree produced by GQLParser#labelExpressionParenthesized.
+	enterLabelExpressionParenthesized(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#labelFactor.
-	exitLabelFactor(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#labelNegation.
-	enterLabelNegation(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#labelNegation.
-	exitLabelNegation(ctx) {
+	// Exit a parse tree produced by GQLParser#labelExpressionParenthesized.
+	exitLabelExpressionParenthesized(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#labelPrimary.
-	enterLabelPrimary(ctx) {
+	// Enter a parse tree produced by GQLParser#labelExpressionWildcard.
+	enterLabelExpressionWildcard(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#labelPrimary.
-	exitLabelPrimary(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#wildcardLabel.
-	enterWildcardLabel(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#wildcardLabel.
-	exitWildcardLabel(ctx) {
+	// Exit a parse tree produced by GQLParser#labelExpressionWildcard.
+	exitLabelExpressionWildcard(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#parenthesizedLabelExpression.
-	enterParenthesizedLabelExpression(ctx) {
+	// Enter a parse tree produced by GQLParser#labelExpressionConjunction.
+	enterLabelExpressionConjunction(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#parenthesizedLabelExpression.
-	exitParenthesizedLabelExpression(ctx) {
+	// Exit a parse tree produced by GQLParser#labelExpressionConjunction.
+	exitLabelExpressionConjunction(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#labelExpressionName.
+	enterLabelExpressionName(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#labelExpressionName.
+	exitLabelExpressionName(ctx) {
 	}
 
 
