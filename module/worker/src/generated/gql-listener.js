@@ -1670,84 +1670,93 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#pathPatternExpression.
-	enterPathPatternExpression(ctx) {
+	// Enter a parse tree produced by GQLParser#ppePathTerm.
+	enterPpePathTerm(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#pathPatternExpression.
-	exitPathPatternExpression(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#pathMultisetAlternation.
-	enterPathMultisetAlternation(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#pathMultisetAlternation.
-	exitPathMultisetAlternation(ctx) {
+	// Exit a parse tree produced by GQLParser#ppePathTerm.
+	exitPpePathTerm(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#pathPatternUnion.
-	enterPathPatternUnion(ctx) {
+	// Enter a parse tree produced by GQLParser#ppeMultisetAlternation.
+	enterPpeMultisetAlternation(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#pathPatternUnion.
-	exitPathPatternUnion(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#pathFactorLabel.
-	enterPathFactorLabel(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#pathFactorLabel.
-	exitPathFactorLabel(ctx) {
+	// Exit a parse tree produced by GQLParser#ppeMultisetAlternation.
+	exitPpeMultisetAlternation(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#pathConcatenationLabel.
-	enterPathConcatenationLabel(ctx) {
+	// Enter a parse tree produced by GQLParser#ppePatternUnion.
+	enterPpePatternUnion(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#pathConcatenationLabel.
-	exitPathConcatenationLabel(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#pathFactor.
-	enterPathFactor(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#pathFactor.
-	exitPathFactor(ctx) {
+	// Exit a parse tree produced by GQLParser#ppePatternUnion.
+	exitPpePatternUnion(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#quantifiedPathPrimary.
-	enterQuantifiedPathPrimary(ctx) {
+	// Enter a parse tree produced by GQLParser#pathTerm.
+	enterPathTerm(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#quantifiedPathPrimary.
-	exitQuantifiedPathPrimary(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#questionedPathPrimary.
-	enterQuestionedPathPrimary(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#questionedPathPrimary.
-	exitQuestionedPathPrimary(ctx) {
+	// Exit a parse tree produced by GQLParser#pathTerm.
+	exitPathTerm(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#pathPrimary.
-	enterPathPrimary(ctx) {
+	// Enter a parse tree produced by GQLParser#pfPathPrimary.
+	enterPfPathPrimary(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#pathPrimary.
-	exitPathPrimary(ctx) {
+	// Exit a parse tree produced by GQLParser#pfPathPrimary.
+	exitPfPathPrimary(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#pfQuantifiedPathPrimary.
+	enterPfQuantifiedPathPrimary(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#pfQuantifiedPathPrimary.
+	exitPfQuantifiedPathPrimary(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#pfQuestionedPathPrimary.
+	enterPfQuestionedPathPrimary(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#pfQuestionedPathPrimary.
+	exitPfQuestionedPathPrimary(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#ppElementPattern.
+	enterPpElementPattern(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#ppElementPattern.
+	exitPpElementPattern(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#ppParenthesizedPathPatternExpression.
+	enterPpParenthesizedPathPatternExpression(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#ppParenthesizedPathPatternExpression.
+	exitPpParenthesizedPathPatternExpression(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#ppSimplifiedPathPatternExpression.
+	enterPpSimplifiedPathPatternExpression(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#ppSimplifiedPathPatternExpression.
+	exitPpSimplifiedPathPatternExpression(ctx) {
 	}
 
 
