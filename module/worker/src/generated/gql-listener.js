@@ -5468,15 +5468,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#unsignedNumericLiteral.
-	enterUnsignedNumericLiteral(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#unsignedNumericLiteral.
-	exitUnsignedNumericLiteral(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#nullLiteral.
 	enterNullLiteral(ctx) {
 	}
