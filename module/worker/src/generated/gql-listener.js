@@ -3695,15 +3695,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#comparisonPredicate.
-	enterComparisonPredicate(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#comparisonPredicate.
-	exitComparisonPredicate(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#comparisonPredicatePart2.
 	enterComparisonPredicatePart2(ctx) {
 	}
@@ -3719,15 +3710,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by GQLParser#compOp.
 	exitCompOp(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#comparisonPredicand.
-	enterComparisonPredicand(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#comparisonPredicand.
-	exitComparisonPredicand(ctx) {
 	}
 
 
@@ -3773,15 +3755,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by GQLParser#valueTypePredicatePart2.
 	exitValueTypePredicatePart2(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#normalizedPredicate.
-	enterNormalizedPredicate(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#normalizedPredicate.
-	exitNormalizedPredicate(ctx) {
 	}
 
 
@@ -3920,66 +3893,66 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#commonValueExpression.
-	enterCommonValueExpression(ctx) {
+	// Enter a parse tree produced by GQLParser#booleanValueExpression.
+	enterBooleanValueExpression(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#commonValueExpression.
-	exitCommonValueExpression(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#listStringOrPathValueExpression.
-	enterListStringOrPathValueExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#listStringOrPathValueExpression.
-	exitListStringOrPathValueExpression(ctx) {
+	// Exit a parse tree produced by GQLParser#booleanValueExpression.
+	exitBooleanValueExpression(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#charachterOrByteStringFunction.
-	enterCharachterOrByteStringFunction(ctx) {
+	// Enter a parse tree produced by GQLParser#characterOrByteStringFunction.
+	enterCharacterOrByteStringFunction(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#charachterOrByteStringFunction.
-	exitCharachterOrByteStringFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#numericDatetimeDurationValueExpression.
-	enterNumericDatetimeDurationValueExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#numericDatetimeDurationValueExpression.
-	exitNumericDatetimeDurationValueExpression(ctx) {
+	// Exit a parse tree produced by GQLParser#characterOrByteStringFunction.
+	exitCharacterOrByteStringFunction(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#referenceValueExpression.
-	enterReferenceValueExpression(ctx) {
+	// Enter a parse tree produced by GQLParser#subCharacterOrByteString.
+	enterSubCharacterOrByteString(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#referenceValueExpression.
-	exitReferenceValueExpression(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#graphReferenceValueExpression.
-	enterGraphReferenceValueExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#graphReferenceValueExpression.
-	exitGraphReferenceValueExpression(ctx) {
+	// Exit a parse tree produced by GQLParser#subCharacterOrByteString.
+	exitSubCharacterOrByteString(ctx) {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#bindingTableReferenceValueExpression.
-	enterBindingTableReferenceValueExpression(ctx) {
+	// Enter a parse tree produced by GQLParser#trimSingleCharacterOrByteString.
+	enterTrimSingleCharacterOrByteString(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#bindingTableReferenceValueExpression.
-	exitBindingTableReferenceValueExpression(ctx) {
+	// Exit a parse tree produced by GQLParser#trimSingleCharacterOrByteString.
+	exitTrimSingleCharacterOrByteString(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#foldCharacterString.
+	enterFoldCharacterString(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#foldCharacterString.
+	exitFoldCharacterString(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#trimMultiCharacterCharacterString.
+	enterTrimMultiCharacterCharacterString(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#trimMultiCharacterCharacterString.
+	exitTrimMultiCharacterCharacterString(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#normalizeCharacterString.
+	enterNormalizeCharacterString(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#normalizeCharacterString.
+	exitNormalizeCharacterString(ctx) {
 	}
 
 
@@ -3998,15 +3971,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by GQLParser#edgeReferenceValueExpression.
 	exitEdgeReferenceValueExpression(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#recordExpression.
-	enterRecordExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#recordExpression.
-	exitRecordExpression(ctx) {
 	}
 
 
@@ -4505,75 +4469,12 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#booleanValueExpression.
-	enterBooleanValueExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#booleanValueExpression.
-	exitBooleanValueExpression(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#booleanTerm.
-	enterBooleanTerm(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#booleanTerm.
-	exitBooleanTerm(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#booleanFactor.
-	enterBooleanFactor(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#booleanFactor.
-	exitBooleanFactor(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#booleanTest.
-	enterBooleanTest(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#booleanTest.
-	exitBooleanTest(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#truthValue.
 	enterTruthValue(ctx) {
 	}
 
 	// Exit a parse tree produced by GQLParser#truthValue.
 	exitTruthValue(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#booleanPrimary.
-	enterBooleanPrimary(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#booleanPrimary.
-	exitBooleanPrimary(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#booleanPredicand.
-	enterBooleanPredicand(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#booleanPredicand.
-	exitBooleanPredicand(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#parenthesizedBooleanValueExpression.
-	enterParenthesizedBooleanValueExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#parenthesizedBooleanValueExpression.
-	exitParenthesizedBooleanValueExpression(ctx) {
 	}
 
 
@@ -4811,15 +4712,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#stringValueExpression.
-	enterStringValueExpression(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#stringValueExpression.
-	exitStringValueExpression(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#characterStringValueExpression.
 	enterCharacterStringValueExpression(ctx) {
 	}
@@ -4838,60 +4730,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#characterStringFunction.
-	enterCharacterStringFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#characterStringFunction.
-	exitCharacterStringFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#substringFunction.
-	enterSubstringFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#substringFunction.
-	exitSubstringFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#fold.
-	enterFold(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#fold.
-	exitFold(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#trimFunction.
-	enterTrimFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#trimFunction.
-	exitTrimFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#singleCharacterTrimFunction.
-	enterSingleCharacterTrimFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#singleCharacterTrimFunction.
-	exitSingleCharacterTrimFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#multiCharacterTrimFunction.
-	enterMultiCharacterTrimFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#multiCharacterTrimFunction.
-	exitMultiCharacterTrimFunction(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#trimOperands.
 	enterTrimOperands(ctx) {
 	}
@@ -4901,12 +4739,12 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#trimSource.
-	enterTrimSource(ctx) {
+	// Enter a parse tree produced by GQLParser#trimCharacterOrByteStringSource.
+	enterTrimCharacterOrByteStringSource(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#trimSource.
-	exitTrimSource(ctx) {
+	// Exit a parse tree produced by GQLParser#trimCharacterOrByteStringSource.
+	exitTrimCharacterOrByteStringSource(ctx) {
 	}
 
 
@@ -4919,21 +4757,12 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#trimCharacterString.
-	enterTrimCharacterString(ctx) {
+	// Enter a parse tree produced by GQLParser#trimCharacterOrByteString.
+	enterTrimCharacterOrByteString(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#trimCharacterString.
-	exitTrimCharacterString(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#normalizeFunction.
-	enterNormalizeFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#normalizeFunction.
-	exitNormalizeFunction(ctx) {
+	// Exit a parse tree produced by GQLParser#trimCharacterOrByteString.
+	exitTrimCharacterOrByteString(ctx) {
 	}
 
 
@@ -4952,60 +4781,6 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by GQLParser#stringLength.
 	exitStringLength(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#byteStringFunction.
-	enterByteStringFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#byteStringFunction.
-	exitByteStringFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#byteStringSubstringFunction.
-	enterByteStringSubstringFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#byteStringSubstringFunction.
-	exitByteStringSubstringFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#byteStringTrimFunction.
-	enterByteStringTrimFunction(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#byteStringTrimFunction.
-	exitByteStringTrimFunction(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#byteStringTrimOperands.
-	enterByteStringTrimOperands(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#byteStringTrimOperands.
-	exitByteStringTrimOperands(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#byteStringTrimSource.
-	enterByteStringTrimSource(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#byteStringTrimSource.
-	exitByteStringTrimSource(ctx) {
-	}
-
-
-	// Enter a parse tree produced by GQLParser#trimByteString.
-	enterTrimByteString(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#trimByteString.
-	exitTrimByteString(ctx) {
 	}
 
 
