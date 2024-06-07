@@ -3884,12 +3884,147 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#valueExpression.
-	enterValueExpression(ctx) {
+	// Enter a parse tree produced by GQLParser#conjunctiveExprAlt.
+	enterConjunctiveExprAlt(ctx) {
 	}
 
-	// Exit a parse tree produced by GQLParser#valueExpression.
-	exitValueExpression(ctx) {
+	// Exit a parse tree produced by GQLParser#conjunctiveExprAlt.
+	exitConjunctiveExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#propertyGraphExprAlt.
+	enterPropertyGraphExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#propertyGraphExprAlt.
+	exitPropertyGraphExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#multDivExprAlt.
+	enterMultDivExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#multDivExprAlt.
+	exitMultDivExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#bindingTableExprAlt.
+	enterBindingTableExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#bindingTableExprAlt.
+	exitBindingTableExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#signedExprAlt.
+	enterSignedExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#signedExprAlt.
+	exitSignedExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#isNotExprAlt.
+	enterIsNotExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#isNotExprAlt.
+	exitIsNotExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#normalizedPredicateExprAlt.
+	enterNormalizedPredicateExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#normalizedPredicateExprAlt.
+	exitNormalizedPredicateExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#notExprAlt.
+	enterNotExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#notExprAlt.
+	exitNotExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#valueFunctionExprAlt.
+	enterValueFunctionExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#valueFunctionExprAlt.
+	exitValueFunctionExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#disjunctiveExprAlt.
+	enterDisjunctiveExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#disjunctiveExprAlt.
+	exitDisjunctiveExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#concatenationExprAlt.
+	enterConcatenationExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#concatenationExprAlt.
+	exitConcatenationExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#comparisonExprAlt.
+	enterComparisonExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#comparisonExprAlt.
+	exitComparisonExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#primaryExprAlt.
+	enterPrimaryExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#primaryExprAlt.
+	exitPrimaryExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#addSubtractExprAlt.
+	enterAddSubtractExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#addSubtractExprAlt.
+	exitAddSubtractExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#predicateExprAlt.
+	enterPredicateExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#predicateExprAlt.
+	exitPredicateExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#valueFunction.
+	enterValueFunction(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#valueFunction.
+	exitValueFunction(ctx) {
 	}
 
 
@@ -5204,6 +5339,15 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 
 	// Exit a parse tree produced by GQLParser#identifier.
 	exitIdentifier(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#regularIdentifier.
+	enterRegularIdentifier(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#regularIdentifier.
+	exitRegularIdentifier(ctx) {
 	}
 
 
