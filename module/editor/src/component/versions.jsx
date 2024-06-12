@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './style/versions.module.css';
+import css from '$editor/component/style/versions.module.css';
 
 export const Versions = () => (
   <div className={css.versionsWrapper} data-testid="ti-versions">

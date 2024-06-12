@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import { useDebouncedEffect } from '../../src/hook/debounced-effect';
+import { useDebouncedEffect } from '$editor/hook/debounced-effect';
 
 jest.useFakeTimers();
 

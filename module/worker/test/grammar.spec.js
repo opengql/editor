@@ -1,7 +1,7 @@
-import { GqlExamples } from '../src/generated/gql-examples';
-import { createLexer } from '../src/create-lexer';
-import { createParser } from '../src/create-parser';
-import { ParsingErrorListener } from '../src/parsing-error-listener';
+import { GqlExamples } from '$worker/generated/gql-examples';
+import { createLexer } from '$worker/create-lexer';
+import { createParser } from '$worker/create-parser';
+import { ParsingErrorListener } from '$worker/parsing-error-listener';
 
 describe('Grammar Test', () => {
   GqlExamples.forEach((example) => {

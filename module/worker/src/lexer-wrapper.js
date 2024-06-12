@@ -1,4 +1,4 @@
-import { TokenizationErrorListener } from './tokenization-error-listener';
+import { TokenizationErrorListener } from '$worker/tokenization-error-listener';
 
 export class LexerWrapper {
   constructor(lexerFactory) {

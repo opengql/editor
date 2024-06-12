@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { VisArrowHead } from './vis-arrow-head';
+import { VisArrowHead } from '$editor/hook/type/vis-arrow-head';
 
 export const VisEdge = PropTypes.shape({
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

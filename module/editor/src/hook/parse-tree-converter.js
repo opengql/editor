@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ParseTreeNode } from '../type/parse-tree-node';
-import { ParseTreeNodeType } from '../const/parse-tree-node-type';
+import { ParseTreeNode } from '$editor/type/parse-tree-node';
+import { ParseTreeNodeType } from '$editor/const/parse-tree-node-type';
 
 const TERMINAL_NODE_COLOR = '#2270ff';
 const NON_TERMINAL_NODE_COLOR = '#00b69d';
-
-// interface UseParseTreeConverter {
-//   readonly isConverting: boolean;
-//   readonly convertResult: ConvertResult;
-// }
 
 export const useParseTreeConverter = (parseTree) => {
   const [isConverting, setIsConverting] = useState(false);

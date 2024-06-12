@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import SimpleCodeEditor from 'react-simple-code-editor';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { editorActions } from '../state/slice/editor-slice';
-import { useHighlights } from '../hook/highlights';
-import { caretDataActions } from '../state/slice/caret-data-slice';
-import { Autocomplete } from './autocomplete';
-import css from './style/editor.module.css';
-import { useEditorTextArea } from '../hook/editor-text-area';
-import { useCodeLoader } from '../hook/code-loader';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { useHighlights } from '$editor/hook/highlights';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
+import { Autocomplete } from '$editor/container/autocomplete';
+import css from '$editor/container/style/editor.module.css';
+import { useEditorTextArea } from '$editor/hook/editor-text-area';
+import { useCodeLoader } from '$editor/hook/code-loader';
 
 const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, updateNextCaretIndex }) => {
   const loadedCode = useCodeLoader();

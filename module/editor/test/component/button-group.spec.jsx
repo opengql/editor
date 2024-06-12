@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { ButtonGroup } from '../../src/component/button-group';
+import { ButtonGroup } from '$editor/component/button-group';
 
 describe('ButtonGroup', () => {
   const mockChild1 = <button key="1">Button 1</button>;

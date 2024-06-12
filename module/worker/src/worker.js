@@ -1,12 +1,12 @@
-import { createParser } from './create-parser';
-import { SuggestionsProvider } from './suggestions-provider';
-import { ParseTreeExtractor } from './parse-tree-extractor';
-import { ParsingErrorListener } from './parsing-error-listener';
-import { CaseKind } from './const/case-kind';
-import { createLexer } from './create-lexer';
-import { GrammarBuilder } from './grammar-builder';
-import { CommonSyntaxObjects } from './common-syntax-objects';
-import { GqlExamples } from './generated/gql-examples';
+import { createParser } from '$worker/create-parser';
+import { SuggestionsProvider } from '$worker/suggestions-provider';
+import { ParseTreeExtractor } from '$worker/parse-tree-extractor';
+import { ParsingErrorListener } from '$worker/parsing-error-listener';
+import { CaseKind } from '$worker/const/case-kind';
+import { createLexer } from '$worker/create-lexer';
+import { GrammarBuilder } from '$worker/grammar-builder';
+import { CommonSyntaxObjects } from '$worker/common-syntax-objects';
+import { GqlExamples } from '$worker/generated/gql-examples';
 
 onmessage = ({ data }) => {
   const { type } = data;

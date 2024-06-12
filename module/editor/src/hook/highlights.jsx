@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { highlight } from 'prismjs';
-import css from './style/highlight.module.css';
+import css from '$editor/hook/style/highlight.module.css';
 import { useSelector } from 'react-redux';
-import { CodeBlock } from '../component/code-block';
-import { useGrammar } from './grammar';
+import { CodeBlock } from '$editor/component/code-block';
+import { useGrammar } from '$editor/hook/grammar';
 
 const NEW_LINE = '\n';
 const NODE_REGEX = /(<span[^>]*>)((.|\n)*?)(<\/span>)/gi;

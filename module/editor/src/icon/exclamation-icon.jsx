@@ -1,7 +1,7 @@
 import React from 'react';
-import { DefaultIconProps, IconProps } from './type/icon-props';
+import { IconProps } from '$editor/icon/type/icon-props';
 
-export const ExclamationIcon = ({ width, height, testId }) => (
+export const ExclamationIcon = ({ width = 16, height = 16, testId = 'ti-icon' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -15,5 +15,3 @@ export const ExclamationIcon = ({ width, height, testId }) => (
 );
 
 ExclamationIcon.propTypes = IconProps;
-
-ExclamationIcon.defaultProps = DefaultIconProps;

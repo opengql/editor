@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useCodeLoader } from '../../src/hook/code-loader';
+import { useCodeLoader } from '$editor/hook/code-loader';
 
 describe('useCodeLoader', () => {
   beforeEach(() => {

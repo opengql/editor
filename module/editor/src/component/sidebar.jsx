@@ -1,7 +1,7 @@
 import React from 'react';
-import css from './style/sidebar.module.css';
-import { SidebarMenu } from './sidebar-menu';
-import { Versions } from './versions';
+import css from '$editor/component/style/sidebar.module.css';
+import { SidebarMenu } from '$editor/component/sidebar-menu';
+import { Versions } from '$editor/component/versions';
 
 export const Sidebar = () => (
   <div className={css.sidebar} data-testid="ti-sidebar">

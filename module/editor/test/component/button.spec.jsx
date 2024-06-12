@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { Button } from '../../src/component/button';
-import { ButtonIconPos } from '../../src/component/const/button-icon-pos';
+import { Button } from '$editor/component/button';
+import { ButtonIconPos } from '$editor/component/const/button-icon-pos';
 
 describe('Button', () => {
   const mockLabel = 'Click me';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { AutocompleteOption } from '../../src/component/autocomplete-option';
+import { AutocompleteOption } from '$editor/component/autocomplete-option';
 
 describe('AutocompleteOption', () => {
   const mockValue = 'Option 1';

@@ -1,7 +1,7 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
-import { clearEditor, clickByTestId, waitForElementByTestId } from './helpers/commons';
+import { environment } from '$e2e/helpers/environment';
+import { clearEditor, clickByTestId, waitForElementByTestId } from '$e2e/helpers/commons';
 
 describe('parse tree feature', () => {
   const feature = loadFeature('./e2e/feature/parse-tree.feature');

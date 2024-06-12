@@ -1,5 +1,5 @@
 import { CharStreams } from 'antlr4';
-import { LexerWrapper } from '../src/lexer-wrapper';
+import { LexerWrapper } from '$worker/lexer-wrapper';
 import GQLLexer from '../src/generated/gql-lexer';
 
 describe('LexerWrapper', () => {

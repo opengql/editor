@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import css from './style/highlight.module.css';
-import { SyntaxType } from '../../../worker/src/const/syntax-type';
+import { SyntaxType } from '$worker/const/syntax-type';
 
 const cssClassNames = {
   [SyntaxType.KEYWORD]: css.keyword,

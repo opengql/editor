@@ -1,12 +1,11 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { ExamplesList } from '../../src/container/examples-list';
-import { storeRouterRender } from '../helper/store-render';
-import { languageActions } from '../../src/state/slice/language-slice';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { ParseState } from '../../src/const/parse-state';
-import { ExamplesSearch } from '../../src/container/examples-search';
+import { ExamplesList } from '$editor/container/examples-list';
+import { storeRouterRender } from '$editor-test/helper/store-render';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
+import { ExamplesSearch } from '$editor/container/examples-search';
 
 describe('ExamplesList', () => {
   const initializeStore = (store, state) => {

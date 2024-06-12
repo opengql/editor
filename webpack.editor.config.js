@@ -2,12 +2,14 @@ const MiniCssExtractorPlugin = require('mini-css-extract-plugin');
 const ESLintWebpackPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-// const StylelintPlugin = require('stylelint-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { DefinePlugin } = require('webpack');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const path = require('path');
 const packageJson = require('./package.json');
 const babelConfig = require('./babel-config.editor.js');
+const jsConfig = require('./jsconfig.json');
 
 const rootPath = path.resolve(__dirname, 'module', 'editor');
 const sourcePath = path.resolve(rootPath, 'src');
@@ -15,14 +17,20 @@ const buildPath = path.resolve(__dirname, 'build');
 const publicPath = path.resolve(rootPath, 'public');
 const buildMode = process.env.NODE_ENV || 'production';
 const isDev = buildMode === 'development';
-
 const styleLoader = isDev ? require.resolve('style-loader') : MiniCssExtractorPlugin.loader;
+
+const getResolveAliasFromJsConfig = () => {
+  return Object.entries(jsConfig.compilerOptions.paths).reduce((acc, [key, value]) => {
+    const transformedKey = key.replace('/*', '');
+    const paths = path.resolve(__dirname, value[0].replace('/*', ''));
+    return { ...acc, [transformedKey]: paths };
+  }, {});
+};
 
 module.exports = {
   entry: path.resolve(sourcePath, 'index.jsx'),
   output: {
     path: path.resolve(buildPath),
-    // publicPath: '.',
     filename: `js/[name].bundle.js`,
     chunkFilename: `js/[name].bundle.chunk.js`,
     assetModuleFilename: `media/[name].[hash][ext]`,
@@ -104,6 +112,11 @@ module.exports = {
       },
     }),
   ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   optimization: {
     minimize: !isDev,
     minimizer: [
@@ -114,7 +127,7 @@ module.exports = {
           },
           compress: {
             ecma: 5,
-            comparisons: false,
+            comparisons: true,
             inline: 2,
           },
           mangle: {
@@ -127,13 +140,15 @@ module.exports = {
           },
         },
       }),
+      new CssMinimizerPlugin(),
+      new CompressionPlugin(),
     ],
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
       maxInitialRequests: Infinity,
       minSize: 0,
-      minChunks: 4,
+      maxSize: 200000,
       cacheGroups: {
         react: {
           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
@@ -153,7 +168,8 @@ module.exports = {
     },
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    alias: getResolveAliasFromJsConfig(),
+    extensions: ['.js', '.jsx', '.css'],
     fallback: {
       'reflect-metadata': false,
     },

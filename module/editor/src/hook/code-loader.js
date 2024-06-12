@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useEncoding } from './encoding';
+import { useEncoding } from '$editor/hook/encoding';
 
 export const useCodeLoader = () => {
   const { decode } = useEncoding();

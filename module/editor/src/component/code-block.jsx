@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ParseError } from '../const/parse-error';
+import { ParseError } from '$editor/const/parse-error';
 import PropTypes from 'prop-types';
-import css from './style/code-block.module.css';
-import { CodeLine } from './code-line';
+import css from '$editor/component/style/code-block.module.css';
+import { CodeLine } from '$editor/component/code-line';
 
 export const CodeBlock = ({ parserErrors, highlightResult }) => {
   const [codeLines, setCodeLines] = useState([]);

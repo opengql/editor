@@ -1,7 +1,7 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
-import { clearEditor, waitForElementByTestId, waitForMillis } from './helpers/commons';
+import { environment } from '$e2e/helpers/environment';
+import { clearEditor, waitForElementByTestId, waitForMillis } from '$e2e/helpers/commons';
 
 describe('autocomplete feature', () => {
   const feature = loadFeature('./e2e/feature/autocomplete.feature');
@@ -11,7 +11,7 @@ describe('autocomplete feature', () => {
     let page;
 
     beforeEach(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+      browser = await puppeteer.launch({ headless: false, slowMo: 30 });
       page = await browser.newPage();
     });
 

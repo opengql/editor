@@ -1,6 +1,6 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { useParseTreeConverter } from '../../src/hook/parse-tree-converter';
-import { ParseTreeNodeType } from '../../src/const/parse-tree-node-type';
+import { renderHook } from '@testing-library/react';
+import { useParseTreeConverter } from '$editor/hook/parse-tree-converter';
+import { ParseTreeNodeType } from '$editor/const/parse-tree-node-type';
 
 describe('useParseTreeConverter', () => {
   const mockParseTree = [

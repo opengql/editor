@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { CaretData } from '../../src/component/caret-data';
+import { CaretData } from '$editor/component/caret-data';
 
 describe('CaretData', () => {
   const mockPosition = { x: 10, y: 20 };

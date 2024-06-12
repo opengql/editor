@@ -1,10 +1,10 @@
 import { cleanup, act } from '@testing-library/react';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParsing } from '../../src/hook/parsing';
+import { useParsing } from '$editor/hook/parsing';
 import { useSelector } from 'react-redux';
-import { Editor } from '../../src/container/editor';
-import { storeRender } from '../helper/store-render';
+import { Editor } from '$editor/container/editor';
+import { storeRender } from '$editor-test/helper/store-render';
 
 describe('useParsing', () => {
   const mockWorker = {

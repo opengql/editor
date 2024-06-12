@@ -1,11 +1,11 @@
 import React from 'react';
-import css from './style/status-bar.module.css';
+import css from '$editor/container/style/status-bar.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CaretData } from '../component/caret-data';
-import { ParsingError } from '../type/parsing-error';
-import { ParseState } from '../const/parse-state';
-import { ParseStateIndicator } from '../component/parse-state-indicator';
+import { CaretData } from '$editor/component/caret-data';
+import { ParsingError } from '$editor/type/parsing-error';
+import { ParseState } from '$editor/const/parse-state';
+import { ParseStateIndicator } from '$editor/component/parse-state-indicator';
 
 const StatusBarImpl = ({ parseErrors, parseState, caretPosition }) => (
   <div className={css.statusBar} data-testid="ti-status-bar">

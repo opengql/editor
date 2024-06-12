@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ParseState } from '../../const/parse-state';
+import { ParseState } from '$editor/const/parse-state';
 
 const editorSlice = createSlice({
   name: 'editor',

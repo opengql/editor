@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import css from './style/examples-search.module.css';
+import css from '$editor/container/style/examples-search.module.css';
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
-import { CodeExample } from '../type/code-example';
-import { ParseState } from '../const/parse-state';
-import { exampleSearchActions } from '../state/slice/examples-search-slice';
+import { CodeExample } from '$editor/type/code-example';
+import { ParseState } from '$editor/const/parse-state';
+import { exampleSearchActions } from '$editor/store/slice/examples-search-slice';
 
 const ExamplesSearchImpl = ({ examples, options, phrase, setPhrase, setResult }) => {
   const [fuse, setFuse] = useState(new Fuse([], options));

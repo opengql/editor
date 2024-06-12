@@ -1,7 +1,7 @@
 import React from 'react';
-import css from '../container/style/examples-list.module.css';
-import { ExamplesListElementCode } from './examples-list-element-code';
-import { CodeExample } from '../type/code-example';
+import css from '$editor/container/style/examples-list.module.css';
+import { ExamplesListElementCode } from '$editor/component/examples-list-element-code';
+import { CodeExample } from '$editor/type/code-example';
 import PropTypes from 'prop-types';
 
 export const ExamplesListElement = ({ example, grammar, onShowInEditorClick }) => (

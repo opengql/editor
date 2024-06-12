@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { Versions } from '../../src/component/versions';
+import { Versions } from '$editor/component/versions';
 
 describe('Versions', () => {
   it('should render component with correct versions', () => {

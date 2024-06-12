@@ -1,5 +1,5 @@
-import { GrammarBuilder } from '../src/grammar-builder';
-import { SyntaxType } from '../src/const/syntax-type';
+import { GrammarBuilder } from '$worker/grammar-builder';
+import { SyntaxType } from '$worker/const/syntax-type';
 
 describe('GrammarBuilder', () => {
   describe('withName', () => {

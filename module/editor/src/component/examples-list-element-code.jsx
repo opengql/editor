@@ -1,10 +1,10 @@
 import React from 'react';
 import parse from 'html-react-parser';
 import { highlight } from 'prismjs';
-import css from './style/examples-list-element-code.module.css';
-import codeBlockCss from '../component/style/code-block.module.css';
-import codeLineCss from '../component/style/code-line.module.css';
-import { CodeExample } from '../type/code-example';
+import css from '$editor/component/style/examples-list-element-code.module.css';
+import codeBlockCss from '$editor/component/style/code-block.module.css';
+import codeLineCss from '$editor/component/style/code-line.module.css';
+import { CodeExample } from '$editor/type/code-example';
 import PropTypes from 'prop-types';
 
 const NEW_LINE = '\n';

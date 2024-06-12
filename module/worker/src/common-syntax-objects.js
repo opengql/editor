@@ -1,4 +1,4 @@
-import { SyntaxType } from './const/syntax-type';
+import { SyntaxType } from '$worker/const/syntax-type';
 
 const COMMENT_BLOCK_REGEX = /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/g;
 const COMMENT_REGEX = /(^|[^\\:])\/\/.*/g;
