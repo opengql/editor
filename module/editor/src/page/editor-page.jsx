@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CodeEditorViewType } from '../component/const/code-editor-view-type';
-import { Tooltip } from '../component/tooltip';
-import { If } from '../component/if';
-import { Editor } from '../container/editor';
-import { ErrorList } from '../container/error-list';
-import { ParseTreeView } from '../container/parse-tree-view';
-import { caretDataActions } from '../state/slice/caret-data-slice';
-import { StatusBar } from '../container/status-bar';
-import css from './style/editor-page.module.css';
-import { AppContainer } from '../component/app-container';
+import { CodeEditorViewType } from '$editor/component/const/code-editor-view-type';
+import { Tooltip } from '$editor/component/tooltip';
+import { If } from '$editor/component/if';
+import { Editor } from '$editor/container/editor';
+import { ErrorList } from '$editor/container/error-list';
+import { ParseTreeView } from '$editor/container/parse-tree-view';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
+import { StatusBar } from '$editor/container/status-bar';
+import css from '$editor/page/style/editor-page.module.css';
+import { AppContainer } from '$editor/component/app-container';
 
 const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
   useEffect(() => {

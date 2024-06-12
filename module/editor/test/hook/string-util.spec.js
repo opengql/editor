@@ -1,4 +1,4 @@
-import { useStringUtil } from '../../src/hook/string-util';
+import { useStringUtil } from '$editor/hook/string-util';
 
 describe('useStringUtil', () => {
   describe('isWhiteSpace', () => {

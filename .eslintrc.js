@@ -28,12 +28,16 @@ module.exports = {
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './module/editor/tsconfig.json',
       },
-      plugins: ['react', 'prettier'],
+      plugins: ['react', 'prettier', 'import'],
       settings: {
         react: {
           version: 'detect',
+        },
+        'import/resolver': {
+          webpack: {
+            config: './webpack.editor.config.js',
+          },
         },
       },
       rules: {
@@ -41,20 +45,27 @@ module.exports = {
       },
     },
     {
-      files: ['module/worker/**/*.js'],
+      files: ['module/editor/test/**/*.jsx', 'module/editor/test/**/*.js'],
       env: {
         es6: true,
-        worker: true,
+        jest: true,
       },
       globals: {
         grammar: true,
       },
-      extends: ['standard', 'prettier'],
+      extends: ['standard', 'plugin:react/recommended', 'prettier'],
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['prettier', 'sort-class-members'],
+      plugins: ['prettier', 'sort-class-members', 'import', 'jest-dom'],
+      settings: {
+        'import/resolver': {
+          webpack: {
+            config: './webpack.editor.config.js',
+          },
+        },
+      },
       rules: {
         'prettier/prettier': ['error', prettierConfig],
         'sort-class-members/sort-class-members': [
@@ -75,7 +86,89 @@ module.exports = {
       },
     },
     {
-      files: ['**/test/**/*.js', '**/test/**/*.jsx', 'e2e/**/*.js'],
+      files: ['module/worker/**/*.js'],
+      env: {
+        es6: true,
+        worker: true,
+      },
+      globals: {
+        grammar: true,
+      },
+      extends: ['standard', 'prettier'],
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      plugins: ['prettier', 'sort-class-members', 'import'],
+      settings: {
+        'import/resolver': {
+          webpack: {
+            config: './webpack.worker.config.js',
+          },
+        },
+      },
+      rules: {
+        'prettier/prettier': ['error', prettierConfig],
+        'sort-class-members/sort-class-members': [
+          2,
+          {
+            order: [
+              '[static-properties]',
+              '[static-methods]',
+              '[properties]',
+              '[conventional-private-properties]',
+              'constructor',
+              '[methods]',
+              '[conventional-private-methods]',
+            ],
+            accessorPairPositioning: 'getThenSet',
+          },
+        ],
+      },
+    },
+    {
+      files: ['module/worker/test/**/*.js'],
+      env: {
+        es6: true,
+        jest: true,
+      },
+      globals: {
+        grammar: true,
+      },
+      extends: ['standard', 'prettier'],
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+      plugins: ['prettier', 'sort-class-members', 'import'],
+      settings: {
+        'import/resolver': {
+          webpack: {
+            config: './webpack.worker.config.js',
+          },
+        },
+      },
+      rules: {
+        'prettier/prettier': ['error', prettierConfig],
+        'sort-class-members/sort-class-members': [
+          2,
+          {
+            order: [
+              '[static-properties]',
+              '[static-methods]',
+              '[properties]',
+              '[conventional-private-properties]',
+              'constructor',
+              '[methods]',
+              '[conventional-private-methods]',
+            ],
+            accessorPairPositioning: 'getThenSet',
+          },
+        ],
+      },
+    },
+    {
+      files: ['e2e/**/*.js'],
       env: {
         es6: true,
         jest: true,
@@ -118,7 +211,6 @@ module.exports = {
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        project: './script/tsconfig.json',
       },
       plugins: ['prettier', 'sort-class-members'],
       rules: {

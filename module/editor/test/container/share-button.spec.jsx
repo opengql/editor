@@ -1,10 +1,9 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import fetchMock from 'jest-fetch-mock';
-import { storeRender } from '../helper/store-render';
-import { ShareButton } from '../../src/container/share-button';
+import { storeRender } from '$editor-test/helper/store-render';
+import { ShareButton } from '$editor/container/share-button';
 import { act, fireEvent, waitFor } from '@testing-library/react';
-import { editorActions } from '../../src/state/slice/editor-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
 
 function mockFetchApi(url) {
   const shortenLinkResponse = { url };

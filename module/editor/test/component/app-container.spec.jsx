@@ -1,8 +1,8 @@
+import '@testing-library/jest-dom';
 import React from 'react';
 import { screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { AppContainer } from '../../src/component/app-container';
-import { routerRender } from '../helper/router-render';
+import { AppContainer } from '$editor/component/app-container.jsx';
+import { routerRender } from '$editor-test/helper/router-render';
 
 describe('AppContainer', () => {
   it('should render AppContainer component with children', () => {

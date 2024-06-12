@@ -1,11 +1,10 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { Editor } from '../../src/container/editor';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { caretDataActions } from '../../src/state/slice/caret-data-slice';
-import { languageActions } from '../../src/state/slice/language-slice';
-import { storeRender } from '../helper/store-render';
+import { Editor } from '$editor/container/editor';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { storeRender } from '$editor-test/helper/store-render';
 
 describe('Editor', () => {
   const initialState = {

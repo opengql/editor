@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './style/main-content.module.css';
+import css from '$editor/component/style/main-content.module.css';
 import PropTypes from 'prop-types';
 
 export const MainContent = ({ children }) => {

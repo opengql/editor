@@ -1,12 +1,11 @@
-import '@testing-library/jest-dom';
 import React from 'react';
-import { storeRender } from '../helper/store-render';
-import { StatusBar } from '../../src/container/status-bar';
+import { storeRender } from '$editor-test/helper/store-render';
+import { StatusBar } from '$editor/container/status-bar';
 import { act } from '@testing-library/react';
-import { parseResultActions } from '../../src/state/slice/parse-result-slice';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { ParseState } from '../../src/const/parse-state';
-import { caretDataActions } from '../../src/state/slice/caret-data-slice';
+import { parseResultActions } from '$editor/store/slice/parse-result-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
 
 describe('StatusBar', () => {
   const initState = (store, { errors, state, selectionStart }) => {

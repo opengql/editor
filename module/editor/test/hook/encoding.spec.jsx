@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react';
-import { useEncoding } from '../../src/hook/encoding';
+import { useEncoding } from '$editor/hook/encoding';
 
 describe('useEncoding', () => {
   const { result } = renderHook(() => useEncoding());

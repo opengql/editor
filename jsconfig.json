@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "paths": {
+      "$e2e/*": [
+        "e2e/*"
+      ],
+      "$editor/*": [
+        "module/editor/src/*"
+      ],
+      "$editor-test/*": [
+        "module/editor/test/*"
+      ],
+      "$worker/*": [
+        "module/worker/src/*"
+      ],
+      "$worker-test/*": [
+        "module/worker/test/*"
+      ]
+    }
+  }
+}

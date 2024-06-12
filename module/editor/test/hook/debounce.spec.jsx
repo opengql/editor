@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
-import { useDebounce } from '../../src/hook/debounce';
+import { useDebounce } from '$editor/hook/debounce';
 
 describe('useDebounce', () => {
   beforeEach(() => {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { CodeBlock } from '../../src/component/code-block';
+import { CodeBlock } from '$editor/component/code-block';
 
 describe('CodeBlock', () => {
   const mockParserErrors = [

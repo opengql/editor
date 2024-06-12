@@ -1,11 +1,19 @@
 import React from 'react';
-import css from './style/button.module.css';
-import { ButtonIconPos } from './const/button-icon-pos';
+import css from '$editor/component/style/button.module.css';
+import { ButtonIconPos } from '$editor/component/const/button-icon-pos';
 import PropTypes from 'prop-types';
-import { SpinnerIcon } from '../icon/spinner-icon';
-import { CopySuccessIcon } from '../icon/copy-success-icon';
+import { SpinnerIcon } from '$editor/icon/spinner-icon';
+import { CopySuccessIcon } from '$editor/icon/copy-success-icon';
 
-export const Button = ({ label, icon, onClick, iconPlacement, isLoading, isCopied, testId }) => {
+export const Button = ({
+  label,
+  icon,
+  onClick,
+  iconPlacement = ButtonIconPos.LEFT,
+  isLoading = false,
+  isCopied = false,
+  testId = 'ti-button',
+}) => {
   const drawLabelWithIcon = (label, icon) => {
     if (icon === undefined) {
       return (
@@ -86,11 +94,4 @@ Button.propTypes = {
   isLoading: PropTypes.bool,
   isCopied: PropTypes.bool,
   testId: PropTypes.string,
-};
-
-Button.defaultProps = {
-  iconPlacement: ButtonIconPos.LEFT,
-  isLoading: false,
-  isCopied: false,
-  testId: 'ti-button',
 };

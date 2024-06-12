@@ -1,9 +1,22 @@
+const jsConfig = require('./jsconfig.json');
+
+const transformJsconfigToJestModuleNameMapper = () => {
+  const paths = jsConfig.compilerOptions.paths;
+
+  return Object.entries(paths).reduce((acc, [key, value]) => {
+    const transformedKey = `^${key.replace('$', '\\$').replace('*', '(.*)')}$`;
+    const path = `<rootDir>/${value[0].replace('*', '$1')}`;
+    return { ...acc, [transformedKey]: path };
+  }, {});
+};
+
 module.exports = {
   roots: ['<rootDir>/e2e'],
   testRegex: '(.*|(\\.|/)(test|spec))\\.js$',
   testPathIgnorePatterns: ['/node_modules/', '/build/', '/e2e/helpers'],
   testEnvironment: 'jest-environment-node',
   moduleFileExtensions: ['js', 'json', 'node'],
+  moduleNameMapper: transformJsconfigToJestModuleNameMapper(),
   transform: {
     '\\.js$': [
       'babel-jest',
@@ -12,6 +25,5 @@ module.exports = {
       },
     ],
   },
-  maxConcurrency: 4,
   testTimeout: 9999999,
 };

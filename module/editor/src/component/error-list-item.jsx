@@ -1,7 +1,7 @@
 import React from 'react';
-import css from './style/error-list-item.module.css';
+import css from '$editor/component/style/error-list-item.module.css';
 import PropTypes from 'prop-types';
-import { ParsingError } from '../type/parsing-error';
+import { ParsingError } from '$editor/type/parsing-error';
 
 export const ErrorListItem = ({ error, errorIndex }) => {
   const handleClick = () => {

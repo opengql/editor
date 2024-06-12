@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ParsingError } from '../type/parsing-error';
-import { SpinnerIcon } from '../icon/spinner-icon';
-import { If } from './if';
-import { CheckIcon } from '../icon/check-icon';
-import { ExclamationIcon } from '../icon/exclamation-icon';
-import css from './style/parse-state-indicator.module.css';
-import { ParseState } from '../const/parse-state';
+import { ParsingError } from '$editor/type/parsing-error';
+import { SpinnerIcon } from '$editor/icon/spinner-icon';
+import { If } from '$editor/component/if';
+import { CheckIcon } from '$editor/icon/check-icon';
+import { ExclamationIcon } from '$editor/icon/exclamation-icon';
+import css from '$editor/component/style/parse-state-indicator.module.css';
+import { ParseState } from '$editor/const/parse-state';
 
 const iconSize = 12;
 
@@ -15,7 +15,7 @@ export const ParseStateIndicator = ({ parseState, parseErrors }) => {
     let color;
 
     if (parseState === ParseState.IDLE && parseErrors.length === 0) {
-      color = '#009b1c';
+      color = '#004D10';
     } else if (parseState === ParseState.IDLE && parseErrors.length !== 0) {
       color = '#9b1c00';
     } else {

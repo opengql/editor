@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useEncoding } from '../hook/encoding';
-import { Button } from '../component/button';
-import { ShareIcon } from '../icon/share-icon';
+import { useEncoding } from '$editor/hook/encoding';
+import { Button } from '$editor/component/button';
+import { ShareIcon } from '$editor/icon/share-icon';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 

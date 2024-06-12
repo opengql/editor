@@ -1,10 +1,9 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import { act, fireEvent } from '@testing-library/react';
-import { viewActions } from '../../src/state/slice/view-slice';
-import { storeRender } from '../helper/store-render';
-import { ViewSelect } from '../../src/container/view-select';
-import { CodeEditorViewType } from '../../src/component/const/code-editor-view-type';
+import { viewActions } from '$editor/store/slice/view-slice';
+import { storeRender } from '$editor-test/helper/store-render';
+import { ViewSelect } from '$editor/container/view-select';
+import { CodeEditorViewType } from '$editor/component/const/code-editor-view-type';
 
 describe('ViewSelect', () => {
   const initState = (store, { viewType }) => {

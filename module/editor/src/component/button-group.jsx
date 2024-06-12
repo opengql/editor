@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './style/button-group.module.css';
+import css from '$editor/component/style/button-group.module.css';
 import PropTypes from 'prop-types';
 
 export const ButtonGroup = ({ children }) => (

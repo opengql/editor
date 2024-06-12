@@ -4,18 +4,29 @@ const { DefinePlugin } = require('webpack');
 const path = require('path');
 const babelConfig = require('./babel-config.worker.js');
 const packageJson = require('./package.json');
+const jsConfig = require('./jsconfig.json');
+
 const rootPath = path.resolve(__dirname, 'module', 'worker');
 const sourcePath = path.resolve(rootPath, 'src');
 const buildPath = path.resolve(rootPath, '..', '..', 'build');
 const buildMode = process.env.NODE_ENV || 'production';
 const isDev = buildMode === 'development';
 
+const getResolveAliasFromJsConfig = () => {
+  return Object.entries(jsConfig.compilerOptions.paths).reduce((acc, [key, value]) => {
+    const transformedKey = key.replace('/*', '');
+    const paths = path.resolve(__dirname, value[0].replace('/*', ''));
+    return { ...acc, [transformedKey]: paths };
+  }, {});
+};
+
 module.exports = {
   entry: path.resolve(sourcePath, 'worker.js'),
   output: {
     path: path.resolve(buildPath),
-    publicPath: '.',
-    filename: `js/worker.bundle.js`,
+    filename: `js/[name].worker.bundle.js`,
+    chunkFilename: `js/[name].worker.bundle.chunk.js`,
+    assetModuleFilename: `media/[name].worker.[hash][ext]`,
   },
   mode: buildMode,
   devtool: isDev ? 'source-map' : undefined,
@@ -44,6 +55,11 @@ module.exports = {
       },
     }),
   ],
+  performance: {
+    hints: false,
+    maxEntrypointSize: 2048000,
+    maxAssetSize: 512000,
+  },
   optimization: {
     minimize: !isDev,
     minimizer: [
@@ -68,12 +84,25 @@ module.exports = {
         },
       }),
     ],
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      maxSize: 2000000,
+      cacheGroups: {
+        common: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'commons',
+          priority: -10,
+          enforce: true,
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
   resolve: {
+    alias: getResolveAliasFromJsConfig(),
     extensions: ['.js'],
-    alias: {
-      $worker: sourcePath,
-    },
     fallback: {
       'reflect-metadata': false,
     },

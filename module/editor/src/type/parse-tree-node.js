@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ParseTreeNodeType } from '../const/parse-tree-node-type';
+import { ParseTreeNodeType } from '$editor/const/parse-tree-node-type';
 
 const TerminalParseTreeNode = PropTypes.shape({
   type: PropTypes.oneOf([ParseTreeNodeType.TERMINAL]).isRequired,

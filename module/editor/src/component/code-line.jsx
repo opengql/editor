@@ -1,7 +1,7 @@
 import React from 'react';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
-import css from './style/code-line.module.css';
+import css from '$editor/component/style/code-line.module.css';
 
 export const CodeLine = ({ line, index, hasError }) => (
   <tr

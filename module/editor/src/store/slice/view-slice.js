@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { CodeEditorViewType } from '../../component/const/code-editor-view-type';
+import { CodeEditorViewType } from '$editor/component/const/code-editor-view-type';
 
 const viewSlice = createSlice({
   name: 'view',

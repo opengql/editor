@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editorActions } from '../state/slice/editor-slice';
-import { ParseState } from '../const/parse-state';
-import { languageActions } from '../state/slice/language-slice';
-import { parseResultActions } from '../state/slice/parse-result-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { parseResultActions } from '$editor/store/slice/parse-result-slice';
 
 export const useParsing = () => {
   const value = useSelector((state) => state.editor.value);
@@ -40,7 +40,7 @@ export const useParsing = () => {
     }
 
     dispatch(editorActions.setState(ParseState.INITIALIZING));
-    grammarWorkerRef.current = new Worker(`./js/worker.bundle.js`);
+    grammarWorkerRef.current = new Worker(`./js/main.worker.bundle.js`);
     grammarWorkerRef.current.postMessage({ type: 'initialize' });
     grammarWorkerRef.current.onmessage = handleInitResponse;
 

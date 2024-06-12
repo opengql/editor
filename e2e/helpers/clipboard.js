@@ -1,4 +1,4 @@
-import { environment } from './environment';
+import { environment } from '$e2e/helpers/environment';
 
 export const overrideClipboardPermissions = async (browser) => {
   const context = await browser.defaultBrowserContext();

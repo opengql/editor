@@ -1,11 +1,13 @@
 @font-face {
   font-family: jetbrains-mono;
   src: url('../font/jetbrains-mono.ttf');
+  font-display: swap;
 }
 
 @font-face {
   font-family: roboto;
   src: url('../font/roboto.ttf');
+  font-display: swap;
 }
 
 html {

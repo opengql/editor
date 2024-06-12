@@ -1,7 +1,7 @@
-import { DefaultIconProps, IconProps } from './type/icon-props';
+import { IconProps } from '$editor/icon/type/icon-props';
 import React from 'react';
 
-export const EditorIcon = ({ width, height, testId }) => (
+export const EditorIcon = ({ width = 16, height = 16, testId = 'ti-icon' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -16,5 +16,3 @@ export const EditorIcon = ({ width, height, testId }) => (
 );
 
 EditorIcon.propTypes = IconProps;
-
-EditorIcon.defaultProps = DefaultIconProps;

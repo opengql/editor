@@ -1,7 +1,6 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { If } from '../../src/component/if';
+import { If } from '$editor/component/if';
 
 describe('If', () => {
   it('should render children when condition is true', () => {

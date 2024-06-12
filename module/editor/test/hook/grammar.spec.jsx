@@ -1,9 +1,9 @@
 import React from 'react';
 import { act, renderHook } from '@testing-library/react';
-import { useGrammar } from '../../src/hook/grammar';
+import { useGrammar } from '$editor/hook/grammar';
 import { Provider } from 'react-redux';
-import { appStore } from '../../src/state/app-store';
-import { languageActions } from '../../src/state/slice/language-slice';
+import { appStore } from '$editor/store/app-store';
+import { languageActions } from '$editor/store/slice/language-slice';
 
 describe('useGrammar', () => {
   const renderUseGrammar = (grammarDefinition = {}) => {

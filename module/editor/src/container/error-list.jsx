@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import styles from './style/error-list.module.css';
+import styles from '$editor/container/style/error-list.module.css';
 import PropTypes from 'prop-types';
-import { ParsingError } from '../type/parsing-error';
+import { ParsingError } from '$editor/type/parsing-error';
 import { connect } from 'react-redux';
-import { ErrorListItem } from '../component/error-list-item';
+import { ErrorListItem } from '$editor/component/error-list-item';
 
 export const ErrorListImpl = ({ parseErrors }) => {
   const [errorListItems, setErrorListItems] = useState([]);

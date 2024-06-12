@@ -1,12 +1,11 @@
 import React from 'react';
 import { act, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Autocomplete } from '../../src/container/autocomplete';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { storeRender } from '../helper/store-render';
-import { languageActions } from '../../src/state/slice/language-slice';
-import { caretDataActions } from '../../src/state/slice/caret-data-slice';
+import { Autocomplete } from '$editor/container/autocomplete';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { storeRender } from '$editor-test/helper/store-render';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
 
 jest.useFakeTimers();
 

@@ -1,15 +1,15 @@
 import React from 'react';
-import css from './style/examples-list.module.css';
-import { ExamplesListElement } from '../component/examples-list-element';
-import { SpinnerIcon } from '../icon/spinner-icon';
+import css from '$editor/container/style/examples-list.module.css';
+import { ExamplesListElement } from '$editor/component/examples-list-element';
+import { SpinnerIcon } from '$editor/icon/spinner-icon';
 import PropTypes from 'prop-types';
-import { CodeExample } from '../type/code-example';
+import { CodeExample } from '$editor/type/code-example';
 import { connect } from 'react-redux';
-import { ParseState } from '../const/parse-state';
-import { editorActions } from '../state/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
+import { editorActions } from '$editor/store/slice/editor-slice';
 import { useNavigate } from 'react-router-dom';
-import { useGrammar } from '../hook/grammar';
-import { If } from '../component/if';
+import { useGrammar } from '$editor/hook/grammar';
+import { If } from '$editor/component/if';
 
 const ExamplesListImpl = ({ result, isLoading, setEditorValue }) => {
   const navigate = useNavigate();

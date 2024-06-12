@@ -1,4 +1,4 @@
-import { SyntaxType } from './const/syntax-type';
+import { SyntaxType } from '$worker/const/syntax-type';
 
 const UNICODE_ESCAPED_CHAR_REGEX = /\\\\u/g;
 const CONTAINS_LETTERS_REGEX = /[a-zA-Z]/;

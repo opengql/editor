@@ -1,12 +1,12 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import './styles.css';
+import '$editor/styles.css';
 import { Provider } from 'react-redux';
-import { appStore } from './state/app-store';
+import { appStore } from '$editor/store/app-store';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { EditorPage } from './page/editor-page';
-import { ExamplesPage } from './page/examples-page';
-import { useParsing } from './hook/parsing';
+import { EditorPage } from '$editor/page/editor-page';
+import { ExamplesPage } from '$editor/page/examples-page';
+import { useParsing } from '$editor/hook/parsing';
 
 const router = createMemoryRouter([
   {

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { Network } from 'vis-network';
-import css from './style/parse-tree.module.css';
+import css from '$editor/container/style/parse-tree.module.css';
 import PropTypes from 'prop-types';
-import { ParseTreeNode } from '../type/parse-tree-node';
-import { useParseTreeConverter } from '../hook/parse-tree-converter';
-import { SpinnerIcon } from '../icon/spinner-icon';
+import { ParseTreeNode } from '$editor/type/parse-tree-node';
+import { useParseTreeConverter } from '$editor/hook/parse-tree-converter';
+import { SpinnerIcon } from '$editor/icon/spinner-icon';
 import { connect } from 'react-redux';
-import { ParseState } from '../const/parse-state';
-import { ParseTreeViewOptions } from '../component/const/parse-tree-view-options';
+import { ParseState } from '$editor/const/parse-state';
+import { ParseTreeViewOptions } from '$editor/component/const/parse-tree-view-options';
 
 const ParseTreeViewImpl = ({ parseTree, isParsing }) => {
   const containerRef = useRef(null);

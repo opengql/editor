@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import css from './style/autocomplete.module.css';
+import css from '$editor/container/style/autocomplete.module.css';
 import PropTypes from 'prop-types';
-import { CaretData } from '../type/caret-data';
+import { CaretData } from '$editor/type/caret-data';
 import { connect } from 'react-redux';
-import { useStringUtil } from '../hook/string-util';
-import { useSuggestionUtil } from '../hook/suggestion-util';
-import { AutocompleteOption } from '../component/autocomplete-option';
-import { editorActions } from '../state/slice/editor-slice';
-import { useEditorTextArea } from '../hook/editor-text-area';
-import { caretDataActions } from '../state/slice/caret-data-slice';
+import { useStringUtil } from '$editor/hook/string-util';
+import { useSuggestionUtil } from '$editor/hook/suggestion-util';
+import { AutocompleteOption } from '$editor/component/autocomplete-option';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { useEditorTextArea } from '$editor/hook/editor-text-area';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
 
 const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChange, onUpdateCaretData }) => {
   const suggestionUtil = useSuggestionUtil();

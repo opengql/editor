@@ -1,8 +1,8 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
-import { clearEditor } from './helpers/commons';
-import { getClipboardValue, overrideClipboardPermissions, waitForClipboardValueToChange } from './helpers/clipboard';
+import { environment } from '$e2e/helpers/environment';
+import { clearEditor } from '$e2e/helpers/commons';
+import { getClipboardValue, overrideClipboardPermissions, waitForClipboardValueToChange } from '$e2e/helpers/clipboard';
 
 describe('share code feature', () => {
   const feature = loadFeature('./e2e/feature/share-code.feature');

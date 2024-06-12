@@ -1,12 +1,11 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import { act, fireEvent } from '@testing-library/react';
-import { ExamplesSearch } from '../../src/container/examples-search';
-import { languageActions } from '../../src/state/slice/language-slice';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { ParseState } from '../../src/const/parse-state';
-import { storeRouterRender } from '../helper/store-render';
-import { exampleSearchActions } from '../../src/state/slice/examples-search-slice';
+import { ExamplesSearch } from '$editor/container/examples-search';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
+import { storeRouterRender } from '$editor-test/helper/store-render';
+import { exampleSearchActions } from '$editor/store/slice/examples-search-slice';
 
 describe('ExamplesSearch', () => {
   const initializeStore = (store, state) => {

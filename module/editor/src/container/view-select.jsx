@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import css from './style/view-select.module.css';
+import css from '$editor/container/style/view-select.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { viewActions } from '../state/slice/view-slice';
-import { CodeEditorViewType } from '../component/const/code-editor-view-type';
-import { EditorIcon } from '../icon/editor-icon';
-import { ParseTreeIcon } from '../icon/parse-tree-icon';
+import { viewActions } from '$editor/store/slice/view-slice';
+import { CodeEditorViewType } from '$editor/component/const/code-editor-view-type';
+import { EditorIcon } from '$editor/icon/editor-icon';
+import { ParseTreeIcon } from '$editor/icon/parse-tree-icon';
 
 const ViewSelectImpl = ({ viewType, onViewSelectChange }) => {
   const getClassName = useCallback(

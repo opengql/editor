@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import css from './style/sidebar-menu-item.module.css';
+import css from '$editor/component/style/sidebar-menu-item.module.css';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 

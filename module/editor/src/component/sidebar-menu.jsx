@@ -1,8 +1,8 @@
 import React from 'react';
-import css from './style/sidebar-menu.module.css';
-import { SidebarMenuItem } from './sidebar-menu-item';
-import { EditorIcon } from '../icon/editor-icon';
-import { ExamplesIcon } from '../icon/examples-icon';
+import css from '$editor/component/style/sidebar-menu.module.css';
+import { SidebarMenuItem } from '$editor/component/sidebar-menu-item';
+import { EditorIcon } from '$editor/icon/editor-icon';
+import { ExamplesIcon } from '$editor/icon/examples-icon';
 
 export const SidebarMenu = () => (
   <ul className={css.sidebarMenu} data-testid="ti-sidebar-menu">

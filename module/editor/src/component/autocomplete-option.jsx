@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import css from './style/autocomplete-option.module.css';
+import css from '$editor/component/style/autocomplete-option.module.css';
 
 export const AutocompleteOption = ({ value, index, selectedIndex, onOptionClick }) => {
   const isSelectedClass = selectedIndex === index ? css.autocompleteModalSelectedElement : '';
