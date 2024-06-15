@@ -1,0 +1,13 @@
+### NAME: Catalog graph example
+CREATE GRAPH TYPE CatalogGraphType STRICT {
+  (CatalogType: Catalog {id INT}),
+  (DataResourceType: DataResource),
+  (DatabaseType: DataResourceType {path STRING, owner STRING}),
+  (TableType: DataResourceType {id INT, name STRING}),
+  (ColumnType: DataResourceType {id INT, name STRING, dataType STRING}),
+  (GraphType: DataResourceType {id INT, name STRING}),
+  (:CatalogType)-[HasResourceType: hasResource {since DATE}]->(:DataResourceType),
+  (:DataResourceType)-[DerivedFromType: derivedFrom {since DATE}]->(:DataResourceType),
+  (:DatabaseType)-[HasTableType: hasTable {since DATE}]->(:TableType),
+  (:TableType)-[HasColumnType: hasColumn {since DATE}]->(:ColumnType)
+}

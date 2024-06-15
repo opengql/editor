@@ -1,0 +1,3 @@
+### NAME: Node type example
+CREATE NODE TYPE (personType: Person {name STRING , OPTIONAL birthday DATE})
+

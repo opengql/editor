@@ -9,6 +9,7 @@ const renameFileWithPattern = (filePath, pattern) => {
   const newFilePath = path.join(directory, newFileName);
 
   fs.renameSync(oldFilePath, newFilePath);
+  return [oldFileName, newFileName];
 };
 
 module.exports = { renameFileWithPattern };

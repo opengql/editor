@@ -1,0 +1,5 @@
+### NAME: Person customer inheritance example
+CREATE GRAPH TYPE Test LOOSE {
+  (CustomerType: Person & Customer
+    {name STRING, OPTIONAL since DATE})
+}
