@@ -1,0 +1,4 @@
+### NAME: Friend edge type with & and | pipes example
+CREATE GRAPH TYPE Test LOOSE {
+  (:PersonType|CustomerType)-[FriendType: Knows & Likes {since DATE}]->(:PersonType|CustomerType)
+}
