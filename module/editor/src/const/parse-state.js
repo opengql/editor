@@ -1,5 +1,6 @@
 export const ParseState = {
   IDLE: 'IDLE',
+  FETCHING: 'FETCHING',
   INITIALIZING: 'INITIALIZING',
   PARSING: 'PARSING',
 };

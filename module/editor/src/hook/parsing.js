@@ -7,17 +7,36 @@ import { parseResultActions } from '$editor/store/slice/parse-result-slice';
 
 export const useParsing = () => {
   const value = useSelector((state) => state.editor.value);
+  const isFetched = useSelector((state) => state.language.isFetched);
   const isInitialized = useSelector((state) => state.language.isInitialized);
+  const selectedGrammar = useSelector((state) => state.language.selectedGrammar);
   const dispatch = useDispatch();
   const grammarWorkerRef = useRef(null);
+
+  const handleFetchGrammarsResponse = ({ data }) => {
+    if (!Array.isArray(data)) {
+      return;
+    }
+
+    const grammars = data.reduce(
+      (acc, grammarDefinition) => ({
+        ...acc,
+        [grammarDefinition.name]: grammarDefinition,
+      }),
+      {},
+    );
+
+    dispatch(languageActions.initializeAfterFetching({ grammars }));
+    dispatch(editorActions.setState(ParseState.IDLE));
+  };
 
   const handleInitResponse = ({ data }) => {
     if ('errors' in data || 'tree' in data) {
       return;
     }
 
-    const { grammarDefinition, examples } = data;
-    dispatch(languageActions.initialize({ grammarDefinition, examples }));
+    const { name, grammarDefinition } = data;
+    dispatch(languageActions.initializeGrammarDefinition({ name, grammarDefinition }));
     dispatch(editorActions.setState(ParseState.IDLE));
   };
 
@@ -31,18 +50,19 @@ export const useParsing = () => {
   };
 
   useEffect(() => {
-    if (grammarWorkerRef.current !== null) {
-      grammarWorkerRef.current.terminate();
-    }
-
-    if (isInitialized) {
+    if (isFetched) {
       return;
     }
 
-    dispatch(editorActions.setState(ParseState.INITIALIZING));
+    if (grammarWorkerRef.current !== null) {
+      grammarWorkerRef.current.terminate();
+      grammarWorkerRef.current = null;
+    }
+
+    dispatch(editorActions.setState(ParseState.FETCHING));
     grammarWorkerRef.current = new Worker(`./js/main.worker.bundle.js`);
-    grammarWorkerRef.current.postMessage({ type: 'initialize' });
-    grammarWorkerRef.current.onmessage = handleInitResponse;
+    grammarWorkerRef.current.postMessage({ type: 'fetch-grammars' });
+    grammarWorkerRef.current.onmessage = handleFetchGrammarsResponse;
 
     return () => {
       if (grammarWorkerRef.current === null) {
@@ -54,12 +74,22 @@ export const useParsing = () => {
   }, []);
 
   useEffect(() => {
-    if (grammarWorkerRef.current === null || !isInitialized) {
+    if (grammarWorkerRef.current === null || !isFetched || isInitialized) {
+      return;
+    }
+
+    dispatch(editorActions.setState(ParseState.INITIALIZING));
+    grammarWorkerRef.current.postMessage({ type: 'initialize', payload: { selectedGrammar } });
+    grammarWorkerRef.current.onmessage = handleInitResponse;
+  }, [selectedGrammar, isFetched, isInitialized]);
+
+  useEffect(() => {
+    if (grammarWorkerRef.current === null || !isFetched || !isInitialized) {
       return;
     }
 
     dispatch(editorActions.setState(ParseState.PARSING));
-    grammarWorkerRef.current.postMessage({ type: 'parse', payload: { text: value } });
+    grammarWorkerRef.current.postMessage({ type: 'parse', payload: { selectedGrammar, text: value } });
     grammarWorkerRef.current.onmessage = handleParseResponse;
-  }, [value, isInitialized]);
+  }, [selectedGrammar, value, isFetched, isInitialized]);
 };

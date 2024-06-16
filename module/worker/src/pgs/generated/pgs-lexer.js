@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from F:/Projects2/Other/editor/module/worker/src/pgs/grammar/PGS.g4 by ANTLR 4.13.1
 // jshint ignore: start
 import antlr4 from 'antlr4';
 
@@ -107,8 +107,8 @@ const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
 
 const decisionsToDFA = atn.decisionToState.map((ds, index) => new antlr4.dfa.DFA(ds, index));
 
-export default class PgsLexer extends antlr4.Lexer {
-  static grammarFileName = 'pgs.g4';
+export default class PGSLexer extends antlr4.Lexer {
+  static grammarFileName = 'PGS.g4';
   static channelNames = ['DEFAULT_TOKEN_CHANNEL', 'HIDDEN'];
   static modeNames = ['DEFAULT_MODE'];
   static literalNames = [
@@ -287,62 +287,58 @@ export default class PgsLexer extends antlr4.Lexer {
 
   constructor(input) {
     super(input);
-    this._interp = new antlr4.atn.LexerATNSimulator(this, atn, decisionsToDFA, new antlr4.PredictionContextCache());
-  }
-
-  get atn() {
-    return atn;
+    this._interp = new antlr4.atn.LexerATNSimulator(this, atn, decisionsToDFA, new antlr4.atn.PredictionContextCache());
   }
 }
 
-PgsLexer.EOF = antlr4.Token.EOF;
-PgsLexer.T__0 = 1;
-PgsLexer.T__1 = 2;
-PgsLexer.T__2 = 3;
-PgsLexer.T__3 = 4;
-PgsLexer.T__4 = 5;
-PgsLexer.T__5 = 6;
-PgsLexer.T__6 = 7;
-PgsLexer.T__7 = 8;
-PgsLexer.T__8 = 9;
-PgsLexer.T__9 = 10;
-PgsLexer.T__10 = 11;
-PgsLexer.T__11 = 12;
-PgsLexer.T__12 = 13;
-PgsLexer.T__13 = 14;
-PgsLexer.T__14 = 15;
-PgsLexer.T__15 = 16;
-PgsLexer.T__16 = 17;
-PgsLexer.T__17 = 18;
-PgsLexer.T__18 = 19;
-PgsLexer.T__19 = 20;
-PgsLexer.T__20 = 21;
-PgsLexer.T__21 = 22;
-PgsLexer.T__22 = 23;
-PgsLexer.T__23 = 24;
-PgsLexer.T__24 = 25;
-PgsLexer.T__25 = 26;
-PgsLexer.T__26 = 27;
-PgsLexer.T__27 = 28;
-PgsLexer.T__28 = 29;
-PgsLexer.CREATE = 30;
-PgsLexer.NODE = 31;
-PgsLexer.EDGE = 32;
-PgsLexer.OPEN = 33;
-PgsLexer.OPTIONAL = 34;
-PgsLexer.TYPE = 35;
-PgsLexer.GRAPH = 36;
-PgsLexer.STRICT = 37;
-PgsLexer.LOOSE = 38;
-PgsLexer.ABSTRACT = 39;
-PgsLexer.IMPORTS = 40;
-PgsLexer.SP = 41;
-PgsLexer.WHITESPACE = 42;
-PgsLexer.StringLiteral = 43;
-PgsLexer.EscapedChar = 44;
-PgsLexer.HexDigit = 45;
-PgsLexer.Digit = 46;
-PgsLexer.NonZeroDigit = 47;
-PgsLexer.NonZeroOctDigit = 48;
-PgsLexer.HexLetter = 49;
-PgsLexer.ZeroDigit = 50;
+PGSLexer.EOF = antlr4.Token.EOF;
+PGSLexer.T__0 = 1;
+PGSLexer.T__1 = 2;
+PGSLexer.T__2 = 3;
+PGSLexer.T__3 = 4;
+PGSLexer.T__4 = 5;
+PGSLexer.T__5 = 6;
+PGSLexer.T__6 = 7;
+PGSLexer.T__7 = 8;
+PGSLexer.T__8 = 9;
+PGSLexer.T__9 = 10;
+PGSLexer.T__10 = 11;
+PGSLexer.T__11 = 12;
+PGSLexer.T__12 = 13;
+PGSLexer.T__13 = 14;
+PGSLexer.T__14 = 15;
+PGSLexer.T__15 = 16;
+PGSLexer.T__16 = 17;
+PGSLexer.T__17 = 18;
+PGSLexer.T__18 = 19;
+PGSLexer.T__19 = 20;
+PGSLexer.T__20 = 21;
+PGSLexer.T__21 = 22;
+PGSLexer.T__22 = 23;
+PGSLexer.T__23 = 24;
+PGSLexer.T__24 = 25;
+PGSLexer.T__25 = 26;
+PGSLexer.T__26 = 27;
+PGSLexer.T__27 = 28;
+PGSLexer.T__28 = 29;
+PGSLexer.CREATE = 30;
+PGSLexer.NODE = 31;
+PGSLexer.EDGE = 32;
+PGSLexer.OPEN = 33;
+PGSLexer.OPTIONAL = 34;
+PGSLexer.TYPE = 35;
+PGSLexer.GRAPH = 36;
+PGSLexer.STRICT = 37;
+PGSLexer.LOOSE = 38;
+PGSLexer.ABSTRACT = 39;
+PGSLexer.IMPORTS = 40;
+PGSLexer.SP = 41;
+PGSLexer.WHITESPACE = 42;
+PGSLexer.StringLiteral = 43;
+PGSLexer.EscapedChar = 44;
+PGSLexer.HexDigit = 45;
+PGSLexer.Digit = 46;
+PGSLexer.NonZeroDigit = 47;
+PGSLexer.NonZeroOctDigit = 48;
+PGSLexer.HexLetter = 49;
+PGSLexer.ZeroDigit = 50;

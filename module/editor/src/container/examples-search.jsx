@@ -43,7 +43,7 @@ ExamplesSearchImpl.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  examples: state.language.examples,
+  examples: state.language.grammars[state.language.selectedGrammar].examples,
   options: state.examplesSearch.options,
   phrase: state.examplesSearch.phrase,
   isLoading: state.editor.state === ParseState.INITIALIZING,

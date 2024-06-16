@@ -1,4 +1,4 @@
-import { TreeNodeType } from '$worker/const/tree-node-type';
+import { TreeNodeType } from '$worker/shared/const/tree-node-type';
 
 export class ParseTreeExtractor {
   constructor(parser) {

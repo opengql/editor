@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import css from './style/highlight.module.css';
-import { SyntaxType } from '$worker/const/syntax-type';
+import { SyntaxType } from '$worker/shared/const/syntax-type';
+import { useCurrentGrammar } from '$editor/store/hook/language';
 
 const cssClassNames = {
   [SyntaxType.KEYWORD]: css.keyword,
@@ -19,7 +19,7 @@ const cssClassNames = {
 export const useGrammar = () => {
   const [grammar, setGrammar] = useState({});
 
-  const grammarDefinition = useSelector((state) => state.language.grammarDefinition);
+  const { grammarDefinition } = useCurrentGrammar();
 
   const parseRegExp = (regexpStr) => {
     const patternRegex = /\/(.+)\/([a-z]*)/;
