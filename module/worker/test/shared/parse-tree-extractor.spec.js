@@ -1,7 +1,7 @@
 import { CharStreams, CommonTokenStream, PredictionMode } from 'antlr4';
-import GQLLexer from '../src/generated/gql-lexer';
-import GQLParser from '../src/generated/gql-parser';
-import { ParseTreeExtractor } from '$worker/parse-tree-extractor';
+import GQLLexer from '$worker/gql/generated/gql-lexer';
+import { ParseTreeExtractor } from '$worker/shared/parse-tree-extractor';
+import GQLParser from '$worker/gql/generated/gql-parser';
 
 describe('ParseTreeExtractor', () => {
   const lexerFactory = (input) => {

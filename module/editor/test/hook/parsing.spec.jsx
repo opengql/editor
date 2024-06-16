@@ -5,6 +5,7 @@ import { useParsing } from '$editor/hook/parsing';
 import { useSelector } from 'react-redux';
 import { Editor } from '$editor/container/editor';
 import { storeRender } from '$editor-test/helper/store-render';
+import { useCurrentGrammar } from '$editor/store/hook/language';
 
 describe('useParsing', () => {
   const mockWorker = {
@@ -35,8 +36,7 @@ describe('useParsing', () => {
 
   const TestComponent = ({ text, workerInfo, onRender }) => {
     const state = useSelector((state) => state.editor.state);
-    const grammarDefinition = useSelector((state) => state.language.grammarDefinition);
-    const examples = useSelector((state) => state.language.examples);
+    const { grammarDefinition, examples } = useCurrentGrammar();
     const errors = useSelector((state) => state.parserResult.errors);
     const tree = useSelector((state) => state.parserResult.tree);
 

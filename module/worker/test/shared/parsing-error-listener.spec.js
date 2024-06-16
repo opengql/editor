@@ -1,4 +1,4 @@
-import { ParsingErrorListener } from '$worker/parsing-error-listener';
+import { ParsingErrorListener } from '$worker/shared/parsing-error-listener';
 
 describe('ParsingErrorListener', () => {
   test('should handle syntax errors and store them', () => {

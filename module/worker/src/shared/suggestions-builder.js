@@ -1,6 +1,6 @@
-import { LexerWrapper } from '$worker/lexer-wrapper';
-import { CaseKind } from '$worker/const/case-kind';
-import { TokenSuggester } from '$worker/token-suggester';
+import { LexerWrapper } from '$worker/shared/lexer-wrapper';
+import { CaseKind } from '$worker/shared/const/case-kind';
+import { TokenSuggester } from '$worker/shared/token-suggester';
 
 const getTransitionKey = (state, transition) =>
   `${state.stateNumber} -> (${transition.serializationType}) -> ${transition.target.stateNumber}`;

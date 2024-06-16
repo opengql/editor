@@ -1,4 +1,4 @@
-import { SyntaxType } from '$worker/const/syntax-type';
+import { SyntaxType } from '$worker/shared/const/syntax-type';
 
 const UNICODE_ESCAPED_CHAR_REGEX = /\\\\u/g;
 const CONTAINS_LETTERS_REGEX = /[a-zA-Z]/;
@@ -31,6 +31,8 @@ export class GrammarBuilder {
       .filter((literal) => !UNICODE_ESCAPED_CHAR_REGEX.test(literal))
       .filter((literal) => CONTAINS_LETTERS_REGEX.test(literal))
       .map((char) => char.replace(REGEX_SPEC_CHARS_REGEX, ESCAPED_CHAR_PATTERN));
+
+    console.log(literalNames);
 
     this.keywords.push(...keywords);
 

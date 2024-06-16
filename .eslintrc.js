@@ -48,7 +48,7 @@ module.exports = {
       files: ['module/editor/test/**/*.jsx', 'module/editor/test/**/*.js'],
       env: {
         es6: true,
-        jest: true,
+        'jest/globals': true,
       },
       globals: {
         grammar: true,
@@ -58,7 +58,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['prettier', 'sort-class-members', 'import', 'jest-dom'],
+      plugins: ['prettier', 'sort-class-members', 'import', 'jest-dom', 'jest'],
       settings: {
         'import/resolver': {
           webpack: {
@@ -87,6 +87,11 @@ module.exports = {
     },
     {
       files: ['module/worker/**/*.js'],
+      excludedFiles: [
+        '**/*-lexer.js',
+        '**/*-listener.js',
+        '**/*-parser.js',
+      ],
       env: {
         es6: true,
         worker: true,
@@ -130,7 +135,8 @@ module.exports = {
       files: ['module/worker/test/**/*.js'],
       env: {
         es6: true,
-        jest: true,
+        worker: true,
+        'jest/globals': true,
       },
       globals: {
         grammar: true,
@@ -140,7 +146,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['prettier', 'sort-class-members', 'import'],
+      plugins: ['prettier', 'sort-class-members', 'import', 'jest'],
       settings: {
         'import/resolver': {
           webpack: {
@@ -171,7 +177,8 @@ module.exports = {
       files: ['e2e/**/*.js'],
       env: {
         es6: true,
-        jest: true,
+        worker: true,
+        'jest/globals': true,
       },
       globals: {
         grammar: true,
@@ -181,7 +188,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['prettier', 'sort-class-members'],
+      plugins: ['prettier', 'sort-class-members', 'jest'],
       rules: {
         'prettier/prettier': ['error', prettierConfig],
         'sort-class-members/sort-class-members': [
@@ -230,7 +237,6 @@ module.exports = {
             accessorPairPositioning: 'getThenSet',
           },
         ],
-        '@typescript-eslint/no-extraneous-class': 'off',
       },
     },
   ],

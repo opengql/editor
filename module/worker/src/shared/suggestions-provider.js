@@ -1,4 +1,4 @@
-import { SuggestionsBuilder } from '$worker/suggestions-builder';
+import { SuggestionsBuilder } from '$worker/shared/suggestions-builder';
 
 export class SuggestionsProvider {
   constructor(lexerFactory, parserFactory, casePreference) {

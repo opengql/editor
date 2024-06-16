@@ -201,7 +201,7 @@ const mapStateToProps = (state) => ({
     index: state.caretData.index,
   },
   editorValue: state.editor.value,
-  keywords: state.language.grammarDefinition?.keywords ?? [],
+  keywords: state.language.grammars[state.language.selectedGrammar].grammarDefinition?.keywords ?? [],
 });
 
 const mapDispatchToProps = (dispatch) => ({

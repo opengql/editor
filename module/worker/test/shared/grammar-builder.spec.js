@@ -1,11 +1,12 @@
-import { GrammarBuilder } from '$worker/grammar-builder';
-import { SyntaxType } from '$worker/const/syntax-type';
+import { GrammarBuilder } from '$worker/shared/grammar-builder';
+import { SyntaxType } from '$worker/shared/const/syntax-type';
 
 describe('GrammarBuilder', () => {
   describe('withName', () => {
     it('should set the name and return the instance', () => {
       const grammarBuilder = new GrammarBuilder();
       const instance = grammarBuilder.withName('testName');
+
       expect(instance).toBe(grammarBuilder);
       expect(grammarBuilder.build().name).toBe('testName');
     });

@@ -1,6 +1,6 @@
 import { CharStreams } from 'antlr4';
-import { LexerWrapper } from '$worker/lexer-wrapper';
-import GQLLexer from '../src/generated/gql-lexer';
+import GQLLexer from '$worker/gql/generated/gql-lexer';
+import { LexerWrapper } from '$worker/shared/lexer-wrapper';
 
 describe('LexerWrapper', () => {
   const lexerFactory = (input) => {

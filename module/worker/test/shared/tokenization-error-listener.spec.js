@@ -1,4 +1,4 @@
-import { TokenizationErrorListener } from '$worker/tokenization-error-listener';
+import { TokenizationErrorListener } from '$worker/shared/tokenization-error-listener';
 
 describe('TokenizationErrorListener', () => {
   describe('syntaxError', () => {
