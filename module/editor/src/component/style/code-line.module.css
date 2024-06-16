@@ -21,5 +21,5 @@
 }
 
 .code-line-error {
-  background-color: #ff000022;
+  background-color: var(--code-line-error-bg-color);
 }

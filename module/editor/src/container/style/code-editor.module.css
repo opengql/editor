@@ -29,7 +29,7 @@
 }
 
 .editor-wrapper {
-  border: 1px solid #ced4da;
+  border: 1px solid var(--editor-wrapper-border-color);
   overflow-y: scroll;
   position: relative;
   height: 500px;

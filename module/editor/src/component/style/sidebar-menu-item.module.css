@@ -7,15 +7,15 @@
 }
 
 .sidebar-menu-item:hover {
-  background-color: #ced4da11;
+  background-color: var(--sidebar-menu-item-bg-color-hover);
 }
 
 .sidebar-menu-item-selected {
-  background-color: #ced4da55;
+  background-color: var(--sidebar-menu-item-selected-bg-color);
 }
 
 .sidebar-menu-item-selected:hover {
-  background-color: #ced4da88;
+  background-color: var(--sidebar-menu-item-selected-bg-color-hover);
 }
 
 .sidebar-menu-item-label {

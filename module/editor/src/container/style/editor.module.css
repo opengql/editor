@@ -3,7 +3,8 @@
 }
 
 .editor-wrapper {
-  border: 1px solid #ced4da;
+  color: var(--editor-wrapper-color);
+  border: 1px solid var(--editor-wrapper-border-color);
   overflow-y: scroll;
   position: relative;
   flex: 2;

@@ -1,21 +1,22 @@
 .select-wrapper {
   position: relative;
   font-family: Arial, serif;
-  width: 200px;
-  color: #696969;
-  background-color: rgba(217, 217, 217, 0.15);
+  background-color: var(--grammar-select-wrapper-bg-color);
+  border-radius: 0.25rem;
+  margin: 5px 10px;
 }
 
 .select {
   position: relative;
   padding: 0.1rem 1rem;
-  border: 1px solid rgba(133, 133, 133, 0.3);
+  color: var(--grammar-select-color);
+  border: 1px solid var(--grammar-select-border-color);
   border-radius: 0.25rem;
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  line-height: 2em;
+  line-height: 1em;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
@@ -39,8 +40,6 @@
   transition: transform ease-in-out 100ms;
   width: 4px;
   height: 4px;
-  border-right: 2px solid #696969;
-  border-bottom: 2px solid #696969;
   z-index: -1;
 }
 
@@ -54,11 +53,13 @@
   left: 0;
   right: 0;
   z-index: 99;
-  padding: 0.1rem 1rem;
-  border: 1px solid rgba(133, 133, 133, 0.3);
+  color: var(--grammar-select-option-color);
+  background-color: var(--grammar-select-option-bg-color);
+  border-radius: 0.25rem;
+  padding: 1rem;
   -webkit-appearance: none;
 }
 
 .select-option:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--grammar-select-option-bg-color-hover);
 }

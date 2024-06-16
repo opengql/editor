@@ -1,7 +1,7 @@
 .error-list-element {
-  color: darkred;
-  border: 1px solid #aa330033;
-  background-color: #aa330011;
+  color: var(--error-list-element-color);
+  border: 1px solid var(--error-list-element-border-color);
+  background-color: var(--error-list-element-bg-color);
   padding: 0.4rem;
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
@@ -10,7 +10,7 @@
 }
 
 .error-list-element:hover {
-  background-color: #aa330022;
+  background-color: var(--error-list-element-bg-color-hover);
 }
 
 .error-position-label {
