@@ -3,9 +3,9 @@
   font-family: 'jetbrains-mono', monospace;
   font-size: 0.75rem !important;
   margin: 0;
-  background-color: #fff;
+  background-color: var(--example-code-bg-color);
   opacity: 0.75;
-  border-top: 1px solid #e3e9ef;
-  border-bottom: 1px solid #e3e9ef;
+  border-top: 1px solid var(--example-code-border-color);
+  border-bottom: 1px solid var(--example-code-border-color);
   white-space: pre-wrap;
 }

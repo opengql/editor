@@ -1,14 +1,9 @@
-:root {
-  --error-list-border-color: #ced4da;
-  --error-list-background: #a1a1a110;
-}
-
 .error-wrapper {
   padding: 0.2rem 0.4rem;
   border-left: 1px solid var(--error-list-border-color);
   border-right: 1px solid var(--error-list-border-color);
   border-bottom: 1px solid var(--error-list-border-color);
-  background: var(--error-list-background);
+  background: var(--error-list-bg-color);
   overflow-y: scroll;
   flex: 1;
 }

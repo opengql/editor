@@ -11,22 +11,18 @@ import { ParseState } from '$editor/const/parse-state';
 const iconSize = 12;
 
 export const ParseStateIndicator = ({ parseState, parseErrors }) => {
-  const getStyles = () => {
-    let color;
-
+  const getStatusClassName = () => {
     if (parseState === ParseState.IDLE && parseErrors.length === 0) {
-      color = '#004D10';
+      return css.parseStateLabelSuccess;
     } else if (parseState === ParseState.IDLE && parseErrors.length !== 0) {
-      color = '#9b1c00';
+      return css.parseStateLabelError;
     } else {
-      color = '#484848';
+      return '';
     }
-
-    return { color };
   };
 
   return (
-    <span className={css.parseStateLabel} style={getStyles()} data-testid="ti-parsing-state">
+    <span className={`${css.parseStateLabel} ${getStatusClassName()}`} data-testid="ti-parsing-state">
       <If condition={parseState === ParseState.INITIALIZING}>
         <SpinnerIcon width={iconSize} height={iconSize} />
         <span className={css.parsingLabel} data-testid="ti-parsing-status--label-init">

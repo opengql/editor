@@ -13,8 +13,8 @@
 .highlight-line-number-background {
   width: 55px;
   height: 100%;
-  border-right: 1px solid #e3e9ef;
-  background-color: #efefef88;
+  border-right: 1px solid var(--higlight-border-color);
+  background-color: var(--higlight-line-number-bg-color);
 }
 
 .highlight-line-background {

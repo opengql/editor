@@ -3,43 +3,43 @@
 }
 
 .keyword {
-  color: #990055;
+  color: var(--higlight-keyword-color);
   font-weight: bold;
 }
 
 .punctuation {
-  color: #000000;
+  color: var(--higlight-punctuation-color);
   font-weight: bold;
 }
 
 .comment {
-  color: #2bda00;
+  color: var(--higlight-comment-color);
 }
 
 .string {
-  color: #007cc2;
+  color: var(--higlight-string-color);
 }
 
 .boolean {
-  color: #ff720e;
+  color: var(--higlight-boolean-color);
 }
 
 .number {
-  color: #00703b;
+  color: var(--higlight-number-color);
 }
 
 .custom1 {
-  color: #0000ff;
+  color: var(--higlight-custom1-color);
 }
 
 .custom2 {
-  color: #0000bb;
+  color: var(--higlight-custom2-color);
 }
 
 .custom3 {
-  color: #c100ff;
+  color: var(--higlight-custom3-color);
 }
 
 .custom4 {
-  color: #9400c4;
+  color: var(--higlight-custom4-color);
 }
