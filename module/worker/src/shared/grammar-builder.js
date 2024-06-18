@@ -32,8 +32,6 @@ export class GrammarBuilder {
       .filter((literal) => CONTAINS_LETTERS_REGEX.test(literal))
       .map((char) => char.replace(REGEX_SPEC_CHARS_REGEX, ESCAPED_CHAR_PATTERN));
 
-    console.log(literalNames);
-
     this.keywords.push(...keywords);
 
     const punctuation = [...possibleSpecialWords]

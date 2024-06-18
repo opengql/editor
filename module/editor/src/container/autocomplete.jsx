@@ -10,7 +10,14 @@ import { editorActions } from '$editor/store/slice/editor-slice';
 import { useEditorTextArea } from '$editor/hook/editor-text-area';
 import { caretDataActions } from '$editor/store/slice/caret-data-slice';
 
-const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChange, onUpdateCaretData }) => {
+const AutocompleteImpl = ({
+  caretData,
+  editorValue,
+  keywords,
+  onEditorValueChange,
+  onUpdateCaretData,
+  updateNextCaretIndex,
+}) => {
   const suggestionUtil = useSuggestionUtil();
   const stringUtil = useStringUtil();
   const editorTextArea = useEditorTextArea();
@@ -29,27 +36,33 @@ const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChang
     setShouldShowModal(false);
   };
 
-  const handleSuggestionAccept = (index) => {
-    const suggestion = suggestions[index];
-    const suggestionWordData = { ...lastWordData, length: suggestion.length };
+  const handleSuggestionAccept = useCallback(
+    (index) => {
+      const suggestion = suggestions[index];
 
-    let tmpValue = editorValue;
+      let tmpValue = editorValue;
+      let shouldAddOneIndex;
 
-    if (suggestionWordData.startIndex !== -1) {
-      const before = tmpValue.substring(0, suggestionWordData.startIndex);
-      const after = tmpValue.substring(suggestionWordData.startIndex + suggestionWordData.length);
-      tmpValue = `${before}${suggestion} ${after}`;
-    }
+      if (lastWordData.startIndex !== -1) {
+        const before = tmpValue.substring(0, lastWordData.startIndex);
+        const after = tmpValue.substring(lastWordData.startIndex + lastWordData.length);
+        const isAfterStartingWithSpace = after.startsWith(' ');
+        tmpValue = isAfterStartingWithSpace ? `${before}${suggestion}${after}` : `${before}${suggestion} ${after}`;
+        shouldAddOneIndex = !isAfterStartingWithSpace;
+      }
 
-    onEditorValueChange(tmpValue);
+      onEditorValueChange(tmpValue);
 
-    const newIndex = suggestionWordData.startIndex + suggestion.length + 1;
-    editorTextArea.setSelectionRange(newIndex, newIndex);
-    onUpdateCaretData(newIndex, editorTextArea.value);
+      const newIndexBase = lastWordData.startIndex + suggestion.length;
+      const newIndex = shouldAddOneIndex ? newIndexBase + 1 : newIndexBase;
+      onUpdateCaretData(newIndex, editorTextArea.value);
+      updateNextCaretIndex(newIndex);
 
-    resetAutocompleteData();
-    editorTextArea?.focus();
-  };
+      resetAutocompleteData();
+      editorTextArea?.focus();
+    },
+    [editorValue, suggestions, lastWordData],
+  );
 
   const getModalStyles = useCallback(() => {
     const rect = editorTextArea?.getBoundingClientRect();
@@ -61,34 +74,43 @@ const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChang
     };
   }, [editorTextArea, caretData]);
 
-  const handleEnterKey = (event) => {
-    event.preventDefault();
-    handleSuggestionAccept(selectedOption);
-  };
+  const handleEnterKey = useCallback(
+    (event) => {
+      event.preventDefault();
+      handleSuggestionAccept(selectedOption);
+    },
+    [selectedOption],
+  );
 
-  const handleUpKey = (event) => {
-    event.preventDefault();
+  const handleUpKey = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    let newSelectedOption = selectedOption - 1;
+      let newSelectedOption = selectedOption - 1;
 
-    if (newSelectedOption < 0) {
-      newSelectedOption = suggestions.length - 1;
-    }
+      if (newSelectedOption < 0) {
+        newSelectedOption = suggestions.length - 1;
+      }
 
-    setSelectedOption(newSelectedOption);
-  };
+      setSelectedOption(newSelectedOption);
+    },
+    [selectedOption],
+  );
 
-  const handleDownKey = (event) => {
-    event.preventDefault();
+  const handleDownKey = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    let newSelectedOption = selectedOption + 1;
+      let newSelectedOption = selectedOption + 1;
 
-    if (newSelectedOption > suggestions.length - 1) {
-      newSelectedOption = 0;
-    }
+      if (newSelectedOption > suggestions.length - 1) {
+        newSelectedOption = 0;
+      }
 
-    setSelectedOption(newSelectedOption);
-  };
+      setSelectedOption(newSelectedOption);
+    },
+    [selectedOption],
+  );
 
   const handleEscapeKey = (event) => {
     event.preventDefault();
@@ -142,7 +164,7 @@ const AutocompleteImpl = ({ caretData, editorValue, keywords, onEditorValueChang
   }, [lastWordData]);
 
   useEffect(() => {
-    const { word, wordData } = stringUtil.getLastWordByIndex(editorValue, caretData.index);
+    const { word, wordData } = stringUtil.getInputWordDataFromSelectionStart(editorValue, caretData.index);
     setLastWordData(wordData);
     setLastWord(word);
   }, [editorValue, caretData]);
@@ -193,6 +215,7 @@ AutocompleteImpl.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
   onEditorValueChange: PropTypes.func.isRequired,
   onUpdateCaretData: PropTypes.func.isRequired,
+  updateNextCaretIndex: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -207,6 +230,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onEditorValueChange: (value) => dispatch(editorActions.setValue(value)),
   onUpdateCaretData: (selectionStart, value) => dispatch(caretDataActions.update({ selectionStart, value })),
+  updateNextCaretIndex: (nextCaretIndex) => dispatch(caretDataActions.updateNextIndex(nextCaretIndex)),
 });
 
 export const Autocomplete = connect(mapStateToProps, mapDispatchToProps)(AutocompleteImpl);

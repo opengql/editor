@@ -1,11 +1,11 @@
 export const useStringUtil = () => {
   const isWhiteSpace = (char) => /[\s \r\n]/.test(char);
 
-  const getLastWordByIndex = (input, startIndex) => {
+  const getLastWordByIndex = (input, selectionStartIndex) => {
     let word = '';
-    let lastIndex = startIndex;
+    let lastIndex = selectionStartIndex;
 
-    for (let i = startIndex - 1; i >= 0; i--) {
+    for (let i = selectionStartIndex - 1; i >= 0; i--) {
       if (isWhiteSpace(input[i])) {
         break;
       }
@@ -16,11 +16,11 @@ export const useStringUtil = () => {
 
     const wordData = {
       startIndex: lastIndex,
-      length: startIndex - lastIndex,
+      length: selectionStartIndex - lastIndex,
     };
 
     return { word, wordData };
   };
 
-  return { isWhiteSpace, getLastWordByIndex };
+  return { isWhiteSpace, getInputWordDataFromSelectionStart: getLastWordByIndex };
 };

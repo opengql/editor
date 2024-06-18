@@ -26,6 +26,7 @@ body {
   --select-arrow: var(--select-border);
   --autocomplete-modal-bg-color: #f3f3f3;
   --autocomplete-modal-border-color: #c0c0c0;
+  --autocomplete-modal-color: #1a1a1a;
   --autocomplete-modal-selected-element-bg: #007cc2;
   --autocomplete-modal-selected-element-color: #ced4da;
   --autocomplete-modal-selected-element-border-color: var(--select-focus);
@@ -106,6 +107,7 @@ body {
   --select-arrow: var(--select-border);
   --autocomplete-modal-bg-color: #333333;
   --autocomplete-modal-border-color: #444444;
+  --autocomplete-modal-color: #ffffffa3;
   --autocomplete-modal-selected-element-bg: #005381;
   --autocomplete-modal-selected-element-color: #ffffff;
   --autocomplete-modal-selected-element-border-color: var(--select-focus);
