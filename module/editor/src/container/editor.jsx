@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import SimpleCodeEditor from 'react-simple-code-editor';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { editorActions } from '$editor/store/slice/editor-slice';
 import { useHighlights } from '$editor/hook/highlights';
 import { caretDataActions } from '$editor/store/slice/caret-data-slice';
@@ -9,23 +8,45 @@ import { Autocomplete } from '$editor/container/autocomplete';
 import css from '$editor/container/style/editor.module.css';
 import { useEditorTextArea } from '$editor/hook/editor-text-area';
 import { useCodeLoader } from '$editor/hook/code-loader';
+import { useEditorValue } from '$editor/store/hook/editor';
+import { useCaretNextIndex } from '$editor/store/hook/caret-data';
 
-const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, updateNextCaretIndex }) => {
+/***
+ * Container that implements base editor rendering.
+ * It reads current value and caret data from application state and put it's in the rendered text editor.
+ * Also, this component is rendering the autocomplete container with proper style overlapping.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const Editor = () => {
+  const value = useEditorValue();
+  const nextCaretIndex = useCaretNextIndex();
+  const dispatch = useDispatch();
+
   const loadedCode = useCodeLoader();
   const editorTextArea = useEditorTextArea();
   const { highlight } = useHighlights();
 
-  const handleValueChange = (newValue) => {
-    if (editorTextArea === undefined || value === newValue) {
-      return;
-    }
+  /***
+   * Method that handles the editor value change and update of the application state.
+   *
+   * @type {(function(newValue?: string): void)}
+   */
+  const handleValueChange = useCallback(
+    (newValue) => {
+      if (editorTextArea === undefined || value === newValue) {
+        return;
+      }
 
-    const selectionStart = editorTextArea.selectionStart;
-    const currentValue = editorTextArea.value;
+      const selectionStart = editorTextArea.selectionStart;
+      const currentValue = editorTextArea.value;
 
-    onValueChange(newValue);
-    updateCaretData(selectionStart, currentValue);
-  };
+      dispatch(editorActions.setValue(newValue));
+      dispatch(caretDataActions.update({ selectionStart, value: currentValue }));
+    },
+    [editorTextArea, value],
+  );
 
   useEffect(() => {
     if (loadedCode === undefined) {
@@ -41,8 +62,8 @@ const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, upd
     }
 
     editorTextArea.setSelectionRange(nextCaretIndex, nextCaretIndex);
-    updateCaretData(nextCaretIndex, editorTextArea.value);
-    updateNextCaretIndex(-1);
+    dispatch(caretDataActions.update({ selectionStart: nextCaretIndex, value: editorTextArea.value }));
+    dispatch(caretDataActions.updateNextIndex(-1));
   }, [editorTextArea, nextCaretIndex]);
 
   useEffect(() => {
@@ -53,7 +74,7 @@ const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, upd
     const selectionStart = editorTextArea.selectionStart;
     const currentValue = editorTextArea.value;
 
-    updateCaretData(selectionStart, currentValue);
+    dispatch(caretDataActions.update({ selectionStart, value: currentValue }));
   }, []);
 
   return (
@@ -74,24 +95,3 @@ const EditorImpl = ({ value, nextCaretIndex, onValueChange, updateCaretData, upd
     </>
   );
 };
-
-EditorImpl.propTypes = {
-  value: PropTypes.string.isRequired,
-  nextCaretIndex: PropTypes.number.isRequired,
-  onValueChange: PropTypes.func.isRequired,
-  updateCaretData: PropTypes.func.isRequired,
-  updateNextCaretIndex: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  value: state.editor.value,
-  nextCaretIndex: state.caretData.nextIndex,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onValueChange: (value) => dispatch(editorActions.setValue(value)),
-  updateCaretData: (selectionStart, value) => dispatch(caretDataActions.update({ selectionStart, value })),
-  updateNextCaretIndex: (index) => dispatch(caretDataActions.updateNextIndex(index)),
-});
-
-export const Editor = connect(mapStateToProps, mapDispatchToProps)(EditorImpl);

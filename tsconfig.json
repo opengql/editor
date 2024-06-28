@@ -18,6 +18,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "importHelpers": true,
+    "preserveSymlinks": true,
     "outDir": "./build/out-tsc",
     "typeRoots": [
       "node_modules/@types"

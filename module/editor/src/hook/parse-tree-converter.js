@@ -1,15 +1,47 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ParseTreeNode } from '$editor/type/parse-tree-node';
 import { ParseTreeNodeType } from '$editor/const/parse-tree-node-type';
+import { ParseTreeNodeShim } from '$editor/prop-type/parse-tree-node-shim';
 
 const TERMINAL_NODE_COLOR = '#2270ff';
 const NON_TERMINAL_NODE_COLOR = '#00b69d';
 
+/***
+ * Node representation used by the VIS graph library.
+ *
+ * @typedef {Object} Node
+ * @property {number} id
+ * @property {string} label
+ * @property {number} level
+ * @property {string} color
+ */
+
+/***
+ * Edge representation used by the VIS graph library.
+ *
+ * @typedef {Object} Edge
+ * @property {number} from
+ * @property {number} to
+ */
+
+/***
+ * Hook that generates the output of parse tree that is acceptable by vis graph library.
+ *
+ * @param {ParseTreeNode} parseTree
+ * @returns {{convertResult: {nodes: Node[], edges: Edge[]}, isConverting: boolean}}
+ */
 export const useParseTreeConverter = (parseTree) => {
   const [isConverting, setIsConverting] = useState(false);
   const [convertResult, setConvertResult] = useState({ nodes: [], edges: [] });
 
+  /***
+   * Method that recursively converts the parse tree nodes received from parse result to nodes and edges.
+   * This node and edges are accepted by the VIS graph library.
+   *
+   * @param {Node[]} nodes
+   * @param {Edge[]} edges
+   * @param {ParseTreeNode} treeNodes
+   */
   const loadDataFromParseTree = (nodes, edges, treeNodes) => {
     const stack = [];
     stack.push({ treeNodes, level: 0 });
@@ -62,7 +94,7 @@ export const useParseTreeConverter = (parseTree) => {
     const nodes = [];
     const edges = [];
 
-    if (parseTree.length === 0) {
+    if (parseTree?.length === 0) {
       setConvertResult({ nodes, edges });
       return;
     }
@@ -76,4 +108,4 @@ export const useParseTreeConverter = (parseTree) => {
   return { isConverting, convertResult };
 };
 
-useParseTreeConverter.propTypes = PropTypes.arrayOf(ParseTreeNode);
+useParseTreeConverter.propTypes = PropTypes.arrayOf(ParseTreeNodeShim);

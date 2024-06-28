@@ -4,7 +4,13 @@ import { editorActions } from '$editor/store/slice/editor-slice';
 import { ParseState } from '$editor/const/parse-state';
 import { languageActions } from '$editor/store/slice/language-slice';
 import { parseResultActions } from '$editor/store/slice/parse-result-slice';
+import { isArray } from 'lodash';
 
+/***
+ * Hook that initializes and control the parse process for current language.
+ * Should be used at the index entry of application.
+ * It fixes problem with switching between pages.
+ */
 export const useParsing = () => {
   const value = useSelector((state) => state.editor.value);
   const isFetched = useSelector((state) => state.language.isFetched);
@@ -14,7 +20,7 @@ export const useParsing = () => {
   const grammarWorkerRef = useRef(null);
 
   const handleFetchGrammarsResponse = ({ data }) => {
-    if (!Array.isArray(data)) {
+    if (!isArray(data)) {
       return;
     }
 

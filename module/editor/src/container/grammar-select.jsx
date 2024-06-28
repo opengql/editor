@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import css from '$editor/container/style/grammar-select.module.css';
 import { languageActions } from '$editor/store/slice/language-slice';
 
+/***
+ * Container that provide the ability to select different languages.
+ * Change of the grammar may produce grammar initialization.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const WorkerSelect = () => {
   const selectedGrammar = useSelector((state) => state.language.selectedGrammar);
   const grammars = useSelector((state) => Object.values(state.language.grammars));

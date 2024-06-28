@@ -1,5 +1,12 @@
 const path = require('path');
 
+/***
+ * Method that converts provided string to kebab case format.
+ * Example: helloWorld -> hello-world
+ *
+ * @param {string} fileName
+ * @returns {string}
+ */
 const convertToKebabCase = (fileName) => {
   const extension = path.extname(fileName);
   const baseName = path.basename(fileName, extension);

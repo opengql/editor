@@ -1,5 +1,8 @@
 import { ErrorListener } from 'antlr4';
 
+/***
+ * Error listener implementation that takes the not tokenized part of the input.
+ */
 export class TokenizationErrorListener extends ErrorListener {
   constructor(inputStr) {
     super();

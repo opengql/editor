@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, screen } from '@testing-library/react';
 import { ExamplesList } from '$editor/container/examples-list';
 import { storeRouterRender } from '$editor-test/helper/store-render';
 import { languageActions } from '$editor/store/slice/language-slice';
@@ -10,7 +10,7 @@ import { ExamplesSearch } from '$editor/container/examples-search';
 describe('ExamplesList', () => {
   const initializeStore = (store, state) => {
     act(() => {
-      store.dispatch(languageActions.initialize({ examples: state.language.examples }));
+      store.dispatch(languageActions.initializeAfterFetching({ grammars: state.language.grammars }));
       store.dispatch(editorActions.setState(state.editor?.state ?? ParseState.IDLE));
     });
   };
@@ -27,9 +27,22 @@ describe('ExamplesList', () => {
     return result;
   };
 
+  beforeEach(() => {
+    window.scrollTo = jest.fn();
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
   it('should render loading spinner when loading', () => {
     const { getByTestId } = renderExamplesList({
-      language: { examples: [] },
+      language: {
+        selectedGrammar: 'DEFAULT',
+        grammars: {
+          DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+        },
+      },
       editor: { state: ParseState.INITIALIZING },
     });
 
@@ -43,7 +56,14 @@ describe('ExamplesList', () => {
       { name: 'name-1', code: 'example 2 code' },
     ];
 
-    renderExamplesList({ language: { examples } });
+    renderExamplesList({
+      language: {
+        selectedGrammar: 'DEFAULT',
+        grammars: {
+          DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples },
+        },
+      },
+    });
 
     const examplesList = screen.getByTestId('ti-examples-list');
 
@@ -54,7 +74,14 @@ describe('ExamplesList', () => {
   it('should trigger editor value update when example is clicked', () => {
     const examples = [{ name: 'example', code: 'example code' }];
 
-    const { store } = renderExamplesList({ language: { examples } });
+    const { store } = renderExamplesList({
+      language: {
+        selectedGrammar: 'DEFAULT',
+        grammars: {
+          DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples },
+        },
+      },
+    });
 
     const exampleListItem = screen.getByText('example code');
 

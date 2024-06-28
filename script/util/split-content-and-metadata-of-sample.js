@@ -1,3 +1,9 @@
+/***
+ * Method that extracts metadata from the code example provided in grammar.
+ *
+ * @param {string} fileContent
+ * @returns {{metadata: Record<string, string>, content: string}}
+ */
 const splitContentAndMetadataOfSample = (fileContent) => {
   const lines = fileContent.split('\n');
   const metadata = {};

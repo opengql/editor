@@ -11,7 +11,6 @@ const transformJsconfigToJestModuleNameMapper = () => {
 };
 
 module.exports = {
-  verbose: true,
   roots: ['<rootDir>/module/editor/test'],
   testRegex: '(.*|(\\.|/)(test|spec))\\.(js|jsx)$',
   testPathIgnorePatterns: ['module/editor/test/helper', 'module/editor/test/script', 'module/editor/test/mock'],
@@ -32,7 +31,9 @@ module.exports = {
       },
     ],
   },
-  setupFiles: ['<rootDir>/module/editor/test/script/setup-after-env.js'],
+  collectCoverageFrom: ['module/editor/src/**/*.{js,jsx}'],
+  setupFiles: ['<rootDir>/module/editor/test/script/setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/module/editor/test/script/setup-after-env.js'],
   globals: {
     editor: {
       VERSION: 'v1',

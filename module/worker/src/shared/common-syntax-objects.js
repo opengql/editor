@@ -4,6 +4,11 @@ const COMMENT_BLOCK_REGEX = /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/g;
 const COMMENT_REGEX = /(^|[^\\:])\/\/.*/g;
 const STRING_REGEX = /(["'`])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/g;
 
+/***
+ * @typedef CommonSyntaxObjects
+ * @readonly
+ * @enum {SyntaxObject}
+ */
 export class CommonSyntaxObjects {
   static C_LIKE_COMMENT = {
     pattern: [

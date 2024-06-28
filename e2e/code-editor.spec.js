@@ -11,7 +11,7 @@ describe('code editor feature', () => {
     let page;
 
     beforeAll(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+      browser = await puppeteer.launch({ headless: false, slowMo: 10 });
       page = await browser.newPage();
     });
 

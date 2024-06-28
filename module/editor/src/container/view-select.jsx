@@ -1,13 +1,22 @@
 import React, { useCallback } from 'react';
 import css from '$editor/container/style/view-select.module.css';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { viewActions } from '$editor/store/slice/view-slice';
 import { CodeEditorViewType } from '$editor/component/const/code-editor-view-type';
 import { EditorIcon } from '$editor/icon/editor-icon';
 import { ParseTreeIcon } from '$editor/icon/parse-tree-icon';
+import { useViewType } from '$editor/store/hook/view';
 
-const ViewSelectImpl = ({ viewType, onViewSelectChange }) => {
+/***
+ * Container that provide utility to switch between view types.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const ViewSelect = () => {
+  const viewType = useViewType();
+  const dispatch = useDispatch();
+
   const getClassName = useCallback(
     (currentViewType) =>
       viewType === currentViewType ? `${css.selectOption} ${css.selectedOption}` : css.selectOption,
@@ -17,7 +26,7 @@ const ViewSelectImpl = ({ viewType, onViewSelectChange }) => {
   return (
     <div className={css.viewSelect} data-testid="ti-view-select--wrapper">
       <button
-        onClick={() => onViewSelectChange(CodeEditorViewType.EDITOR)}
+        onClick={() => dispatch(viewActions.changeView(CodeEditorViewType.EDITOR))}
         className={getClassName(CodeEditorViewType.EDITOR)}
         data-testid="ti-view-select--editor-button"
       >
@@ -31,7 +40,7 @@ const ViewSelectImpl = ({ viewType, onViewSelectChange }) => {
         </div>
       </button>
       <button
-        onClick={() => onViewSelectChange(CodeEditorViewType.PARSE_TREE)}
+        onClick={() => dispatch(viewActions.changeView(CodeEditorViewType.PARSE_TREE))}
         className={getClassName(CodeEditorViewType.PARSE_TREE)}
         data-testid="ti-view-select--parse-tree"
       >
@@ -47,18 +56,3 @@ const ViewSelectImpl = ({ viewType, onViewSelectChange }) => {
     </div>
   );
 };
-
-ViewSelectImpl.propTypes = {
-  viewType: PropTypes.oneOf(Object.values(CodeEditorViewType)).isRequired,
-  onViewSelectChange: PropTypes.func.isRequired,
-};
-
-const mapStateToAction = (state) => ({
-  viewType: state.view.type,
-});
-
-const mapActionToCallback = (dispatch) => ({
-  onViewSelectChange: (viewType) => dispatch(viewActions.changeView(viewType)),
-});
-
-export const ViewSelect = connect(mapStateToAction, mapActionToCallback)(ViewSelectImpl);

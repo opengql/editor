@@ -1,32 +1,40 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import css from '$editor/container/style/autocomplete.module.css';
-import PropTypes from 'prop-types';
-import { CaretData } from '$editor/type/caret-data';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useStringUtil } from '$editor/hook/string-util';
 import { useSuggestionUtil } from '$editor/hook/suggestion-util';
 import { AutocompleteOption } from '$editor/component/autocomplete-option';
 import { editorActions } from '$editor/store/slice/editor-slice';
 import { useEditorTextArea } from '$editor/hook/editor-text-area';
 import { caretDataActions } from '$editor/store/slice/caret-data-slice';
+import { useCaretIndex, useCaretPosition } from '$editor/store/hook/caret-data';
+import { useEditorValue } from '$editor/store/hook/editor';
+import { useLanguageCurrentGrammar } from '$editor/store/hook/language';
 
-const AutocompleteImpl = ({
-  caretData,
-  editorValue,
-  keywords,
-  onEditorValueChange,
-  onUpdateCaretData,
-  updateNextCaretIndex,
-}) => {
-  const suggestionUtil = useSuggestionUtil();
-  const stringUtil = useStringUtil();
-  const editorTextArea = useEditorTextArea();
+/***
+ * Container that implements autocompletion rendering used by the code editor.
+ * It contains all necessary information needed to provide changes to the application state.
+ * As container its also perform this changes by dispatcher.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const Autocomplete = () => {
+  const caretPosition = useCaretPosition();
+  const caretIndex = useCaretIndex();
+  const editorValue = useEditorValue();
+  const { grammarDefinition } = useLanguageCurrentGrammar();
+  const dispatch = useDispatch();
 
   const [suggestions, setSuggestions] = useState([]);
   const [shouldShowModal, setShouldShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState(-1);
   const [lastWord, setLastWord] = useState(undefined);
   const [lastWordData, setLastWordData] = useState(undefined);
+
+  const suggestionUtil = useSuggestionUtil();
+  const stringUtil = useStringUtil();
+  const editorTextArea = useEditorTextArea();
 
   const optionsRef = useRef(null);
 
@@ -40,6 +48,10 @@ const AutocompleteImpl = ({
     (index) => {
       const suggestion = suggestions[index];
 
+      if (suggestion === undefined) {
+        return;
+      }
+
       let tmpValue = editorValue;
       let shouldAddOneIndex;
 
@@ -51,17 +63,18 @@ const AutocompleteImpl = ({
         shouldAddOneIndex = !isAfterStartingWithSpace;
       }
 
-      onEditorValueChange(tmpValue);
+      dispatch(editorActions.setValue(tmpValue));
 
       const newIndexBase = lastWordData.startIndex + suggestion.length;
       const newIndex = shouldAddOneIndex ? newIndexBase + 1 : newIndexBase;
-      onUpdateCaretData(newIndex, editorTextArea.value);
-      updateNextCaretIndex(newIndex);
+
+      dispatch(caretDataActions.update({ selectionStart: newIndex, value: editorTextArea.value }));
+      dispatch(caretDataActions.updateNextIndex(newIndex));
 
       resetAutocompleteData();
       editorTextArea?.focus();
     },
-    [editorValue, suggestions, lastWordData],
+    [suggestions, editorValue],
   );
 
   const getModalStyles = useCallback(() => {
@@ -69,17 +82,17 @@ const AutocompleteImpl = ({
     const { top, left } = rect ?? { top: 0, left: 0 };
 
     return {
-      top: `calc(${top + caretData.position.x * 20}px + 5px)`,
-      left: `calc(${left + caretData.position.y * 7.2}px + 50px)`,
+      top: `calc(${top + caretPosition.x * 20}px + 5px)`,
+      left: `calc(${left + caretPosition.y * 7.2}px + 50px)`,
     };
-  }, [editorTextArea, caretData]);
+  }, [editorTextArea, caretPosition]);
 
   const handleEnterKey = useCallback(
     (event) => {
       event.preventDefault();
       handleSuggestionAccept(selectedOption);
     },
-    [selectedOption],
+    [selectedOption, handleSuggestionAccept],
   );
 
   const handleUpKey = useCallback(
@@ -94,7 +107,7 @@ const AutocompleteImpl = ({
 
       setSelectedOption(newSelectedOption);
     },
-    [selectedOption],
+    [selectedOption, suggestions],
   );
 
   const handleDownKey = useCallback(
@@ -109,43 +122,52 @@ const AutocompleteImpl = ({
 
       setSelectedOption(newSelectedOption);
     },
-    [selectedOption],
+    [selectedOption, suggestions],
   );
 
-  const handleEscapeKey = (event) => {
-    event.preventDefault();
-    setShouldShowModal(false);
-    editorTextArea?.focus();
-  };
+  const handleEscapeKey = useCallback(
+    (event) => {
+      event.preventDefault();
+      setShouldShowModal(false);
+      editorTextArea?.focus();
+    },
+    [editorTextArea],
+  );
 
-  const handleCtrlEnterKey = (event) => {
-    event.preventDefault();
-    setShouldShowModal(suggestions.length !== 0);
-  };
+  const handleCtrlEnterKey = useCallback(
+    (event) => {
+      event.preventDefault();
+      setShouldShowModal(suggestions.length !== 0);
+    },
+    [suggestions],
+  );
 
-  const handleKeyDownEvent = (event) => {
-    if (shouldShowModal) {
-      if (event.key === 'Enter') {
-        handleEnterKey(event);
-      }
+  const handleKeyDownEvent = useCallback(
+    (event) => {
+      if (shouldShowModal) {
+        if (event.key === 'Enter') {
+          handleEnterKey(event);
+        }
 
-      if (event.key === 'ArrowUp') {
-        handleUpKey(event);
-      }
+        if (event.key === 'ArrowUp') {
+          handleUpKey(event);
+        }
 
-      if (event.key === 'ArrowDown') {
-        handleDownKey(event);
-      }
+        if (event.key === 'ArrowDown') {
+          handleDownKey(event);
+        }
 
-      if (event.key === 'Escape') {
-        handleEscapeKey(event);
+        if (event.key === 'Escape') {
+          handleEscapeKey(event);
+        }
+      } else {
+        if (event.ctrlKey && event.key === 'Enter') {
+          handleCtrlEnterKey(event);
+        }
       }
-    } else {
-      if (event.ctrlKey && event.key === 'Enter') {
-        handleCtrlEnterKey(event);
-      }
-    }
-  };
+    },
+    [shouldShowModal, handleEnterKey, handleUpKey, handleDownKey, handleEscapeKey, handleCtrlEnterKey],
+  );
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDownEvent);
@@ -156,23 +178,26 @@ const AutocompleteImpl = ({
   }, [shouldShowModal, handleKeyDownEvent]);
 
   useEffect(() => {
-    if (lastWordData !== undefined) {
+    if (lastWordData !== undefined && lastWordData.length > 1) {
       return;
     }
 
     setSuggestions([]);
+    setShouldShowModal(false);
   }, [lastWordData]);
 
   useEffect(() => {
-    const { word, wordData } = stringUtil.getInputWordDataFromSelectionStart(editorValue, caretData.index);
+    const { word, wordData } = stringUtil.getInputWordDataFromSelectionStart(editorValue, caretIndex);
     setLastWordData(wordData);
     setLastWord(word);
-  }, [editorValue, caretData]);
+  }, [editorValue, caretIndex]);
 
   useEffect(() => {
     if (lastWord === undefined || lastWord.length <= 1 || lastWordData === undefined) {
       return;
     }
+
+    const { keywords } = grammarDefinition;
 
     setSuggestions([]);
     setShouldShowModal(false);
@@ -185,7 +210,7 @@ const AutocompleteImpl = ({
     setSuggestions(tmpSuggestions);
     setSelectedOption(tmpSuggestions.length !== 0 ? 0 : -1);
     setShouldShowModal(tmpSuggestions.length !== 0);
-  }, [keywords, lastWord, lastWordData]);
+  }, [grammarDefinition, lastWord, lastWordData]);
 
   return (
     <div
@@ -208,29 +233,3 @@ const AutocompleteImpl = ({
     </div>
   );
 };
-
-AutocompleteImpl.propTypes = {
-  caretData: CaretData.isRequired,
-  editorValue: PropTypes.string.isRequired,
-  keywords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onEditorValueChange: PropTypes.func.isRequired,
-  onUpdateCaretData: PropTypes.func.isRequired,
-  updateNextCaretIndex: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  caretData: {
-    position: state.caretData.position,
-    index: state.caretData.index,
-  },
-  editorValue: state.editor.value,
-  keywords: state.language.grammars[state.language.selectedGrammar].grammarDefinition?.keywords ?? [],
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onEditorValueChange: (value) => dispatch(editorActions.setValue(value)),
-  onUpdateCaretData: (selectionStart, value) => dispatch(caretDataActions.update({ selectionStart, value })),
-  updateNextCaretIndex: (nextCaretIndex) => dispatch(caretDataActions.updateNextIndex(nextCaretIndex)),
-});
-
-export const Autocomplete = connect(mapStateToProps, mapDispatchToProps)(AutocompleteImpl);
