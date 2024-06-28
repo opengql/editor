@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { CodeEditorViewType } from '$editor/component/const/code-editor-view-type';
 import { Tooltip } from '$editor/component/tooltip';
 import { If } from '$editor/component/if';
@@ -11,8 +10,18 @@ import { caretDataActions } from '$editor/store/slice/caret-data-slice';
 import { StatusBar } from '$editor/container/status-bar';
 import css from '$editor/page/style/editor-page.module.css';
 import { AppContainer } from '$editor/component/app-container';
+import { useViewType } from '$editor/store/hook/view';
 
-const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
+/***
+ * Page that renders the editor and parse tree view.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const EditorPage = () => {
+  const viewType = useViewType();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (viewType === CodeEditorViewType.PARSE_TREE) {
       return;
@@ -26,7 +35,7 @@ const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
 
     const selectionStart = textArea.selectionStart;
     const currentValue = textArea.value;
-    const caretChange = () => onUpdateCaretData(selectionStart, currentValue);
+    const caretChange = () => dispatch(caretDataActions.update({ selectionStart, value: currentValue }));
 
     textArea.addEventListener('click', caretChange);
     textArea.addEventListener('contextmenu', caretChange);
@@ -57,18 +66,3 @@ const EditorPageImpl = ({ viewType, onUpdateCaretData }) => {
     </AppContainer>
   );
 };
-
-EditorPageImpl.propTypes = {
-  viewType: PropTypes.oneOf(Object.values(CodeEditorViewType)).isRequired,
-  onUpdateCaretData: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  viewType: state.view.type,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onUpdateCaretData: (selectionStart, value) => dispatch(caretDataActions.update({ selectionStart, value })),
-});
-
-export const EditorPage = connect(mapStateToProps, mapDispatchToProps)(EditorPageImpl);

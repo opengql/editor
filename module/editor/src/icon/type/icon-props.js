@@ -5,9 +5,3 @@ export const IconProps = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   testId: PropTypes.string,
 };
-
-export const DefaultIconProps = {
-  width: 16,
-  height: 16,
-  testId: 'ti-icon',
-};

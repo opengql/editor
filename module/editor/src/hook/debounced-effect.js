@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 
-export const useDebouncedEffect = (callback, delay, deps) => {
+/***
+ * Hook that works like the useEffect hook but with delayed dependencies change detection.
+ * When values are changing under the provided delay in milliseconds then the callback is not called.
+ * But when the deps will not change for delay there is a callback invocation.
+ *
+ * @param {function(): void} callback
+ * @param {number} delay
+ * @param {DependencyList} deps
+ */
+export const useDebouncedEffect = (callback, delay = 100, deps = []) => {
   const [destructorCallback, setDestructorCallback] = useState(() => {});
   const timerRef = useRef(undefined);
 
@@ -26,15 +34,4 @@ export const useDebouncedEffect = (callback, delay, deps) => {
 
     return () => clearTimeout(timerRef.current);
   }, [callback, delay, ...deps]);
-};
-
-useDebouncedEffect.propTypes = {
-  callback: PropTypes.func.isRequired,
-  delay: PropTypes.number,
-  deps: PropTypes.arrayOf(PropTypes.any),
-};
-
-useDebouncedEffect.defaultProps = {
-  delay: 100,
-  deps: [],
 };

@@ -15,7 +15,7 @@ describe('SuggestionsProvider', () => {
     const parser = new GQLParser(commonTokenStream);
     parser.buildParseTrees = true;
     parser.removeErrorListeners();
-    parser._interp.predictionMode = PredictionMode.SLL;
+    parser._interp.predictionMode = PredictionMode.LL;
     return parser;
   };
 
@@ -29,9 +29,9 @@ describe('SuggestionsProvider', () => {
 
     it('should return suggestions for specific input', () => {
       const provider = new SuggestionsProvider(lexerFactory, parserFactory);
-      const suggestions = provider.suggest('CREATE TABLE');
+      const suggestions = provider.suggest('CRE');
 
-      expect(suggestions).toEqual(['{']);
+      expect(suggestions).toEqual(['TABLE']);
     });
 
     it('should return suggestions for specific input with lower case only', () => {

@@ -2,6 +2,15 @@ const axios = require('axios');
 const fs = require('fs');
 const { saveFileFromResponse } = require('./save-file-from-response');
 
+/***
+ * Method that downloads files from the GitHub repository.
+ * By default, files are saved in the tmp directory at the root of the project.
+ * If download fails the proper message is prompted with error flag and the tmp file is removed.
+ *
+ * @param {string} githubDownloadUrl
+ * @param {string} filePath
+ * @returns {Promise<void>}
+ */
 const githubDownload = async (githubDownloadUrl, filePath) => {
   const tmpFilePath = `./tmp/${filePath}`;
   const writer = fs.createWriteStream(tmpFilePath);
@@ -22,6 +31,15 @@ const githubDownload = async (githubDownloadUrl, filePath) => {
   }
 };
 
+/***
+ * Method that fetches the file meta.
+ * If file meta refers to file this file is downloaded.
+ * If file meta refers to directory, all files from that directory is downloaded to proper directory in tmp directory.
+ *
+ * @param {string} path
+ * @param {string} repository
+ * @returns {Promise<void>}
+ */
 const downloadFromGithub = async (path, repository) => {
   const headers = {
     Accept: 'application/vnd.github.object+json',

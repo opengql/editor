@@ -20,4 +20,5 @@ const editorSlice = createSlice({
 });
 
 export const editorActions = editorSlice.actions;
+
 export const editorReducer = editorSlice.reducer;

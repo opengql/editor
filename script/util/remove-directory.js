@@ -1,6 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
+/***
+ * Method that removes directory with its content recursively.
+ *
+ * @param {string} dirPath
+ */
 const removeDirectory = (dirPath) => {
   if (!fs.existsSync(dirPath)) {
     return;

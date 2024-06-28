@@ -15,7 +15,8 @@
     "grammar:download": "node ./script/grammar-download.js",
     "test:e2e": "jest --config=jest-config.e2e.js --runInBand",
     "test:editor": "jest --config=./jest-config.editor.js",
-    "test:worker": "jest --config=./jest-config.worker.js"
+    "test:worker": "jest --config=./jest-config.worker.js",
+    "coverage:editor": "jest --config=./jest-config.editor.js --coverage"
   },
   "jest": {
     "projects": [
@@ -98,6 +99,7 @@
     "fuse.js": "^7.0.0",
     "html-react-parser": "^5.1.5",
     "keycharm": "^0.4.0",
+    "lodash": "^4.17.21",
     "pako": "^2.1.0",
     "prismjs": "^1.29.0",
     "react": "^18.2.0",

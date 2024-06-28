@@ -3,6 +3,17 @@ import css from '$editor/component/style/sidebar-menu-item.module.css';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+/***
+ * Component that renders single button in side menu.
+ * Its main responsibility is to bring the ability to move over the application.
+ *
+ * @param {string} path
+ * @param {JSX.Element} icon
+ * @param {string} label
+ * @param {string} testId
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const SidebarMenuItem = ({ path, icon, label, testId }) => {
   const location = useLocation();
   const navigate = useNavigate();

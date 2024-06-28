@@ -1,8 +1,16 @@
 import React from 'react';
 import css from '$editor/component/style/error-list-item.module.css';
 import PropTypes from 'prop-types';
-import { ParsingError } from '$editor/type/parsing-error';
+import { ParseErrorShape } from '$editor/prop-type/parse-error-shape';
 
+/***
+ * Component that renders one of the parsing result errors.
+ *
+ * @param {import('$editor/store/type/parse-error.js').ParseError} error
+ * @param {number} errorIndex
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const ErrorListItem = ({ error, errorIndex }) => {
   const handleClick = () => {
     const textArea = document.getElementById('code-textarea--input');
@@ -35,5 +43,5 @@ export const ErrorListItem = ({ error, errorIndex }) => {
 
 ErrorListItem.propTypes = {
   errorIndex: PropTypes.number.isRequired,
-  error: ParsingError.isRequired,
+  error: ParseErrorShape.isRequired,
 };

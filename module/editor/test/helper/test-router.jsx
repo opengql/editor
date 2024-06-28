@@ -15,8 +15,7 @@ const Renderer = ({ routes, initRoute }) => {
 
   useEffect(
     () =>
-      mockNavigateFunc.mockImplementation((path, ...other) => {
-        console.log(path, ...other);
+      mockNavigateFunc.mockImplementation((path) => {
         setCurrentRoute(path);
       }),
     [],

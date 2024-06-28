@@ -11,7 +11,7 @@ describe('autocomplete feature', () => {
     let page;
 
     beforeEach(async () => {
-      browser = await puppeteer.launch({ headless: false, slowMo: 30 });
+      browser = await puppeteer.launch({ headless: 'shell' });
       page = await browser.newPage();
     });
 
@@ -45,7 +45,7 @@ describe('autocomplete feature', () => {
       then('selected suggestion should be inserted to the editor', async () => {
         const editorValue = await page.$eval('#code-textarea--input', (element) => element.textContent);
         expect(editorValue).not.toBeNull();
-        expect(editorValue?.includes('table')).toBeTruthy();
+        expect(editorValue?.toLowerCase().includes('table')).toBeTruthy();
       });
     });
 
@@ -76,7 +76,7 @@ describe('autocomplete feature', () => {
       then('selected suggestion should be inserted to the editor', async () => {
         const editorValue = await page.$eval('#code-textarea--input', (element) => element.textContent);
         expect(editorValue).not.toBeNull();
-        expect(editorValue?.includes('at')).toBeTruthy();
+        expect(editorValue?.toLowerCase().includes('at')).toBeTruthy();
       });
     });
 

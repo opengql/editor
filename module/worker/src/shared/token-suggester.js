@@ -1,3 +1,5 @@
+import { CaseKind } from '$worker/shared/const/case-kind';
+
 export class TokenSuggester {
   constructor(origPartialToken, lexerWrapper, casePreference) {
     this.origPartialToken = origPartialToken;
@@ -103,7 +105,7 @@ export class TokenSuggester {
   }
 
   shouldIgnoreThisCase(character, allLabelChars) {
-    if (this.casePreference === null || this.casePreference === 'BOTH') {
+    if (this.casePreference === null || this.casePreference === CaseKind.BOTH) {
       return false;
     }
 
@@ -111,9 +113,9 @@ export class TokenSuggester {
     const lower = character.toLowerCase();
 
     switch (this.casePreference) {
-      case 'LOWER':
+      case CaseKind.LOWER:
         return character === upper && allLabelChars.includes(lower);
-      case 'UPPER':
+      case CaseKind.UPPER:
         return character === lower && allLabelChars.includes(upper);
       default:
         return false;

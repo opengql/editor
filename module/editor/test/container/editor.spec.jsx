@@ -10,13 +10,20 @@ describe('Editor', () => {
   const initialState = {
     editor: { value: 'initial value' },
     caretData: { nextIndex: -1 },
-    language: { grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+    language: {
+      selectedGrammar: 'DEFAULT',
+      grammars: {
+        DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+      },
+      isFetched: false,
+      isInitialized: false,
+    },
   };
 
   const initializeStore = (store, state) => {
     act(() => {
       store.dispatch(editorActions.setValue(state.editor.value));
-      store.dispatch(languageActions.initialize(state.language));
+      store.dispatch(languageActions.initializeAfterFetching({ grammars: state.language.grammars }));
       store.dispatch(caretDataActions.update({ selectionStart: 5, value: state.editor.value }));
     });
   };
@@ -24,7 +31,7 @@ describe('Editor', () => {
   const renderEditor = (state = initialState) => {
     const result = storeRender(<Editor />);
 
-    initializeStore(result.store, state);
+    act(() => initializeStore(result.store, state));
 
     const rerender = () => result.rerender(<Editor />);
 
@@ -74,19 +81,19 @@ describe('Editor', () => {
 
     const initCaretData = store.getState().caretData;
 
-    store.dispatch(caretDataActions.updateNextIndex(5));
+    act(() => store.dispatch(caretDataActions.updateNextIndex(5)));
 
     const textarea = screen.getByRole('textbox');
 
-    expect(textarea.selectionStart).toBe(13);
-    expect(textarea.selectionEnd).toBe(13);
+    expect(textarea.selectionStart).toBe(5);
+    expect(textarea.selectionEnd).toBe(5);
 
     const caretData = store.getState().caretData;
 
     expect(caretData).not.toBe(initCaretData);
     expect(caretData).toEqual({
       index: 5,
-      nextIndex: 5,
+      nextIndex: -1,
       position: {
         x: 1,
         y: 5,

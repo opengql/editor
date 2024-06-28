@@ -8,9 +8,23 @@ import { storeRouterRender } from '$editor-test/helper/store-render';
 import { exampleSearchActions } from '$editor/store/slice/examples-search-slice';
 
 describe('ExamplesSearch', () => {
+  const initialState = {
+    language: {
+      selectedGrammar: 'DEFAULT',
+      grammars: {
+        DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+      },
+    },
+  };
+
   const initializeStore = (store, state) => {
     act(() => {
-      store.dispatch(languageActions.initialize({ examples: state.language?.examples ?? [] }));
+      store.dispatch(
+        languageActions.initializeAfterFetching({
+          grammars: state.language?.grammars ?? initialState.language.grammars,
+        }),
+      );
+
       store.dispatch(editorActions.setState(state.editor?.state ?? ParseState.IDLE));
       store.dispatch(exampleSearchActions.setPhrase(state.examplesSearch.phrase));
     });
@@ -52,7 +66,12 @@ describe('ExamplesSearch', () => {
 
     const { getByTestId, store } = renderExamplesSearch({
       examplesSearch: { phrase: '', options: {} },
-      language: { examples },
+      language: {
+        selectedGrammar: 'DEFAULT',
+        grammars: {
+          DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples },
+        },
+      },
     });
 
     const searchInput = getByTestId('ti-examples-search-input');

@@ -6,12 +6,25 @@ import { appStore } from '$editor/store/app-store';
 import { languageActions } from '$editor/store/slice/language-slice';
 
 describe('useGrammar', () => {
+  const initialState = {
+    language: {
+      selectedGrammar: 'DEFAULT',
+      grammars: {
+        DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+      },
+      isFetched: false,
+      isInitialized: false,
+    },
+  };
+
   const renderUseGrammar = (grammarDefinition = {}) => {
     const result = renderHook(() => useGrammar(), {
       wrapper: ({ children }) => <Provider store={appStore}>{children}</Provider>,
     });
 
-    act(() => appStore.dispatch(languageActions.initialize({ grammarDefinition })));
+    act(() => appStore.dispatch(languageActions.initializeAfterFetching({ grammars: initialState.language.grammars })));
+
+    act(() => appStore.dispatch(languageActions.initializeGrammarDefinition({ name: 'DEFAULT', grammarDefinition })));
 
     return { ...result, store: appStore };
   };

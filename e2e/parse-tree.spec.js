@@ -14,7 +14,7 @@ INSERT (a)-[:HasPet]->(d)`;
     let page;
 
     beforeEach(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+      browser = await puppeteer.launch({ headless: 'shell' });
       page = await browser.newPage();
     });
 

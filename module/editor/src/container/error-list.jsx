@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styles from '$editor/container/style/error-list.module.css';
-import PropTypes from 'prop-types';
-import { ParsingError } from '$editor/type/parsing-error';
-import { connect } from 'react-redux';
 import { ErrorListItem } from '$editor/component/error-list-item';
+import { useParserResultErrors } from '$editor/store/hook/parser-result';
 
-export const ErrorListImpl = ({ parseErrors }) => {
+/***
+ * Container that renders parsing errors from the latest parse result stored in application container.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const ErrorList = () => {
+  const parseErrors = useParserResultErrors();
+
   const [errorListItems, setErrorListItems] = useState([]);
 
   useEffect(() => {
@@ -24,13 +30,3 @@ export const ErrorListImpl = ({ parseErrors }) => {
     </div>
   );
 };
-
-ErrorListImpl.propTypes = {
-  parseErrors: PropTypes.arrayOf(ParsingError),
-};
-
-const mapStateToProps = (state) => ({
-  parseErrors: state.parserResult.errors,
-});
-
-export const ErrorList = connect(mapStateToProps)(ErrorListImpl);

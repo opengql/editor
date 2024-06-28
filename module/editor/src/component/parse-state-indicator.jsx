@@ -1,15 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ParsingError } from '$editor/type/parsing-error';
 import { SpinnerIcon } from '$editor/icon/spinner-icon';
 import { If } from '$editor/component/if';
 import { CheckIcon } from '$editor/icon/check-icon';
 import { ExclamationIcon } from '$editor/icon/exclamation-icon';
 import css from '$editor/component/style/parse-state-indicator.module.css';
 import { ParseState } from '$editor/const/parse-state';
+import { ParseErrorShape } from '$editor/prop-type/parse-error-shape';
 
 const iconSize = 12;
 
+/***
+ * Component that renders with multiple states.
+ * The states are related to current parsing process of the application.
+ * Each state of the {@link ParseState} should have its representation in this component.
+ *
+ * @param {ParseState} parseState
+ * @param {import('$editor/store/type/parse-error.js').ParseError[]} parseErrors
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const ParseStateIndicator = ({ parseState, parseErrors }) => {
   const getStatusClassName = () => {
     if (parseState === ParseState.IDLE && parseErrors.length === 0) {
@@ -53,6 +63,6 @@ export const ParseStateIndicator = ({ parseState, parseErrors }) => {
 };
 
 ParseStateIndicator.propTypes = {
-  parseErrors: PropTypes.arrayOf(ParsingError),
+  parseErrors: PropTypes.arrayOf(ParseErrorShape),
   parseState: PropTypes.oneOf(Object.values(ParseState)),
 };

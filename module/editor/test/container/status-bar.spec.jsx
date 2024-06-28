@@ -19,7 +19,7 @@ describe('StatusBar', () => {
   const renderStatusBar = (state = {}) => {
     const result = storeRender(<StatusBar />);
 
-    initState(result.store, state);
+    act(() => initState(result.store, state));
 
     return result;
   };
@@ -32,7 +32,10 @@ describe('StatusBar', () => {
 
   it('should render parse state indicator with correct props', () => {
     const { getByTestId } = renderStatusBar({
-      errors: [{ message: 'Error 1' }, { message: 'Error 2' }],
+      errors: [
+        { lineIndex: 1, charPosition: 1, message: 'Error 1' },
+        { lineIndex: 1, charPosition: 1, message: 'Error 2' },
+      ],
       state: ParseState.PARSING,
     });
 

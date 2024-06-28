@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { act } from 'react';
 import { screen } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
 import PropTypes from 'prop-types';
 import { useHighlights } from '$editor/hook/highlights';
 import { mockGrammarEventResultInit } from '$editor-test/mock/grammar-event-result-init';
