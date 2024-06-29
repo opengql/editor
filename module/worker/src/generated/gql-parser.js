@@ -1442,12 +1442,12 @@ const serializedATN = [4,1,391,4619,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,
 0,3839,3821,1,0,0,0,3839,3824,1,0,0,0,3839,3826,1,0,0,0,3839,3828,1,0,0,
 0,3839,3833,1,0,0,0,3839,3837,1,0,0,0,3839,3838,1,0,0,0,3840,3868,1,0,0,
 0,3841,3842,10,14,0,0,3842,3843,7,22,0,0,3843,3867,3,818,409,15,3844,3845,
-10,13,0,0,3845,3846,7,21,0,0,3846,3867,3,818,409,14,3847,3848,10,9,0,0,3848,
-3849,5,24,0,0,3849,3867,3,818,409,10,3850,3851,10,8,0,0,3851,3852,7,23,0,
-0,3852,3867,3,818,409,9,3853,3854,10,12,0,0,3854,3855,5,331,0,0,3855,3867,
-3,842,421,0,3856,3857,10,10,0,0,3857,3859,5,127,0,0,3858,3860,5,152,0,0,
-3859,3858,1,0,0,0,3859,3860,1,0,0,0,3860,3861,1,0,0,0,3861,3867,3,950,475,
-0,3862,3863,10,7,0,0,3863,3867,3,776,388,0,3864,3865,10,5,0,0,3865,3867,
+10,13,0,0,3845,3846,7,21,0,0,3846,3867,3,818,409,14,3847,3848,10,12,0,0,
+3848,3849,5,331,0,0,3849,3867,3,818,409,13,3850,3851,10,9,0,0,3851,3852,
+5,24,0,0,3852,3867,3,818,409,10,3853,3854,10,8,0,0,3854,3855,7,23,0,0,3855,
+3867,3,818,409,9,3856,3857,10,10,0,0,3857,3859,5,127,0,0,3858,3860,5,152,
+0,0,3859,3858,1,0,0,0,3859,3860,1,0,0,0,3860,3861,1,0,0,0,3861,3867,3,950,
+475,0,3862,3863,10,7,0,0,3863,3867,3,776,388,0,3864,3865,10,5,0,0,3865,3867,
 3,790,395,0,3866,3841,1,0,0,0,3866,3844,1,0,0,0,3866,3847,1,0,0,0,3866,3850,
 1,0,0,0,3866,3853,1,0,0,0,3866,3856,1,0,0,0,3866,3862,1,0,0,0,3866,3864,
 1,0,0,0,3867,3870,1,0,0,0,3868,3866,1,0,0,0,3868,3869,1,0,0,0,3869,819,1,
@@ -2237,11 +2237,11 @@ export default class GQLParser extends antlr4.Parser {
     		case 8:
     			return this.precpred(this._ctx, 13);
     		case 9:
-    			return this.precpred(this._ctx, 9);
-    		case 10:
-    			return this.precpred(this._ctx, 8);
-    		case 11:
     			return this.precpred(this._ctx, 12);
+    		case 10:
+    			return this.precpred(this._ctx, 9);
+    		case 11:
+    			return this.precpred(this._ctx, 8);
     		case 12:
     			return this.precpred(this._ctx, 10);
     		case 13:
@@ -19324,26 +19324,39 @@ export default class GQLParser extends antlr4.Parser {
 	                    break;
 
 	                case 3:
-	                    localctx = new ConjunctiveExprAltContext(this, new ValueExpressionContext(this, _parentctx, _parentState));
+	                    localctx = new ConcatenationExprAltContext(this, new ValueExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, GQLParser.RULE_valueExpression);
 	                    this.state = 3847;
-	                    if (!( this.precpred(this._ctx, 9))) {
-	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 9)");
+	                    if (!( this.precpred(this._ctx, 12))) {
+	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 12)");
 	                    }
 	                    this.state = 3848;
-	                    this.match(GQLParser.AND);
+	                    this.match(GQLParser.CONCATENATION_OPERATOR);
 	                    this.state = 3849;
-	                    this.valueExpression(10);
+	                    this.valueExpression(13);
 	                    break;
 
 	                case 4:
-	                    localctx = new DisjunctiveExprAltContext(this, new ValueExpressionContext(this, _parentctx, _parentState));
+	                    localctx = new ConjunctiveExprAltContext(this, new ValueExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, GQLParser.RULE_valueExpression);
 	                    this.state = 3850;
+	                    if (!( this.precpred(this._ctx, 9))) {
+	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 9)");
+	                    }
+	                    this.state = 3851;
+	                    this.match(GQLParser.AND);
+	                    this.state = 3852;
+	                    this.valueExpression(10);
+	                    break;
+
+	                case 5:
+	                    localctx = new DisjunctiveExprAltContext(this, new ValueExpressionContext(this, _parentctx, _parentState));
+	                    this.pushNewRecursionContext(localctx, _startState, GQLParser.RULE_valueExpression);
+	                    this.state = 3853;
 	                    if (!( this.precpred(this._ctx, 8))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 8)");
 	                    }
-	                    this.state = 3851;
+	                    this.state = 3854;
 	                    localctx.operator = this._input.LT(1);
 	                    _la = this._input.LA(1);
 	                    if(!(_la===161 || _la===232)) {
@@ -19353,21 +19366,8 @@ export default class GQLParser extends antlr4.Parser {
 	                    	this._errHandler.reportMatch(this);
 	                        this.consume();
 	                    }
-	                    this.state = 3852;
-	                    this.valueExpression(9);
-	                    break;
-
-	                case 5:
-	                    localctx = new ConcatenationExprAltContext(this, new ValueExpressionContext(this, _parentctx, _parentState));
-	                    this.pushNewRecursionContext(localctx, _startState, GQLParser.RULE_valueExpression);
-	                    this.state = 3853;
-	                    if (!( this.precpred(this._ctx, 12))) {
-	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 12)");
-	                    }
-	                    this.state = 3854;
-	                    this.match(GQLParser.CONCATENATION_OPERATOR);
 	                    this.state = 3855;
-	                    this.valueExpressionPrimary(0);
+	                    this.valueExpression(9);
 	                    break;
 
 	                case 6:
@@ -45759,6 +45759,45 @@ class ValueFunctionExprAltContext extends ValueExpressionContext {
 
 GQLParser.ValueFunctionExprAltContext = ValueFunctionExprAltContext;
 
+class ConcatenationExprAltContext extends ValueExpressionContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        super.copyFrom(ctx);
+    }
+
+	valueExpression = function(i) {
+	    if(i===undefined) {
+	        i = null;
+	    }
+	    if(i===null) {
+	        return this.getTypedRuleContexts(ValueExpressionContext);
+	    } else {
+	        return this.getTypedRuleContext(ValueExpressionContext,i);
+	    }
+	};
+
+	CONCATENATION_OPERATOR() {
+	    return this.getToken(GQLParser.CONCATENATION_OPERATOR, 0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof GQLListener ) {
+	        listener.enterConcatenationExprAlt(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof GQLListener ) {
+	        listener.exitConcatenationExprAlt(this);
+		}
+	}
+
+
+}
+
+GQLParser.ConcatenationExprAltContext = ConcatenationExprAltContext;
+
 class DisjunctiveExprAltContext extends ValueExpressionContext {
 
     constructor(parser, ctx) {
@@ -45802,42 +45841,6 @@ class DisjunctiveExprAltContext extends ValueExpressionContext {
 }
 
 GQLParser.DisjunctiveExprAltContext = DisjunctiveExprAltContext;
-
-class ConcatenationExprAltContext extends ValueExpressionContext {
-
-    constructor(parser, ctx) {
-        super(parser);
-        super.copyFrom(ctx);
-    }
-
-	valueExpression() {
-	    return this.getTypedRuleContext(ValueExpressionContext,0);
-	};
-
-	CONCATENATION_OPERATOR() {
-	    return this.getToken(GQLParser.CONCATENATION_OPERATOR, 0);
-	};
-
-	valueExpressionPrimary() {
-	    return this.getTypedRuleContext(ValueExpressionPrimaryContext,0);
-	};
-
-	enterRule(listener) {
-	    if(listener instanceof GQLListener ) {
-	        listener.enterConcatenationExprAlt(this);
-		}
-	}
-
-	exitRule(listener) {
-	    if(listener instanceof GQLListener ) {
-	        listener.exitConcatenationExprAlt(this);
-		}
-	}
-
-
-}
-
-GQLParser.ConcatenationExprAltContext = ConcatenationExprAltContext;
 
 class ComparisonExprAltContext extends ValueExpressionContext {
 
