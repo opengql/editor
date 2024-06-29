@@ -3965,21 +3965,21 @@ export default class GQLListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
-	// Enter a parse tree produced by GQLParser#disjunctiveExprAlt.
-	enterDisjunctiveExprAlt(ctx) {
-	}
-
-	// Exit a parse tree produced by GQLParser#disjunctiveExprAlt.
-	exitDisjunctiveExprAlt(ctx) {
-	}
-
-
 	// Enter a parse tree produced by GQLParser#concatenationExprAlt.
 	enterConcatenationExprAlt(ctx) {
 	}
 
 	// Exit a parse tree produced by GQLParser#concatenationExprAlt.
 	exitConcatenationExprAlt(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GQLParser#disjunctiveExprAlt.
+	enterDisjunctiveExprAlt(ctx) {
+	}
+
+	// Exit a parse tree produced by GQLParser#disjunctiveExprAlt.
+	exitDisjunctiveExprAlt(ctx) {
 	}
 
 
