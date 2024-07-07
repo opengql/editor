@@ -1,13 +1,1 @@
-@font-face {
-  font-family: jetbrains-mono;
-  src: url('../font/jetbrains-mono.ttf');
-}
-
-@font-face {
-  font-family: roboto;
-  src: url('../font/roboto.ttf');
-}
-
-html {
-  font-family: jetbrains-mono, serif;
-}
+@font-face{font-display:swap;font-family:jetbrains-mono;src:url(../font/jetbrains-mono.ttf)}@font-face{font-display:swap;font-family:roboto;src:url(../font/roboto.ttf)}html{font-family:jetbrains-mono,serif}
