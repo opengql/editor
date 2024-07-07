@@ -1,12 +1,11 @@
-import '@testing-library/jest-dom';
 import React from 'react';
-import { ParseTreeNodeType } from '../../src/const/parse-tree-node-type';
-import { storeRender } from '../helper/store-render';
-import { ParseTreeView } from '../../src/container/parse-tree-view';
+import { ParseTreeNodeType } from '$editor/const/parse-tree-node-type';
+import { storeRender } from '$editor-test/helper/store-render';
+import { ParseTreeView } from '$editor/container/parse-tree-view';
 import { act } from '@testing-library/react';
-import { parseResultActions } from '../../src/state/slice/parse-result-slice';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { ParseState } from '../../src/const/parse-state';
+import { parseResultActions } from '$editor/store/slice/parse-result-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
 import { Network } from 'vis-network';
 
 const clearAllMocks = jest.clearAllMocks;

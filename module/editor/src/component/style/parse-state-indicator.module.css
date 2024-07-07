@@ -2,6 +2,15 @@
   display: flex;
   align-items: center;
   font-size: 15px;
+  color: var(--parse-state-label-color);
+}
+
+.parse-state-label-success {
+  color: var(--parse-state-label-success-color);
+}
+
+.parse-state-label-error {
+  color: var(--parse-state-label-error-color);
 }
 
 .parsing-label {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { ParseStateIndicator } from '../../src/component/parse-state-indicator';
-import { ParseState } from '../../src/const/parse-state';
+import { ParseStateIndicator } from '$editor/component/parse-state-indicator';
+import { ParseState } from '$editor/const/parse-state';
 
 describe('ParseStateIndicator', () => {
   const mockParsingError = {

@@ -14,11 +14,11 @@
   padding: 0 1rem;
   line-height: 2em;
   width: calc(100% - 2rem - 2px);
-  color: #696969;
-  background-color: rgba(217, 217, 217, 0.15);
+  color: var(--examples-search-color);
+  background-color: var(--examples-search-bg-color);
   background-image: none;
   background-clip: padding-box;
-  border: 1px solid rgba(133, 133, 133, 0.3);
+  border: 1px solid var(--examples-search-border-color);
   border-radius: 0.25rem;
   margin-bottom: 0.05rem;
   outline: none;
@@ -59,7 +59,7 @@
   font-family: jetbrains-mono,monospace;
   font-size: 12px;
   line-height: 20px;
-  color: #a1a1a1;
+  color: var(--examples-line-numbre-cell-color);
   text-align: right;
   white-space: nowrap;
   vertical-align: top;
@@ -84,8 +84,8 @@
 .highlight-line-number-background {
   width: 55px;
   height: 100%;
-  border-right: 1px solid #e3e9ef;
-  background-color: #efefef;
+  border-right: 1px solid var(--examples-highlight-line-number-background-border-color);
+  background-color: var(--examples-highlight-line-number-background-bg-color);
 }
 
 .highlight-line-background {
@@ -98,12 +98,12 @@
 }
 
 .token-symbol {
-  color: black;
+  color: var(--examples-token-symbol-color);
   font-weight: bold;
 }
 
 .token-literal {
-  color: #990055;
+  color: var(--examples-token-literal-color);
   font-weight: bold;
 }
 
@@ -112,7 +112,8 @@
   cursor: pointer;
   flex-direction: column;
   border-radius: 0.25rem;
-  border: 0.025rem solid #ced4da;
+  color: var(--editor-wrapper-color);
+  border: 0.025rem solid var(--examples-example-border-color);
   margin: 0.25rem 0;
   overflow: hidden;
   -webkit-user-select: none;
@@ -121,8 +122,8 @@
 }
 
 .example .example-header {
-  background-color: #fff;
-  color: #383838;
+  background-color: var(--examples-example-header-bg-color);
+  color: var(--examples-example-header-color);
   padding: 0.5rem 0.75rem;
   font-weight: bold;
 }

@@ -1,13 +1,25 @@
-import { connect } from 'react-redux';
-import css from './style/examples-search.module.css';
+import { useDispatch } from 'react-redux';
+import css from '$editor/container/style/examples-search.module.css';
 import React, { useCallback, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
-import { CodeExample } from '../type/code-example';
-import { ParseState } from '../const/parse-state';
-import { exampleSearchActions } from '../state/slice/examples-search-slice';
+import { exampleSearchActions } from '$editor/store/slice/examples-search-slice';
+import { useLanguageCurrentGrammar } from '$editor/store/hook/language';
+import { useExamplesSearchOptions, useExamplesSearchPhrase } from '$editor/store/hook/examples-search';
 
-const ExamplesSearchImpl = ({ examples, options, phrase, setPhrase, setResult }) => {
+/***
+ * Container that renders the input for examples search.
+ * It uses the fuse.js to perform the search on examples.
+ * This component updates the application state explicitly.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const ExamplesSearch = () => {
+  const { examples } = useLanguageCurrentGrammar();
+  const options = useExamplesSearchOptions();
+  const phrase = useExamplesSearchPhrase();
+  const dispatch = useDispatch();
+
   const [fuse, setFuse] = useState(new Fuse([], options));
 
   const searchForExamples = useCallback((pattern) => fuse.search(pattern).map((result) => result.item), [fuse]);
@@ -16,42 +28,20 @@ const ExamplesSearchImpl = ({ examples, options, phrase, setPhrase, setResult })
     setFuse(new Fuse(examples, options));
 
     if (phrase === '') {
-      setResult(examples);
+      dispatch(exampleSearchActions.setResult(examples));
       return;
     }
 
-    setResult(searchForExamples(phrase));
-  }, [examples, phrase]);
+    dispatch(exampleSearchActions.setResult(searchForExamples(phrase)));
+  }, [examples, phrase, options]);
 
   return (
     <input
       type="text"
       className={css.examplesSearch}
       placeholder="Search..."
-      onChange={(event) => setPhrase(event.target.value)}
+      onChange={(event) => dispatch(exampleSearchActions.setPhrase(event.target.value))}
       data-testid="ti-examples-search-input"
     />
   );
 };
-
-ExamplesSearchImpl.propTypes = {
-  examples: PropTypes.arrayOf(CodeExample).isRequired,
-  options: PropTypes.object.isRequired,
-  phrase: PropTypes.string.isRequired,
-  setPhrase: PropTypes.func.isRequired,
-  setResult: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  examples: state.language.examples,
-  options: state.examplesSearch.options,
-  phrase: state.examplesSearch.phrase,
-  isLoading: state.editor.state === ParseState.INITIALIZING,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setPhrase: (value) => dispatch(exampleSearchActions.setPhrase(value)),
-  setResult: (value) => dispatch(exampleSearchActions.setResult(value)),
-});
-
-export const ExamplesSearch = connect(mapStateToProps, mapDispatchToProps)(ExamplesSearchImpl);

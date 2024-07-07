@@ -1,7 +1,7 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
-import { clearEditor, waitForElementByTestId, waitForMillis } from './helpers/commons';
+import { environment } from '$e2e/helpers/environment';
+import { clearEditor, waitForElementByTestId, waitForMillis } from '$e2e/helpers/commons';
 
 describe('autocomplete feature', () => {
   const feature = loadFeature('./e2e/feature/autocomplete.feature');
@@ -11,7 +11,7 @@ describe('autocomplete feature', () => {
     let page;
 
     beforeEach(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+      browser = await puppeteer.launch({ headless: 'shell', slowMo: 1 });
       page = await browser.newPage();
     });
 
@@ -45,7 +45,7 @@ describe('autocomplete feature', () => {
       then('selected suggestion should be inserted to the editor', async () => {
         const editorValue = await page.$eval('#code-textarea--input', (element) => element.textContent);
         expect(editorValue).not.toBeNull();
-        expect(editorValue?.includes('table')).toBeTruthy();
+        expect(editorValue?.toLowerCase().includes('table')).toBeTruthy();
       });
     });
 
@@ -76,7 +76,7 @@ describe('autocomplete feature', () => {
       then('selected suggestion should be inserted to the editor', async () => {
         const editorValue = await page.$eval('#code-textarea--input', (element) => element.textContent);
         expect(editorValue).not.toBeNull();
-        expect(editorValue?.includes('at')).toBeTruthy();
+        expect(editorValue?.toLowerCase().includes('at')).toBeTruthy();
       });
     });
 

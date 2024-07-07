@@ -1,51 +1,62 @@
-import { createParser } from './create-parser';
-import { SuggestionsProvider } from './suggestions-provider';
-import { ParseTreeExtractor } from './parse-tree-extractor';
-import { ParsingErrorListener } from './parsing-error-listener';
-import { CaseKind } from './const/case-kind';
-import { createLexer } from './create-lexer';
-import { GrammarBuilder } from './grammar-builder';
-import { CommonSyntaxObjects } from './common-syntax-objects';
-import { GqlExamples } from './generated/gql-examples';
+import { grammars, isGrammarNotDefined } from '$worker/grammars';
+import { ParsingErrorListener } from '$worker/shared/parsing-error-listener';
+import { ParseTreeExtractor } from '$worker/shared/parse-tree-extractor';
 
 onmessage = ({ data }) => {
   const { type } = data;
 
   switch (type) {
-    case 'parse': {
-      const { payload } = data;
-      const text = payload.text;
-      const lexer = createLexer(text);
-      const errorListener = new ParsingErrorListener();
-      const parser = createParser(lexer);
+    case 'fetch-grammars': {
+      const grammarsList = Object.values(grammars).map(({ name, label, defaultQuery, examples }) => ({
+        name,
+        label,
+        defaultQuery,
+        examples,
+      }));
 
-      parser.addErrorListener(errorListener);
-
-      const codeSuggestion = new SuggestionsProvider(createLexer, createParser, CaseKind.BOTH);
-      const suggestions = codeSuggestion.suggest(text);
-      const parseOutput = parser.gqlProgram();
-      const parseTreeExtractor = new ParseTreeExtractor(parser);
-      const parseTree = parseTreeExtractor.extract(parseOutput);
-      const errors = errorListener.getErrors();
-      const isInvalid = errors.length !== 0;
-      const result = { text, suggestions, parseTree, errors, isInvalid };
-
-      postMessage(result);
+      postMessage(grammarsList);
       return;
     }
 
     case 'initialize': {
-      const lexer = createLexer('MATCH (p:Person)-[:LIVES_IN]->(c:City)');
-      const parser = createParser(lexer);
+      const { selectedGrammar } = data.payload;
 
-      const grammarDefinition = new GrammarBuilder()
-        .withName('GQL')
-        .withDataFromAntlr(parser.getLiteralNames())
-        .withSyntaxObject(CommonSyntaxObjects.C_LIKE_COMMENT)
-        .withSyntaxObject(CommonSyntaxObjects.STRING)
-        .build();
+      if (isGrammarNotDefined(selectedGrammar)) {
+        return;
+      }
 
-      postMessage({ grammarDefinition, examples: GqlExamples });
+      const grammar = grammars[selectedGrammar];
+      const lexer = grammar.createLexer(grammar.defaultQuery);
+      const parser = grammar.createParser(lexer);
+      const grammarDefinition = grammar.createGrammarDefinition(parser);
+      const { name } = grammar;
+
+      postMessage({ name, grammarDefinition });
+      return;
+    }
+
+    case 'parse': {
+      const { selectedGrammar, text } = data.payload;
+
+      if (isGrammarNotDefined(selectedGrammar)) {
+        return;
+      }
+
+      const grammar = grammars[selectedGrammar];
+      const lexer = grammar.createLexer(text);
+      const errorListener = new ParsingErrorListener();
+      const parser = grammar.createParser(lexer);
+
+      parser.addErrorListener(errorListener);
+
+      const parseOutput = grammar.parse(parser);
+      const parseTreeExtractor = new ParseTreeExtractor(parser);
+      const parseTree = parseTreeExtractor.extract(parseOutput);
+      const errors = errorListener.getErrors();
+      const isInvalid = errors.length !== 0;
+      const result = { text, parseTree, errors, isInvalid };
+
+      postMessage(result);
     }
   }
 };

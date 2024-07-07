@@ -1,8 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { Sidebar } from '../../src/component/sidebar';
-import { routerRender } from '../helper/router-render';
+import { Sidebar } from '$editor/component/sidebar';
+import { routerRender } from '$editor-test/helper/router-render';
 
 describe('Sidebar', () => {
   it('should render sidebar component with sidebar menu and versions', () => {

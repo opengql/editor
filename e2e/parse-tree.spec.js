@@ -1,12 +1,26 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
-import { clearEditor, clickByTestId, waitForElementByTestId } from './helpers/commons';
+import { environment } from '$e2e/helpers/environment';
+import { clearEditor, clickByTestId, waitForElementByTestId } from '$e2e/helpers/commons';
 
 describe('parse tree feature', () => {
   const feature = loadFeature('./e2e/feature/parse-tree.feature');
 
   const example = `MATCH (a { "firstname": "Keith" }), (d { "name": "Winnifred" })
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
 INSERT (a)-[:HasPet]->(d)`;
 
   defineFeature(feature, (test) => {
@@ -14,7 +28,7 @@ INSERT (a)-[:HasPet]->(d)`;
     let page;
 
     beforeEach(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+      browser = await puppeteer.launch({ headless: 'shell' });
       page = await browser.newPage();
     });
 
@@ -32,7 +46,22 @@ INSERT (a)-[:HasPet]->(d)`;
       });
 
       and('the user provides valid large input', async () => {
-        await page.type('#code-textarea--input', example);
+        const inputSelector = '#code-textarea--input';
+        await page.waitForSelector(inputSelector);
+
+        await page.evaluate(
+          (selector, text) => {
+            document.querySelector(selector).value = text;
+          },
+          inputSelector,
+          example,
+        );
+
+        await page.evaluate((selector) => {
+          const inputField = document.querySelector(selector);
+          const event = new Event('input', { bubbles: true });
+          inputField.dispatchEvent(event);
+        }, inputSelector);
       });
 
       and('the user switches to parse tree view', async () => {
@@ -55,7 +84,22 @@ INSERT (a)-[:HasPet]->(d)`;
       });
 
       and('the user provides valid large input', async () => {
-        await page.type('#code-textarea--input', example);
+        const inputSelector = '#code-textarea--input';
+        await page.waitForSelector(inputSelector);
+
+        await page.evaluate(
+          (selector, text) => {
+            document.querySelector(selector).value = text;
+          },
+          inputSelector,
+          example,
+        );
+
+        await page.evaluate((selector) => {
+          const inputField = document.querySelector(selector);
+          const event = new Event('input', { bubbles: true });
+          inputField.dispatchEvent(event);
+        }, inputSelector);
       });
 
       and('the user switches to parse tree view', async () => {

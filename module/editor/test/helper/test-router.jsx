@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
-import { mockNavigateFunc } from './mock-navigate';
+import { mockNavigateFunc } from '$editor-test/helper/mock-navigate';
 
 const Renderer = ({ routes, initRoute }) => {
   const navigate = useNavigate();
@@ -15,8 +15,7 @@ const Renderer = ({ routes, initRoute }) => {
 
   useEffect(
     () =>
-      mockNavigateFunc.mockImplementation((path, ...other) => {
-        console.log(path, ...other);
+      mockNavigateFunc.mockImplementation((path) => {
         setCurrentRoute(path);
       }),
     [],

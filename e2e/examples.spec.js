@@ -1,38 +1,25 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
+import { environment } from '$e2e/helpers/environment';
 import {
   clearFocusedInput,
   clickByTestId,
   getElementsByTestId,
   waitForElementByTestId,
   waitForMillis,
-} from './helpers/commons';
+} from '$e2e/helpers/commons';
 
 describe('examples feature', () => {
   const feature = loadFeature('./e2e/feature/examples.feature');
 
-  const firstGrammarExample = `CREATE GRAPH mySocialNetwork OPEN TYPE
-INSERT (:Person { "firstname": "Keith", "lastname": "Hare", 
-         "joined": DATE "2022-08-23" })
-       -[:LIVES_IN { "since": DATE "1980-07-15" }]->
-       (:City { "name":"Granville", "state":"OH",
-         "country": "USA" })
-INSERT (:Pet { "name": "Winnifred", "type": "Dog" })
-/*
-   The following INSERT succeeds because there are
-   no restrictions on the contents of the graph.
-*/
-MATCH (a { "firstname": "Keith" }), (d { "name": "Winnifred" })
-INSERT (a)-[:HasPet]->(d)
-`.trim();
+  const firstGrammarExample = `CREATE GRAPH mySocialNetwork ::socialNetworkGraphType`.trim();
 
   defineFeature(feature, (test) => {
     let browser;
     let page;
 
     beforeAll(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+      browser = await puppeteer.launch({ headless: 'shell' });
       page = await browser.newPage();
     });
 

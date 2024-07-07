@@ -1,15 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useEncoding } from '../hook/encoding';
-import { Button } from '../component/button';
-import { ShareIcon } from '../icon/share-icon';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useEncoding } from '$editor/hook/encoding';
+import { Button } from '$editor/component/button';
+import { ShareIcon } from '$editor/icon/share-icon';
+import { useEditorValue } from '$editor/store/hook/editor';
 
-const ShareButtonImpl = ({ code }) => {
+/***
+ * Container that allows to copy reference link that can be shared with other users.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+export const ShareButton = () => {
+  const editorValue = useEditorValue();
+
   const { encode } = useEncoding();
   const [isLoading, setIsLoading] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
+  /***
+   * Async method that generates the shortened link for provided long url.
+   *
+   * @param {string} url
+   * @returns {Promise<{ url: string }>}
+   */
   const shortenLink = async (url) =>
     await fetch('https://shorten.wilenskid.pl/api/shorten', {
       method: 'POST',
@@ -21,10 +34,15 @@ const ShareButtonImpl = ({ code }) => {
       }),
     }).then(async (response) => await response.json());
 
-  const handleClick = () => {
+  /***
+   * Method that handle the logic behind the long url generation and copy of shortened link.
+   *
+   * @type {(function(): void)}
+   */
+  const handleClick = useCallback(() => {
     (async () => {
       setIsLoading(true);
-      const encodedCodeStr = encode(code);
+      const encodedCodeStr = encode(editorValue);
       const codeParamValue = encodeURIComponent(encodedCodeStr);
       let targetUrl = window.location.href;
 
@@ -43,7 +61,7 @@ const ShareButtonImpl = ({ code }) => {
       setIsLoading(false);
       setIsCopied(true);
     })().catch(console.error);
-  };
+  }, [editorValue]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -62,13 +80,3 @@ const ShareButtonImpl = ({ code }) => {
     />
   );
 };
-
-ShareButtonImpl.propTypes = {
-  code: PropTypes.string.isRequired,
-};
-
-const mapStateToAction = (state) => ({
-  code: state.editor.value,
-});
-
-export const ShareButton = connect(mapStateToAction)(ShareButtonImpl);

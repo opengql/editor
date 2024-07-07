@@ -1,8 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { SidebarMenuItem } from '../../src/component/sidebar-menu-item';
-import { routerRender } from '../helper/router-render';
+import { SidebarMenuItem } from '$editor/component/sidebar-menu-item';
+import { routerRender } from '$editor-test/helper/router-render';
 
 describe('SidebarMenuItem', () => {
   const mockPath = '/';

@@ -1,0 +1,3 @@
+### NAME: Abstract node example
+CREATE NODE TYPE ABSTRACT (salariedType { salary INT })
+

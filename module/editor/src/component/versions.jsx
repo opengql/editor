@@ -1,6 +1,12 @@
 import React from 'react';
-import css from './style/versions.module.css';
+import css from '$editor/component/style/versions.module.css';
 
+/***
+ * Component that renders information about current application version and the grammar version.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const Versions = () => (
   <div className={css.versionsWrapper} data-testid="ti-versions">
     <div className={css.versionElement}>

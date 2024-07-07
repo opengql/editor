@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import css from './style/highlight.module.css';
-import { SyntaxType } from '../../../worker/src/const/syntax-type';
+import { SyntaxType } from '$worker/shared/const/syntax-type';
+import { useLanguageCurrentGrammar } from '$editor/store/hook/language';
 
 const cssClassNames = {
   [SyntaxType.KEYWORD]: css.keyword,
@@ -16,11 +16,23 @@ const cssClassNames = {
   [SyntaxType.CUSTOM4]: css.custom4,
 };
 
+/***
+ * Hook that generates special grammar object with extra elements used by the highlight algorithm.
+ *
+ * @returns {{}}
+ */
 export const useGrammar = () => {
   const [grammar, setGrammar] = useState({});
 
-  const grammarDefinition = useSelector((state) => state.language.grammarDefinition);
+  const { grammarDefinition } = useLanguageCurrentGrammar();
 
+  /***
+   * Method that takes the {@link RegExp} string and reverts the escape performed on worker side.
+   * It throws 'Invalid regex pattern' when provided string is not a {@link RegExp} string.
+   *
+   * @param regexpStr
+   * @returns {[string,string]}
+   */
   const parseRegExp = (regexpStr) => {
     const patternRegex = /\/(.+)\/([a-z]*)/;
     const matches = regexpStr.match(patternRegex);
@@ -32,9 +44,15 @@ export const useGrammar = () => {
     return [matches[1], matches[2]];
   };
 
+  /***
+   *
+   *
+   * @param {SyntaxObject} syntaxObject
+   * @returns {[string,{pattern: RegExp, greedy: boolean, lookbehind: boolean}][] | undefined}
+   */
   const extractPattern = (syntaxObject) => {
     if (syntaxObject === undefined) {
-      return;
+      return undefined;
     }
 
     const syntaxObjectIdentifier = cssClassNames[syntaxObject.syntaxType];

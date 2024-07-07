@@ -1,7 +1,7 @@
-import { DefaultIconProps, IconProps } from './type/icon-props';
+import { IconProps } from '$editor/icon/type/icon-props';
 import React from 'react';
 
-export const ParseTreeIcon = ({ width, height, testId }) => (
+export const ParseTreeIcon = ({ width = 16, height = 16, testId = 'ti-icon' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -19,5 +19,3 @@ export const ParseTreeIcon = ({ width, height, testId }) => (
 );
 
 ParseTreeIcon.propTypes = IconProps;
-
-ParseTreeIcon.defaultProps = DefaultIconProps;

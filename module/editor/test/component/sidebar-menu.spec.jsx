@@ -1,8 +1,7 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { SidebarMenu } from '../../src/component/sidebar-menu';
-import { routerRender } from '../helper/router-render';
+import { SidebarMenu } from '$editor/component/sidebar-menu';
+import { routerRender } from '$editor-test/helper/router-render';
 
 describe('SidebarMenu', () => {
   it('should render sidebar menu component with SidebarMenuItem components', () => {

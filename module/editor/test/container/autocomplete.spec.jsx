@@ -1,26 +1,32 @@
 import React from 'react';
 import { act, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Autocomplete } from '../../src/container/autocomplete';
-import { editorActions } from '../../src/state/slice/editor-slice';
-import { storeRender } from '../helper/store-render';
-import { languageActions } from '../../src/state/slice/language-slice';
-import { caretDataActions } from '../../src/state/slice/caret-data-slice';
-
-jest.useFakeTimers();
+import { Autocomplete } from '$editor/container/autocomplete';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { storeRender } from '$editor-test/helper/store-render';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { caretDataActions } from '$editor/store/slice/caret-data-slice';
 
 describe('Autocomplete', () => {
   const initialState = {
     caretData: { position: { x: 2, y: 3 }, index: 5 },
     editor: { value: 'const fruits = "apple";' },
-    language: { grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+    language: {
+      selectedGrammar: 'DEFAULT',
+      grammars: {
+        DEFAULT: { name: 'DEFAULT', grammarDefinition: { keywords: ['apple', 'banana', 'cherry'] }, examples: [] },
+      },
+      isFetched: false,
+      isInitialized: false,
+    },
   };
 
   const initializeStore = (store, state) => {
     act(() => {
       store.dispatch(editorActions.setValue(state.editor.value));
-      store.dispatch(languageActions.initialize(state.language));
+
+      store.dispatch(languageActions.initializeAfterFetching({ grammars: state.language.grammars }));
+
       store.dispatch(caretDataActions.update({ selectionStart: 5, value: state.editor.value }));
     });
   };
@@ -73,7 +79,7 @@ describe('Autocomplete', () => {
   });
 
   it('should render the component with suggestions and visible modal', () => {
-    const { queryByTestId, queryAllByTestId, store } = storeRender(<Autocomplete />);
+    const { queryByTestId, queryAllByTestId, store } = renderModal();
 
     act(() => store.dispatch(editorActions.setValue('ap')));
     act(() => store.dispatch(caretDataActions.update({ selectionStart: 2, value: 'ap' })));
@@ -119,15 +125,24 @@ describe('Autocomplete', () => {
   });
 
   it('should handle arrow up key press', () => {
-    const { getByTestId, getAllByTestId, store } = renderModal({
+    const { getAllByTestId, store } = renderModal({
       ...initialState,
-      language: { grammarDefinition: { keywords: ['apple', 'banana', 'cherry', 'apple1', 'apple2'] }, examples: [] },
+      language: {
+        selectedGrammar: 'DEFAULT',
+        grammars: {
+          DEFAULT: {
+            name: 'DEFAULT',
+            grammarDefinition: { keywords: ['apple', 'banana', 'cherry', 'apple1', 'apple2'] },
+            examples: [],
+          },
+        },
+        isFetched: false,
+        isInitialized: false,
+      },
     });
 
     act(() => store.dispatch(editorActions.setValue('app')));
     act(() => store.dispatch(caretDataActions.update({ selectionStart: 3, value: 'app' })));
-
-    const autocompleteList = getByTestId('ti-autocomplete-list');
 
     const suggestionElements = getAllByTestId(/^ti-autocomplete-option-/);
     const option1 = suggestionElements[0];
@@ -138,13 +153,13 @@ describe('Autocomplete', () => {
     expect(option2).not.toHaveClass('autocompleteModalSelectedElement');
     expect(option3).not.toHaveClass('autocompleteModalSelectedElement');
 
-    fireEvent.keyDown(autocompleteList, { key: 'ArrowUp' });
+    act(() => fireEvent.keyDown(document, { key: 'ArrowUp' }));
 
     expect(option1).not.toHaveClass('autocompleteModalSelectedElement');
     expect(option2).not.toHaveClass('autocompleteModalSelectedElement');
     expect(option3).toHaveClass('autocompleteModalSelectedElement');
 
-    fireEvent.keyDown(autocompleteList, { key: 'ArrowUp' });
+    act(() => fireEvent.keyDown(document, { key: 'ArrowUp' }));
 
     expect(option1).not.toHaveClass('autocompleteModalSelectedElement');
     expect(option2).toHaveClass('autocompleteModalSelectedElement');
@@ -154,7 +169,18 @@ describe('Autocomplete', () => {
   it('should handle arrow down key press', () => {
     const { getByTestId, getAllByTestId, store } = renderModal({
       ...initialState,
-      language: { grammarDefinition: { keywords: ['apple', 'banana', 'cherry', 'apple1', 'apple2'] }, examples: [] },
+      language: {
+        selectedGrammar: 'DEFAULT',
+        grammars: {
+          DEFAULT: {
+            name: 'DEFAULT',
+            grammarDefinition: { keywords: ['apple', 'banana', 'cherry', 'apple1', 'apple2'] },
+            examples: [],
+          },
+        },
+        isFetched: false,
+        isInitialized: false,
+      },
     });
 
     act(() => store.dispatch(editorActions.setValue('app')));

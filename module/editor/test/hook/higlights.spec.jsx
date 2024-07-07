@@ -1,11 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { act } from 'react-dom/test-utils';
+import React, { act } from 'react';
+import { screen } from '@testing-library/react';
 import PropTypes from 'prop-types';
-import { useHighlights } from '../../src/hook/highlights';
-import { mockGrammarEventResultInit } from '../mock/grammar-event-result-init';
-import { storeRender } from '../helper/store-render';
+import { useHighlights } from '$editor/hook/highlights';
+import { mockGrammarEventResultInit } from '$editor-test/mock/grammar-event-result-init';
+import { storeRender } from '$editor-test/helper/store-render';
 
 jest.mock('prismjs', () => ({
   highlight: jest.fn().mockImplementation((code) => `<span>${code}</span>`),

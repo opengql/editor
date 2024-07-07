@@ -1,4 +1,4 @@
-import { useStringUtil } from '../../src/hook/string-util';
+import { useStringUtil } from '$editor/hook/string-util';
 
 describe('useStringUtil', () => {
   describe('isWhiteSpace', () => {
@@ -22,43 +22,43 @@ describe('useStringUtil', () => {
 
   describe('getLastWordByIndex', () => {
     it('should return the last word and its data by index', () => {
-      const { getLastWordByIndex } = useStringUtil();
+      const { getInputWordDataFromSelectionStart } = useStringUtil();
       const input = 'This is a test.';
       const index = input.length - 1;
 
-      const { word, wordData } = getLastWordByIndex(input, index);
+      const { word, wordData } = getInputWordDataFromSelectionStart(input, index);
 
       expect(word).toBe('test');
       expect(wordData).toEqual({ startIndex: 10, length: 4 });
     });
 
     it('should handle cases with no previous word', () => {
-      const { getLastWordByIndex } = useStringUtil();
+      const { getInputWordDataFromSelectionStart } = useStringUtil();
       const input = 'No whitespace';
 
-      const { word, wordData } = getLastWordByIndex(input, 2);
+      const { word, wordData } = getInputWordDataFromSelectionStart(input, 2);
 
       expect(word).toBe('No');
       expect(wordData).toEqual({ startIndex: 0, length: 2 });
     });
 
     it('should handle cases with whitespace at the start', () => {
-      const { getLastWordByIndex } = useStringUtil();
+      const { getInputWordDataFromSelectionStart } = useStringUtil();
       const input = '  This is a test.';
       const index = input.length - 1;
 
-      const { word, wordData } = getLastWordByIndex(input, index);
+      const { word, wordData } = getInputWordDataFromSelectionStart(input, index);
 
       expect(word).toBe('test');
       expect(wordData).toEqual({ startIndex: 12, length: 4 });
     });
 
     it('should handle cases with whitespace at the end', () => {
-      const { getLastWordByIndex } = useStringUtil();
+      const { getInputWordDataFromSelectionStart } = useStringUtil();
       const input = 'This is a test.   ';
       const index = input.length - 4;
 
-      const { word, wordData } = getLastWordByIndex(input, index);
+      const { word, wordData } = getInputWordDataFromSelectionStart(input, index);
 
       expect(word).toBe('test');
       expect(wordData).toEqual({ startIndex: 10, length: 4 });

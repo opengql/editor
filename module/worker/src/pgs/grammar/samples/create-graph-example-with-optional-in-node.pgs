@@ -1,0 +1,5 @@
+### NAME: Create graph example with optional in node
+CREATE GRAPH TYPE Test STRICT {
+  (PersonType: Person
+    {name STRING, OPTIONAL birthday DATE})
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { ExamplesListElementCode } from '../../src/component/examples-list-element-code';
+import { ExamplesListElementCode } from '$editor/component/examples-list-element-code';
 import Prism from 'prismjs';
 
 const mockGrammar = Prism.languages.javascript;

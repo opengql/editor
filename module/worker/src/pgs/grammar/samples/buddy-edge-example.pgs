@@ -1,0 +1,4 @@
+### NAME: Buddy edge example
+CREATE GRAPH TYPE Test STRICT {
+  (:EmployeeType)-[BuddyType: FriendType {since DATE, casual BOOL}]->(:EmployeeType)
+}

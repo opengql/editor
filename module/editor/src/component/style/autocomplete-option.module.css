@@ -15,7 +15,7 @@
 }
 
 .autocomplete-modal-selected-element {
-  background: #007cc2;
-  color: #ced4da;
-  border-color: #005381;
+  background: var(--autocomplete-modal-selected-element-bg);
+  color: var(--autocomplete-modal-selected-element-color);
+  border-color: var(--autocomplete-modal-selected-element-border-color);
 }

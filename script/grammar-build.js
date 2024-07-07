@@ -8,6 +8,7 @@ const { renameFileWithPattern } = require('./util/rename-file-with-pattern');
 const { convertToKebabCase } = require('./util/convert-to-kebab-case');
 const { replaceTextInFile } = require('./util/replace-text-in-file');
 const { formatFile } = require('./util/format-file');
+const { splitContentAndMetadataOfSample } = require('./util/split-content-and-metadata-of-sample');
 
 require('dotenv').config();
 
@@ -40,80 +41,107 @@ require('dotenv').config();
     await downloadFile(antlrBinFileUrl, antlrBinFilePath);
   }
 
-  console.log('Cleaning up before parser generation...');
+  const sourceDir = path.join(workingDir, 'module', 'worker', 'src');
 
-  const outputDir = path.join(workingDir, 'module', 'worker', 'src', 'generated');
+  const grammarDefinitions = [
+    {
+      name: 'GQL',
+      outputDir: path.join(sourceDir, 'gql', 'generated'),
+      samplesDir: path.join(workingDir, 'tmp', 'samples'),
+      grammarFile: path.join(workingDir, 'tmp', 'GQL.g4'),
+      samplesFile: path.join(sourceDir, 'gql', 'generated', 'gql-examples.js'),
+    },
+    {
+      name: 'PGS',
+      outputDir: path.join(sourceDir, 'pgs', 'generated'),
+      samplesDir: path.join(sourceDir, 'pgs', 'grammar', 'samples'),
+      grammarFile: path.join(sourceDir, 'pgs', 'grammar', 'PGS.g4'),
+      samplesFile: path.join(sourceDir, 'pgs', 'generated', 'pgs-examples.js'),
+    },
+  ];
 
-  removeDirectory(outputDir);
-  fs.mkdirSync(outputDir);
+  const operations = grammarDefinitions.map(async ({ name, outputDir, samplesDir, grammarFile, samplesFile }) => {
+    console.log(`[${name}] Cleaning up before parser generation...`);
 
-  console.log('Generating grammar code...');
+    removeDirectory(outputDir);
+    fs.mkdirSync(outputDir);
 
-  const grammarFile = './tmp/GQL.g4';
-  const command = `java -jar ${antlrBinFilePath} -Dlanguage=JavaScript -o ${outputDir} ${grammarFile}`;
+    console.log(`[${name}] Generating grammar code...`);
 
-  execSync(command);
+    const command = `java -jar ${antlrBinFilePath} -Dlanguage=JavaScript -o ${outputDir} ${grammarFile}`;
 
-  const tmpOutputDir = path.join(outputDir, 'tmp');
+    execSync(command);
 
-  if (fs.existsSync(tmpOutputDir)) {
-    getFilenamesInDir(tmpOutputDir).forEach((fileName) => {
-      const sourceFile = path.join(tmpOutputDir, fileName);
-      const destinationFile = path.join(outputDir, fileName);
-      fs.renameSync(sourceFile, destinationFile);
+    const tmpOutputDir = path.join(outputDir, 'tmp');
+
+    if (fs.existsSync(tmpOutputDir)) {
+      getFilenamesInDir(tmpOutputDir).forEach((fileName) => {
+        const sourceFile = path.join(tmpOutputDir, fileName);
+        const destinationFile = path.join(outputDir, fileName);
+        fs.renameSync(sourceFile, destinationFile);
+      });
+
+      removeDirectory(tmpOutputDir);
+    }
+
+    console.log(`[${name}] Removing unnecessary files from generation process...`);
+
+    const unnecessaryFiles = getFilenamesInDir(outputDir)
+      .filter((fileName) => fileName.endsWith('.interp') || fileName.endsWith('.tokens'))
+      .map((fileName) => path.join(outputDir, fileName));
+
+    unnecessaryFiles.forEach((filePath) => fs.unlinkSync(filePath));
+
+    console.log(`[${name}] Renaming files from generation process...`);
+
+    const outputFiles = getFilenamesInDir(outputDir).map((fileName) => path.join(outputDir, fileName));
+
+    let namesMap = {};
+
+    for (const outputFile of outputFiles) {
+      const [oldFileName, newFileName] = renameFileWithPattern(outputFile, convertToKebabCase);
+
+      namesMap = {
+        ...namesMap,
+        [oldFileName]: newFileName,
+      };
+    }
+
+    console.log(`[${name}] Refactoring generated file...`);
+
+    getFilenamesInDir(outputDir).forEach((fileName) => {
+      const filePath = path.join(outputDir, fileName);
+
+      Object.entries(namesMap).forEach(([oldFileName, newFileName]) => {
+        replaceTextInFile(filePath, `'./${oldFileName}'`, `'./${newFileName}'`);
+      });
     });
 
-    removeDirectory(tmpOutputDir);
-  }
+    console.log(`[${name}] Generating examples file...`);
 
-  console.log('Removing unnecessary files from generation process...');
+    const examples = getFilenamesInDir(samplesDir).map((sampleFileName) => {
+      const sampleFilePath = path.join(samplesDir, sampleFileName);
+      const rawContent = `${fs.readFileSync(sampleFilePath)}`;
+      const { metadata, content } = splitContentAndMetadataOfSample(rawContent);
+      const exampleName = metadata.name ? metadata.name : sampleFileName.replace(/\.gql/g, '').replace(/\\_/g, ' ');
+      const code = content.replace(/\n/g, '\\n').replace(/'/g, "\\'").replace(/"/g, '\\"');
 
-  const unnecessaryFiles = getFilenamesInDir(outputDir)
-    .filter((fileName) => fileName.endsWith('.interp') || fileName.endsWith('.tokens'))
-    .map((fileName) => path.join(outputDir, fileName));
+      return `{
+        name: "${exampleName}",
+        code: "${code}",
+      }`;
+    });
 
-  unnecessaryFiles.forEach((filePath) => fs.unlinkSync(filePath));
+    const examplesSource = `
+    export const ${name.toLowerCase()}Examples = [\n
+      ${examples}
+    ];\n
+    `;
 
-  console.log('Renaming files from generation process...');
+    fs.writeFileSync(samplesFile, examplesSource);
 
-  const outputFiles = getFilenamesInDir(outputDir).map((fileName) => path.join(outputDir, fileName));
-
-  for (const outputFile of outputFiles) {
-    renameFileWithPattern(outputFile, convertToKebabCase);
-  }
-
-  console.log('Refactoring generated file...');
-
-  const parserFilePath = path.join(workingDir, 'module', 'worker', 'src', 'generated', 'gql-parser.js');
-
-  replaceTextInFile(parserFilePath, "'./GQLListener.js'", "'./gql-listener'");
-
-  console.log('Generating examples file...');
-
-  const samplesPath = path.join(workingDir, 'tmp', 'samples');
-
-  const examples = getFilenamesInDir(samplesPath).map((sampleFileName) => {
-    const sampleFilePath = path.join(workingDir, 'tmp', 'samples', sampleFileName);
-
-    const code = `${fs.readFileSync(sampleFilePath)}`.replace(/\n/g, '\\n').replace(/'/g, "\\'").replace(/"/g, '\\"');
-
-    const exampleName = sampleFileName.replace(/\.gql/g, '').replace(/\\_/g, ' ');
-
-    return `{
-      name: "${exampleName}",
-      code: "${code}",
-    }`;
+    await formatFile(samplesFile);
   });
 
-  const examplesFilePath = path.join(workingDir, 'module', 'worker', 'src', 'generated', 'gql-examples.js');
-
-  const examplesSource = `
-  export const GqlExamples = [\n
-  ${examples}
-  ];\n
-  `;
-
-  fs.writeFileSync(examplesFilePath, examplesSource);
-
-  await formatFile(examplesFilePath);
+  await Promise.all(operations);
 })();

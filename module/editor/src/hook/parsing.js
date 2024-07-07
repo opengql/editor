@@ -1,23 +1,49 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editorActions } from '../state/slice/editor-slice';
-import { ParseState } from '../const/parse-state';
-import { languageActions } from '../state/slice/language-slice';
-import { parseResultActions } from '../state/slice/parse-result-slice';
+import { editorActions } from '$editor/store/slice/editor-slice';
+import { ParseState } from '$editor/const/parse-state';
+import { languageActions } from '$editor/store/slice/language-slice';
+import { parseResultActions } from '$editor/store/slice/parse-result-slice';
+import { isArray } from 'lodash';
+import { useDebouncedEffect } from '$editor/hook/debounced-effect';
 
+/***
+ * Hook that initializes and control the parse process for current language.
+ * Should be used at the index entry of application.
+ * It fixes problem with switching between pages.
+ */
 export const useParsing = () => {
   const value = useSelector((state) => state.editor.value);
+  const isFetched = useSelector((state) => state.language.isFetched);
   const isInitialized = useSelector((state) => state.language.isInitialized);
+  const selectedGrammar = useSelector((state) => state.language.selectedGrammar);
   const dispatch = useDispatch();
   const grammarWorkerRef = useRef(null);
+
+  const handleFetchGrammarsResponse = ({ data }) => {
+    if (!isArray(data)) {
+      return;
+    }
+
+    const grammars = data.reduce(
+      (acc, grammarDefinition) => ({
+        ...acc,
+        [grammarDefinition.name]: grammarDefinition,
+      }),
+      {},
+    );
+
+    dispatch(languageActions.initializeAfterFetching({ grammars }));
+    dispatch(editorActions.setState(ParseState.IDLE));
+  };
 
   const handleInitResponse = ({ data }) => {
     if ('errors' in data || 'tree' in data) {
       return;
     }
 
-    const { grammarDefinition, examples } = data;
-    dispatch(languageActions.initialize({ grammarDefinition, examples }));
+    const { name, grammarDefinition } = data;
+    dispatch(languageActions.initializeGrammarDefinition({ name, grammarDefinition }));
     dispatch(editorActions.setState(ParseState.IDLE));
   };
 
@@ -26,23 +52,25 @@ export const useParsing = () => {
       return;
     }
 
+    console.log(data);
     dispatch(parseResultActions.update(data));
     dispatch(editorActions.setState(ParseState.IDLE));
   };
 
   useEffect(() => {
-    if (grammarWorkerRef.current !== null) {
-      grammarWorkerRef.current.terminate();
-    }
-
-    if (isInitialized) {
+    if (isFetched) {
       return;
     }
 
-    dispatch(editorActions.setState(ParseState.INITIALIZING));
-    grammarWorkerRef.current = new Worker(`./js/worker.bundle.js`);
-    grammarWorkerRef.current.postMessage({ type: 'initialize' });
-    grammarWorkerRef.current.onmessage = handleInitResponse;
+    if (grammarWorkerRef.current !== null) {
+      grammarWorkerRef.current.terminate();
+      grammarWorkerRef.current = null;
+    }
+
+    dispatch(editorActions.setState(ParseState.FETCHING));
+    grammarWorkerRef.current = new Worker(`./js/main.worker.bundle.js`);
+    grammarWorkerRef.current.postMessage({ type: 'fetch-grammars' });
+    grammarWorkerRef.current.onmessage = handleFetchGrammarsResponse;
 
     return () => {
       if (grammarWorkerRef.current === null) {
@@ -54,12 +82,26 @@ export const useParsing = () => {
   }, []);
 
   useEffect(() => {
-    if (grammarWorkerRef.current === null || !isInitialized) {
+    if (grammarWorkerRef.current === null || !isFetched || isInitialized) {
       return;
     }
 
-    dispatch(editorActions.setState(ParseState.PARSING));
-    grammarWorkerRef.current.postMessage({ type: 'parse', payload: { text: value } });
-    grammarWorkerRef.current.onmessage = handleParseResponse;
-  }, [value, isInitialized]);
+    dispatch(editorActions.setState(ParseState.INITIALIZING));
+    grammarWorkerRef.current.postMessage({ type: 'initialize', payload: { selectedGrammar } });
+    grammarWorkerRef.current.onmessage = handleInitResponse;
+  }, [selectedGrammar, isFetched, isInitialized]);
+
+  useDebouncedEffect(
+    () => {
+      if (grammarWorkerRef.current === null || !isFetched || !isInitialized) {
+        return;
+      }
+
+      dispatch(editorActions.setState(ParseState.PARSING));
+      grammarWorkerRef.current.postMessage({ type: 'parse', payload: { selectedGrammar, text: value } });
+      grammarWorkerRef.current.onmessage = handleParseResponse;
+    },
+    500,
+    [selectedGrammar, value, isFetched, isInitialized],
+  );
 };

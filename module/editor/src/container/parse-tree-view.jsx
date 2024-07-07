@@ -1,18 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { Network } from 'vis-network';
-import css from './style/parse-tree.module.css';
-import PropTypes from 'prop-types';
-import { ParseTreeNode } from '../type/parse-tree-node';
-import { useParseTreeConverter } from '../hook/parse-tree-converter';
-import { SpinnerIcon } from '../icon/spinner-icon';
-import { connect } from 'react-redux';
-import { ParseState } from '../const/parse-state';
-import { ParseTreeViewOptions } from '../component/const/parse-tree-view-options';
+import css from '$editor/container/style/parse-tree.module.css';
+import { useParseTreeConverter } from '$editor/hook/parse-tree-converter';
+import { SpinnerIcon } from '$editor/icon/spinner-icon';
+import { ParseState } from '$editor/const/parse-state';
+import { ParseTreeViewOptions } from '$editor/component/const/parse-tree-view-options';
+import { useParserResultTree } from '$editor/store/hook/parser-result';
+import { useEditorState } from '$editor/store/hook/editor';
 
-const ParseTreeViewImpl = ({ parseTree, isParsing }) => {
+export const ParseTreeView = () => {
+  const state = useEditorState();
+  const tree = useParserResultTree();
+
   const containerRef = useRef(null);
   const networkRef = useRef(null);
-  const { isConverting, convertResult } = useParseTreeConverter(parseTree);
+  const { isConverting, convertResult } = useParseTreeConverter(tree);
 
   useEffect(() => {
     if (containerRef.current === null) {
@@ -32,31 +34,22 @@ const ParseTreeViewImpl = ({ parseTree, isParsing }) => {
       networkRef.current?.destroy();
       networkRef.current = null;
     };
-  }, [isParsing, convertResult]);
+  }, [state, convertResult]);
 
   return (
     <div className={css.parseTree}>
-      <div className={css.parseTreeLoadingWrapper} style={{ display: isParsing || isConverting ? 'inherit' : 'none' }}>
+      <div
+        className={css.parseTreeLoadingWrapper}
+        style={{ display: state !== ParseState.IDLE || isConverting ? 'inherit' : 'none' }}
+      >
         <SpinnerIcon testId="ti-loading-parse-tree" width="64" height="64" />
       </div>
       <div
         ref={containerRef}
         className={css.parseTreeView}
         data-testid="ti-parse-tree--container"
-        style={{ display: isParsing || isConverting ? 'none' : 'inherit' }}
+        style={{ display: state !== ParseState.IDLE || isConverting ? 'none' : 'inherit' }}
       />
     </div>
   );
 };
-
-ParseTreeViewImpl.propTypes = {
-  isParsing: PropTypes.bool.isRequired,
-  parseTree: PropTypes.arrayOf(ParseTreeNode),
-};
-
-const mapStateToProps = (state) => ({
-  isParsing: state.editor.state !== ParseState.IDLE,
-  parseTree: state.parserResult.tree,
-});
-
-export const ParseTreeView = connect(mapStateToProps)(ParseTreeViewImpl);

@@ -1,4 +1,4 @@
-import { useSuggestionUtil } from '../../src/hook/suggestion-util';
+import { useSuggestionUtil } from '$editor/hook/suggestion-util';
 
 describe('useSuggestionUtil', () => {
   describe('getSimilarWords', () => {

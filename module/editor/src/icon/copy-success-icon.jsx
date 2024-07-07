@@ -1,7 +1,7 @@
 import React from 'react';
-import { DefaultIconProps, IconProps } from './type/icon-props';
+import { IconProps } from '$editor/icon/type/icon-props';
 
-export const CopySuccessIcon = ({ width, height, testId }) => (
+export const CopySuccessIcon = ({ width = 16, height = 16, testId = 'ti-icon' }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}
@@ -16,5 +16,3 @@ export const CopySuccessIcon = ({ width, height, testId }) => (
 );
 
 CopySuccessIcon.propTypes = IconProps;
-
-CopySuccessIcon.defaultProps = DefaultIconProps;

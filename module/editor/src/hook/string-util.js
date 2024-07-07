@@ -1,11 +1,29 @@
+/***
+ * Hook that provides methods usable to manipulate strings.
+ *
+ * @returns {{getInputWordDataFromSelectionStart: (function(string, number): {word: string, wordData: {startIndex: number, length: number}}), isWhiteSpace: (function(string): boolean)}}
+ */
 export const useStringUtil = () => {
+  /***
+   * Method that verifies is provided char a whitespace.
+   *
+   * @param {string} char
+   * @returns {boolean}
+   */
   const isWhiteSpace = (char) => /[\s \r\n]/.test(char);
 
-  const getLastWordByIndex = (input, startIndex) => {
+  /***
+   * Method that
+   *
+   * @param {string} input
+   * @param {number} selectionStartIndex
+   * @returns {{word: string, wordData: {startIndex: number, length: number}}}
+   */
+  const getInputWordDataFromSelectionStart = (input, selectionStartIndex) => {
     let word = '';
-    let lastIndex = startIndex;
+    let lastIndex = selectionStartIndex;
 
-    for (let i = startIndex - 1; i >= 0; i--) {
+    for (let i = selectionStartIndex - 1; i >= 0; i--) {
       if (isWhiteSpace(input[i])) {
         break;
       }
@@ -16,11 +34,11 @@ export const useStringUtil = () => {
 
     const wordData = {
       startIndex: lastIndex,
-      length: startIndex - lastIndex,
+      length: selectionStartIndex - lastIndex,
     };
 
     return { word, wordData };
   };
 
-  return { isWhiteSpace, getLastWordByIndex };
+  return { isWhiteSpace, getInputWordDataFromSelectionStart };
 };

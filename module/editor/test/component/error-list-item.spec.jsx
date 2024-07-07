@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { ErrorListItem } from '../../src/component/error-list-item';
+import { ErrorListItem } from '$editor/component/error-list-item';
 
 describe('ErrorListItem', () => {
   const mockError = {

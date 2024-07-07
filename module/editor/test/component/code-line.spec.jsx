@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { CodeLine } from '../../src/component/code-line';
+import { CodeLine } from '$editor/component/code-line';
 
 describe('CodeLine', () => {
   const mockLine = '<div>Code line content</div>';

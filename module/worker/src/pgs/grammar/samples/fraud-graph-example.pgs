@@ -1,0 +1,12 @@
+### NAME: Fraud graph example
+CREATE GRAPH TYPE FraudGraphType LOOSE {
+  (PersonType: Person {name STRING}),
+  (CustomerType: PersonType & Customer {c_id INT32}),
+  (CreditCardType: CreditCard {cc_num STRING}),
+  (TransactionType: Transaction {cc_num STRING}),
+  (AccountType: Account {acct_id INT32}),
+  (:CustomerType)-[OwnsAccountType: owns]->(:AccountType),
+  (:CustomerType)-[UsesCreditCardType: uses]->(:CreditCardType),
+  (:TransactionType)-[ChargesCreditCardType: charge {amount DOUBLE}]->(:CreditCardType),
+  (:TransactionType)-[ActivityType: deposit|withdraw {time DATETIME}]->(:AccountType)
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { appStore } from '../../src/state/app-store';
+import { appStore } from '$editor/store/app-store';
 import { MemoryRouter } from 'react-router-dom';
 
 export const storeRender = (component) => {

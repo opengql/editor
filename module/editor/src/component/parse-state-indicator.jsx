@@ -1,32 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ParsingError } from '../type/parsing-error';
-import { SpinnerIcon } from '../icon/spinner-icon';
-import { If } from './if';
-import { CheckIcon } from '../icon/check-icon';
-import { ExclamationIcon } from '../icon/exclamation-icon';
-import css from './style/parse-state-indicator.module.css';
-import { ParseState } from '../const/parse-state';
+import { SpinnerIcon } from '$editor/icon/spinner-icon';
+import { If } from '$editor/component/if';
+import { CheckIcon } from '$editor/icon/check-icon';
+import { ExclamationIcon } from '$editor/icon/exclamation-icon';
+import css from '$editor/component/style/parse-state-indicator.module.css';
+import { ParseState } from '$editor/const/parse-state';
+import { ParseErrorShape } from '$editor/prop-type/parse-error-shape';
 
 const iconSize = 12;
 
+/***
+ * Component that renders with multiple states.
+ * The states are related to current parsing process of the application.
+ * Each state of the {@link ParseState} should have its representation in this component.
+ *
+ * @param {ParseState} parseState
+ * @param {import('$editor/store/type/parse-error.js').ParseError[]} parseErrors
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const ParseStateIndicator = ({ parseState, parseErrors }) => {
-  const getStyles = () => {
-    let color;
-
+  const getStatusClassName = () => {
     if (parseState === ParseState.IDLE && parseErrors.length === 0) {
-      color = '#009b1c';
+      return css.parseStateLabelSuccess;
     } else if (parseState === ParseState.IDLE && parseErrors.length !== 0) {
-      color = '#9b1c00';
+      return css.parseStateLabelError;
     } else {
-      color = '#484848';
+      return '';
     }
-
-    return { color };
   };
 
   return (
-    <span className={css.parseStateLabel} style={getStyles()} data-testid="ti-parsing-state">
+    <span className={`${css.parseStateLabel} ${getStatusClassName()}`} data-testid="ti-parsing-state">
       <If condition={parseState === ParseState.INITIALIZING}>
         <SpinnerIcon width={iconSize} height={iconSize} />
         <span className={css.parsingLabel} data-testid="ti-parsing-status--label-init">
@@ -57,6 +63,6 @@ export const ParseStateIndicator = ({ parseState, parseErrors }) => {
 };
 
 ParseStateIndicator.propTypes = {
-  parseErrors: PropTypes.arrayOf(ParsingError),
+  parseErrors: PropTypes.arrayOf(ParseErrorShape),
   parseState: PropTypes.oneOf(Object.values(ParseState)),
 };

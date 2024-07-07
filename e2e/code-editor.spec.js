@@ -1,7 +1,7 @@
 import { defineFeature, loadFeature } from 'jest-cucumber';
 import puppeteer from 'puppeteer';
-import { environment } from './helpers/environment';
-import { clearEditor, getElementByTestId, waitForElementByTestId, waitForMillis } from './helpers/commons';
+import { environment } from '$e2e/helpers/environment';
+import { clearEditor, getElementByTestId, waitForElementByTestId, waitForMillis } from '$e2e/helpers/commons';
 
 describe('code editor feature', () => {
   const feature = loadFeature('./e2e/feature/code-editor.feature');
@@ -10,12 +10,12 @@ describe('code editor feature', () => {
     let browser;
     let page;
 
-    beforeAll(async () => {
-      browser = await puppeteer.launch({ headless: 'new' });
+    beforeEach(async () => {
+      browser = await puppeteer.launch({ headless: 'shell', slowMo: 1 });
       page = await browser.newPage();
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
       await browser.close();
     });
 
@@ -122,7 +122,7 @@ describe('code editor feature', () => {
       });
 
       and('the user provides valid input', async () => {
-        await page.type('#code-textarea--input', 'match (t)-[:L]->(d)');
+        await page.type('#code-textarea--input', 'match (t)-[:L]->(d) return t');
       });
 
       and('the input is parsed', async () => {

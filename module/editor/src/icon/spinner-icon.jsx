@@ -1,8 +1,8 @@
 import React from 'react';
 import css from './style/spinner-icon.module.css';
-import { DefaultIconProps, IconProps } from './type/icon-props';
+import { IconProps } from '$editor/icon/type/icon-props';
 
-export const SpinnerIcon = ({ width, height, testId }) => (
+export const SpinnerIcon = ({ width = 16, height = 16, testId = 'ti-icon' }) => (
   <div className={css.spinnerIcon}>
     <svg
       id="loading-spinner"
@@ -29,5 +29,3 @@ export const SpinnerIcon = ({ width, height, testId }) => (
 );
 
 SpinnerIcon.propTypes = IconProps;
-
-SpinnerIcon.defaultProps = DefaultIconProps;

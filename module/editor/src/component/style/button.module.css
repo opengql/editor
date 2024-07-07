@@ -3,12 +3,12 @@
   justify-content: center;
   align-items: center;
   padding: 0.25rem 0.5rem;
-  border: 1px solid rgba(133, 133, 133, 0.3);
+  border: 1px solid var(--button-border-color);
   border-radius: 0.25rem;
-  color: #696969;
+  color: var(--button-color);
   font-weight: 500;
   text-decoration: none;
-  background-color: rgba(217, 217, 217, 0.15);
+  background-color: var(--button-bg-color);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   line-height: 2em;
@@ -19,12 +19,12 @@
 }
 
 .button:hover {
-  background-color: rgba(217, 217, 217, 0.30);
+  background-color: var(--button-bg-color-hover);
 }
 
 .button:focus {
   outline: none;
-  border: 1px solid rgba(133, 133, 133, 0.5);
+  border: 1px solid var(--button-bg-color-focus);
 }
 
 .button-content-wrapper {

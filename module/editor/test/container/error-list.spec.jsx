@@ -1,9 +1,8 @@
-import '@testing-library/jest-dom';
 import React from 'react';
 import { act, screen } from '@testing-library/react';
-import { ErrorList } from '../../src/container/error-list';
-import { storeRender } from '../helper/store-render';
-import { parseResultActions } from '../../src/state/slice/parse-result-slice';
+import { ErrorList } from '$editor/container/error-list';
+import { storeRender } from '$editor-test/helper/store-render';
+import { parseResultActions } from '$editor/store/slice/parse-result-slice';
 
 describe('ErrorList', () => {
   const initializeStore = (store, state) => {

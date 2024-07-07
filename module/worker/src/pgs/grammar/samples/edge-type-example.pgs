@@ -1,0 +1,3 @@
+### NAME: Edge type example
+CREATE EDGE TYPE
+  (:CustomerType)-[OwnsAccountType: owns]->(:AccountType)

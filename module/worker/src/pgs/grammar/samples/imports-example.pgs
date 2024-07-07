@@ -1,0 +1,3 @@
+### NAME: Imports example
+CREATE GRAPH TYPE fraudGraphType STRICT IMPORTS socialGraphType {}
+
