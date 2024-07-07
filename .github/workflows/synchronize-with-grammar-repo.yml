@@ -43,7 +43,7 @@ jobs:
 
       - name: Build grammar sources
         run: |
-          yarn
+          yarn install
           yarn grammar:download
           yarn grammar:build
           MAJOR=$(jq -r '.major' tmp/version.json)
