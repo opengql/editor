@@ -26,10 +26,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: npm install -g yarn
+        run: npm install -g pnpm
 
       - name: Delete origin update_grammar branch if exists
         run: |
@@ -54,7 +54,7 @@ jobs:
           mv temp.json package.json
 
       - name: Verify is application valid
-        run: yarn test:editor && yarn test:worker
+        run: pnpm test:editor && pnpm test:worker
 
       - name: Check for any changes
         id: check
