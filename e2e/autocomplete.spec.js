@@ -11,7 +11,7 @@ describe('autocomplete feature', () => {
     let page;
 
     beforeEach(async () => {
-      browser = await puppeteer.launch({ headless: 'shell' });
+      browser = await puppeteer.launch({ headless: 'shell', slowMo: 1 });
       page = await browser.newPage();
     });
 

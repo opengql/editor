@@ -7,6 +7,20 @@ describe('parse tree feature', () => {
   const feature = loadFeature('./e2e/feature/parse-tree.feature');
 
   const example = `MATCH (a { "firstname": "Keith" }), (d { "name": "Winnifred" })
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
+INSERT (a)-[:HasPet]->(d)
 INSERT (a)-[:HasPet]->(d)`;
 
   defineFeature(feature, (test) => {
@@ -32,7 +46,22 @@ INSERT (a)-[:HasPet]->(d)`;
       });
 
       and('the user provides valid large input', async () => {
-        await page.type('#code-textarea--input', example);
+        const inputSelector = '#code-textarea--input';
+        await page.waitForSelector(inputSelector);
+
+        await page.evaluate(
+          (selector, text) => {
+            document.querySelector(selector).value = text;
+          },
+          inputSelector,
+          example,
+        );
+
+        await page.evaluate((selector) => {
+          const inputField = document.querySelector(selector);
+          const event = new Event('input', { bubbles: true });
+          inputField.dispatchEvent(event);
+        }, inputSelector);
       });
 
       and('the user switches to parse tree view', async () => {
@@ -55,7 +84,22 @@ INSERT (a)-[:HasPet]->(d)`;
       });
 
       and('the user provides valid large input', async () => {
-        await page.type('#code-textarea--input', example);
+        const inputSelector = '#code-textarea--input';
+        await page.waitForSelector(inputSelector);
+
+        await page.evaluate(
+          (selector, text) => {
+            document.querySelector(selector).value = text;
+          },
+          inputSelector,
+          example,
+        );
+
+        await page.evaluate((selector) => {
+          const inputField = document.querySelector(selector);
+          const event = new Event('input', { bubbles: true });
+          inputField.dispatchEvent(event);
+        }, inputSelector);
       });
 
       and('the user switches to parse tree view', async () => {

@@ -10,12 +10,12 @@ describe('code editor feature', () => {
     let browser;
     let page;
 
-    beforeAll(async () => {
-      browser = await puppeteer.launch({ headless: false, slowMo: 10 });
+    beforeEach(async () => {
+      browser = await puppeteer.launch({ headless: 'shell', slowMo: 1 });
       page = await browser.newPage();
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
       await browser.close();
     });
 
@@ -122,7 +122,7 @@ describe('code editor feature', () => {
       });
 
       and('the user provides valid input', async () => {
-        await page.type('#code-textarea--input', 'match (t)-[:L]->(d)');
+        await page.type('#code-textarea--input', 'match (t)-[:L]->(d) return t');
       });
 
       and('the input is parsed', async () => {

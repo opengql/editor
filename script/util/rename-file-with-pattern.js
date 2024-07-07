@@ -4,6 +4,7 @@ const path = require('path');
 /***
  * Method that renames file with provided pattern.
  * Example pattern that can be used is {@link convertToKebabCase}
+ *
  * @param {string} filePath
  * @param {function(fileName: string): string} pattern
  * @returns {[string,string]}

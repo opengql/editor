@@ -5,6 +5,7 @@ import { ParseState } from '$editor/const/parse-state';
 import { languageActions } from '$editor/store/slice/language-slice';
 import { parseResultActions } from '$editor/store/slice/parse-result-slice';
 import { isArray } from 'lodash';
+import { useDebouncedEffect } from '$editor/hook/debounced-effect';
 
 /***
  * Hook that initializes and control the parse process for current language.
@@ -51,6 +52,7 @@ export const useParsing = () => {
       return;
     }
 
+    console.log(data);
     dispatch(parseResultActions.update(data));
     dispatch(editorActions.setState(ParseState.IDLE));
   };
@@ -89,13 +91,17 @@ export const useParsing = () => {
     grammarWorkerRef.current.onmessage = handleInitResponse;
   }, [selectedGrammar, isFetched, isInitialized]);
 
-  useEffect(() => {
-    if (grammarWorkerRef.current === null || !isFetched || !isInitialized) {
-      return;
-    }
+  useDebouncedEffect(
+    () => {
+      if (grammarWorkerRef.current === null || !isFetched || !isInitialized) {
+        return;
+      }
 
-    dispatch(editorActions.setState(ParseState.PARSING));
-    grammarWorkerRef.current.postMessage({ type: 'parse', payload: { selectedGrammar, text: value } });
-    grammarWorkerRef.current.onmessage = handleParseResponse;
-  }, [selectedGrammar, value, isFetched, isInitialized]);
+      dispatch(editorActions.setState(ParseState.PARSING));
+      grammarWorkerRef.current.postMessage({ type: 'parse', payload: { selectedGrammar, text: value } });
+      grammarWorkerRef.current.onmessage = handleParseResponse;
+    },
+    500,
+    [selectedGrammar, value, isFetched, isInitialized],
+  );
 };
