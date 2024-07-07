@@ -1,4 +1,4 @@
-// Generated from F:/Projects2/Other/editor/module/worker/src/pgs/grammar/PGS.g4 by ANTLR 4.13.1
+// Generated from /home/runner/work/editor/editor/module/worker/src/pgs/grammar/PGS.g4 by ANTLR 4.13.1
 // jshint ignore: start
 import antlr4 from 'antlr4';
 import PGSListener from './pgs-listener.js';
