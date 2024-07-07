@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm install -g pnpm
@@ -43,9 +43,9 @@ jobs:
 
       - name: Build grammar sources
         run: |
-          yarn
-          yarn grammar:download
-          yarn grammar:build
+          pnpm install
+          pnpm grammar:download
+          pnpm grammar:build
           MAJOR=$(jq -r '.major' tmp/version.json)
           MINOR=$(jq -r '.minor' tmp/version.json)
           PATCH=$(jq -r '.patch' tmp/version.json)
