@@ -9,7 +9,7 @@ module.exports = {
         node: true,
       },
       extends: ['standard', 'prettier'],
-      plugins: ['prettier'],
+      plugins: ['prettier', 'jsdoc'],
       rules: {
         'prettier/prettier': ['error', prettierConfig],
       },
@@ -29,7 +29,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['react', 'prettier', 'import'],
+      plugins: ['react', 'prettier', 'import', 'jsdoc'],
       settings: {
         react: {
           version: 'detect',
@@ -87,11 +87,7 @@ module.exports = {
     },
     {
       files: ['module/worker/**/*.js'],
-      excludedFiles: [
-        '**/*-lexer.js',
-        '**/*-listener.js',
-        '**/*-parser.js',
-      ],
+      excludedFiles: ['**/*-lexer.js', '**/*-listener.js', '**/*-parser.js'],
       env: {
         es6: true,
         worker: true,
@@ -104,7 +100,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['prettier', 'sort-class-members', 'import'],
+      plugins: ['prettier', 'sort-class-members', 'import', 'jsdoc'],
       settings: {
         'import/resolver': {
           webpack: {
@@ -219,7 +215,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
       },
-      plugins: ['prettier', 'sort-class-members'],
+      plugins: ['prettier', 'sort-class-members', 'jsdoc'],
       rules: {
         'prettier/prettier': ['error', prettierConfig],
         'sort-class-members/sort-class-members': [

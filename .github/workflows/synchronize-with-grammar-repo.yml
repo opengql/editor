@@ -5,7 +5,7 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GRAMMAR_REPOSITORY_TOKEN: ${{ secrets.GRAMMAR_REPOSITORY_TOKEN }}
+  GRAMMAR_REPOSITORY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   createPullRequest:

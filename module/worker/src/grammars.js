@@ -6,4 +6,10 @@ export const grammars = {
   PGS: createPgsGrammar(),
 };
 
+/***
+ * Method that allows to check is given language defined in worker.
+ *
+ * @param {string} grammarName
+ * @returns {boolean}
+ */
 export const isGrammarNotDefined = (grammarName) => grammars[grammarName] === undefined;

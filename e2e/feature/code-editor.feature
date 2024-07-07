@@ -9,10 +9,10 @@ Feature: Code Editor
     Examples:
       | input                                                                                                                                                                                              |
       | INSERT (:Person { "firstname": "Keith", "lastname": "Hare", "joined": DATE "2022-08-23" })-[:LIVES_IN { "since": DATE "1980-07-15" }]->(:City { "name":"Granville","state":"OH","country":"USA" }) |
-      | MATCH (p:Person)-[:LIVES_IN]->(c:City)                                                                                                                                                             |
-      | CREATE GRAPH mySocialNetwork OPEN TYPE                                                                                                                                                             |
+      | MATCH (p:Person)-[:LIVES_IN]->(c:City) RETURN p, c                                                                                                                                                 |
+      | CREATE GRAPH mySocialNetwork OPEN_TYPE                                                                                                                                                             |
       | INSERT (:Pet { "name": "Winnifred", "type": "Dog" })                                                                                                                                               |
-      | MATCH (a { "firstname": "Keith" }), (d { "name": "Winnifred" })                                                                                                                                    |
+      | MATCH (a { "firstname": "Keith" }), (d { "name": "Winnifred" }) RETURN a, d                                                                                                                        |
       | INSERT (a)-[:HasPet]->(d)                                                                                                                                                                          |
       | MATCH (a)-[:HasPet]->(d) RETURN a, d                                                                                                                                                               |
 

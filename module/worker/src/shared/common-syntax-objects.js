@@ -5,6 +5,8 @@ const COMMENT_REGEX = /(^|[^\\:])\/\/.*/g;
 const STRING_REGEX = /(["'`])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/g;
 
 /***
+ * Object that defines basic syntax object shared between languages.
+ *
  * @typedef CommonSyntaxObjects
  * @readonly
  * @enum {SyntaxObject}

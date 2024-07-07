@@ -1,27 +1,14 @@
-import { CharStreams, CommonTokenStream, PredictionMode } from 'antlr4';
-import GQLLexer from '$worker/gql/generated/gql-lexer';
 import { ParseTreeExtractor } from '$worker/shared/parse-tree-extractor';
 import GQLParser from '$worker/gql/generated/gql-parser';
+import { grammars } from '$worker/grammars';
 
 describe('ParseTreeExtractor', () => {
-  const lexerFactory = (input) => {
-    const charStream = CharStreams.fromString(input);
-    return new GQLLexer(charStream);
-  };
-
-  const parserFactory = (lexer) => {
-    const commonTokenStream = new CommonTokenStream(lexer);
-    const parser = new GQLParser(commonTokenStream);
-    parser.buildParseTrees = true;
-    parser.removeErrorListeners();
-    parser._interp.predictionMode = PredictionMode.SLL;
-    return parser;
-  };
+  const grammar = grammars.GQL;
 
   describe('extract', () => {
     it('should extract the parse tree correctly', () => {
-      const lexer = lexerFactory('session start');
-      const parser = parserFactory(lexer);
+      const lexer = grammar.createLexer('session start');
+      const parser = grammar.createParser(lexer);
       const parseResult = parser.gqlProgram();
       const parseTreeExtractor = new ParseTreeExtractor(parser);
       const result = parseTreeExtractor.extract(parseResult);

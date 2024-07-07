@@ -13,7 +13,7 @@ const transformJsconfigToJestModuleNameMapper = () => {
 module.exports = {
   roots: ['<rootDir>/e2e'],
   testRegex: '(.*|(\\.|/)(test|spec))\\.js$',
-  testPathIgnorePatterns: ['/node_modules/', '/build/', '/e2e/helpers'],
+  testPathIgnorePatterns: ['/node_modules/', '/build/', '/e2e/helpers', '/e2e/setup'],
   testEnvironment: 'jest-environment-node',
   moduleFileExtensions: ['js', 'json', 'node'],
   moduleNameMapper: transformJsconfigToJestModuleNameMapper(),
@@ -25,5 +25,5 @@ module.exports = {
       },
     ],
   },
-  testTimeout: 9999999,
+  setupFilesAfterEnv: ['<rootDir>/e2e/setup/after-env.js'],
 };
