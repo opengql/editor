@@ -29,7 +29,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install -g pnpm
+        run: npm install -g yarn
 
       - name: Delete origin update_grammar branch if exists
         run: |
@@ -43,9 +43,9 @@ jobs:
 
       - name: Build grammar sources
         run: |
-          pnpm install
-          pnpm grammar:download
-          pnpm grammar:build
+          yarn install
+          yarn grammar:download
+          yarn grammar:build
           MAJOR=$(jq -r '.major' tmp/version.json)
           MINOR=$(jq -r '.minor' tmp/version.json)
           PATCH=$(jq -r '.patch' tmp/version.json)
@@ -54,7 +54,7 @@ jobs:
           mv temp.json package.json
 
       - name: Verify is application valid
-        run: pnpm test:editor && pnpm test:worker
+        run: yarn test:editor && yarn test:worker
 
       - name: Check for any changes
         id: check
