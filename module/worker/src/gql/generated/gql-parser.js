@@ -881,7 +881,7 @@ const serializedATN = [4,1,391,4619,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,
 0,2077,2078,3,310,155,0,2078,307,1,0,0,0,2079,2081,5,286,0,0,2080,2082,5,
 279,0,0,2081,2080,1,0,0,0,2081,2082,1,0,0,0,2082,2085,1,0,0,0,2083,2085,
 5,287,0,0,2084,2079,1,0,0,0,2084,2083,1,0,0,0,2085,309,1,0,0,0,2086,2088,
-3,1142,571,0,2087,2089,5,279,0,0,2088,2087,1,0,0,0,2088,2089,1,0,0,0,2089,
+3,1144,572,0,2087,2089,5,279,0,0,2088,2087,1,0,0,0,2088,2089,1,0,0,0,2089,
 2092,1,0,0,0,2090,2092,3,1142,571,0,2091,2086,1,0,0,0,2091,2090,1,0,0,0,
 2092,311,1,0,0,0,2093,2098,3,314,157,0,2094,2095,5,361,0,0,2095,2097,3,314,
 157,0,2096,2094,1,0,0,0,2097,2100,1,0,0,0,2098,2096,1,0,0,0,2098,2099,1,
@@ -8671,12 +8671,12 @@ export default class GQLParser extends antlr4.Parser {
 	    try {
 	        this.state = 2091;
 	        this._errHandler.sync(this);
-	        var la_ = this._interp.adaptivePredict(this._input,155,this._ctx);
-	        switch(la_) {
-	        case 1:
+	        switch(this._input.LA(1)) {
+	        case 284:
+	        case 307:
 	            this.enterOuterAlt(localctx, 1);
 	            this.state = 2086;
-	            this.edgesSynonym();
+	            this.edgeSynonym();
 	            this.state = 2088;
 	            this._errHandler.sync(this);
 	            var la_ = this._interp.adaptivePredict(this._input,154,this._ctx);
@@ -8686,13 +8686,14 @@ export default class GQLParser extends antlr4.Parser {
 
 	            }
 	            break;
-
-	        case 2:
+	        case 285:
+	        case 308:
 	            this.enterOuterAlt(localctx, 2);
 	            this.state = 2090;
 	            this.edgesSynonym();
 	            break;
-
+	        default:
+	            throw new antlr4.error.NoViableAltException(this);
 	        }
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -33237,12 +33238,16 @@ class EdgeBindingsOrEdgesContext extends antlr4.ParserRuleContext {
         this.ruleIndex = GQLParser.RULE_edgeBindingsOrEdges;
     }
 
-	edgesSynonym() {
-	    return this.getTypedRuleContext(EdgesSynonymContext,0);
+	edgeSynonym() {
+	    return this.getTypedRuleContext(EdgeSynonymContext,0);
 	};
 
 	BINDINGS() {
 	    return this.getToken(GQLParser.BINDINGS, 0);
+	};
+
+	edgesSynonym() {
+	    return this.getTypedRuleContext(EdgesSynonymContext,0);
 	};
 
 	enterRule(listener) {
