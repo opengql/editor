@@ -95,13 +95,14 @@ export class GrammarBuilder {
   };
 
   /***
-   * Adds provided {@link SyntaxObject} to the grammar definition.
+   * Adds provided {@link SyntaxObject} to the grammar definition. The {@link SyntaxObject} is added to the beginning of
+   * the syntax array.
    *
    * @param {SyntaxObject} syntaxObject
    * @returns {GrammarBuilder}
    */
   withSyntaxObject = (syntaxObject) => {
-    this.syntax.push(syntaxObject);
+    this.syntax = [syntaxObject, ...this.syntax];
     return this;
   };
 
