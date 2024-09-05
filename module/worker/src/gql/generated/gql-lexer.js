@@ -1627,8 +1627,8 @@ export default class GQLLexer extends antlr4.Lexer {
                           "LOCAL_TIMESTAMP", "LOG", "LOG10", "LOWER", "LTRIM", 
                           "MATCH", "MAX", "MIN", "MINUTE", "MOD", "MONTH", 
                           "NEXT", "NODETACH", "NORMALIZE", "NOT", "NOTHING", 
-                          "NULL", "NULLS", "NULLIF", "OCTET_LENGTH", "OF", 
-                          "OFFSET", "OPTIONAL", "OR", "ORDER", "OTHERWISE", 
+                          "NULL_KW", "NULLS", "NULLIF", "OCTET_LENGTH", 
+                          "OF", "OFFSET", "OPTIONAL", "OR", "ORDER", "OTHERWISE", 
                           "PARAMETER", "PARAMETERS", "PATH", "PATH_LENGTH", 
                           "PATHS", "PERCENTILE_CONT", "PERCENTILE_DISC", 
                           "POWER", "PRECISION", "PROPERTY_EXISTS", "RADIANS", 
@@ -1648,7 +1648,7 @@ export default class GQLLexer extends antlr4.Lexer {
                           "ALTER", "CATALOG", "CLEAR", "CLONE", "CONSTRAINT", 
                           "CURRENT_ROLE", "CURRENT_USER", "DATA", "DIRECTORY", 
                           "DRYRUN", "EXACT", "EXISTING", "FUNCTION", "GQLSTATUS", 
-                          "GRANT", "INSTANT", "INFINITY", "NUMBER", "NUMERIC", 
+                          "GRANT", "INSTANT", "INFINITY_KW", "NUMBER", "NUMERIC", 
                           "ON", "OPEN", "PARTITION", "PROCEDURE", "PRODUCT", 
                           "PROJECT", "QUERY", "RECORDS", "REFERENCE", "RENAME", 
                           "REVOKE", "SUBSTRING", "SYSTEM_USER", "TEMPORAL", 
@@ -1734,27 +1734,28 @@ export default class GQLLexer extends antlr4.Lexer {
                       "LOCAL_TIME", "LOCAL_TIMESTAMP", "LOG", "LOG10", "LOWER", 
                       "LTRIM", "MATCH", "MAX", "MIN", "MINUTE", "MOD", "MONTH", 
                       "NEXT", "NODETACH", "NORMALIZE", "NOT", "NOTHING", 
-                      "NULL", "NULLS", "NULLIF", "OCTET_LENGTH", "OF", "OFFSET", 
-                      "OPTIONAL", "OR", "ORDER", "OTHERWISE", "PARAMETER", 
-                      "PARAMETERS", "PATH", "PATH_LENGTH", "PATHS", "PERCENTILE_CONT", 
-                      "PERCENTILE_DISC", "POWER", "PRECISION", "PROPERTY_EXISTS", 
-                      "RADIANS", "REAL", "RECORD", "REMOVE", "REPLACE", 
-                      "RESET", "RETURN", "RIGHT", "ROLLBACK", "RTRIM", "SAME", 
-                      "SCHEMA", "SECOND", "SELECT", "SESSION", "SESSION_USER", 
-                      "SET", "SIGNED", "SIN", "SINH", "SIZE", "SKIP_RESERVED_WORD", 
-                      "SMALL", "SMALLINT", "SQRT", "START", "STDDEV_POP", 
-                      "STDDEV_SAMP", "STRING", "SUM", "TAN", "TANH", "THEN", 
-                      "TIME", "TIMESTAMP", "TRAILING", "TRIM", "TYPED", 
-                      "UBIGINT", "UINT", "UINT8", "UINT16", "UINT32", "UINT64", 
-                      "UINT128", "UINT256", "UNION", "UNSIGNED", "UPPER", 
-                      "USE", "USMALLINT", "VALUE", "VARBINARY", "VARCHAR", 
-                      "VARIABLE", "WHEN", "WHERE", "WITH", "XOR", "YEAR", 
-                      "YIELD", "ZONED", "ZONED_DATETIME", "ZONED_TIME", 
-                      "ABSTRACT", "AGGREGATE", "AGGREGATES", "ALTER", "CATALOG", 
-                      "CLEAR", "CLONE", "CONSTRAINT", "CURRENT_ROLE", "CURRENT_USER", 
-                      "DATA", "DIRECTORY", "DRYRUN", "EXACT", "EXISTING", 
-                      "FUNCTION", "GQLSTATUS", "GRANT", "INSTANT", "INFINITY", 
-                      "NUMBER", "NUMERIC", "ON", "OPEN", "PARTITION", "PROCEDURE", 
+                      "NULL_KW", "NULLS", "NULLIF", "OCTET_LENGTH", "OF", 
+                      "OFFSET", "OPTIONAL", "OR", "ORDER", "OTHERWISE", 
+                      "PARAMETER", "PARAMETERS", "PATH", "PATH_LENGTH", 
+                      "PATHS", "PERCENTILE_CONT", "PERCENTILE_DISC", "POWER", 
+                      "PRECISION", "PROPERTY_EXISTS", "RADIANS", "REAL", 
+                      "RECORD", "REMOVE", "REPLACE", "RESET", "RETURN", 
+                      "RIGHT", "ROLLBACK", "RTRIM", "SAME", "SCHEMA", "SECOND", 
+                      "SELECT", "SESSION", "SESSION_USER", "SET", "SIGNED", 
+                      "SIN", "SINH", "SIZE", "SKIP_RESERVED_WORD", "SMALL", 
+                      "SMALLINT", "SQRT", "START", "STDDEV_POP", "STDDEV_SAMP", 
+                      "STRING", "SUM", "TAN", "TANH", "THEN", "TIME", "TIMESTAMP", 
+                      "TRAILING", "TRIM", "TYPED", "UBIGINT", "UINT", "UINT8", 
+                      "UINT16", "UINT32", "UINT64", "UINT128", "UINT256", 
+                      "UNION", "UNSIGNED", "UPPER", "USE", "USMALLINT", 
+                      "VALUE", "VARBINARY", "VARCHAR", "VARIABLE", "WHEN", 
+                      "WHERE", "WITH", "XOR", "YEAR", "YIELD", "ZONED", 
+                      "ZONED_DATETIME", "ZONED_TIME", "ABSTRACT", "AGGREGATE", 
+                      "AGGREGATES", "ALTER", "CATALOG", "CLEAR", "CLONE", 
+                      "CONSTRAINT", "CURRENT_ROLE", "CURRENT_USER", "DATA", 
+                      "DIRECTORY", "DRYRUN", "EXACT", "EXISTING", "FUNCTION", 
+                      "GQLSTATUS", "GRANT", "INSTANT", "INFINITY_KW", "NUMBER", 
+                      "NUMERIC", "ON", "OPEN", "PARTITION", "PROCEDURE", 
                       "PRODUCT", "PROJECT", "QUERY", "RECORDS", "REFERENCE", 
                       "RENAME", "REVOKE", "SUBSTRING", "SYSTEM_USER", "TEMPORAL", 
                       "UNIQUE", "UNIT", "VALUES", "ACYCLIC", "BINDING", 
@@ -1953,7 +1954,7 @@ GQLLexer.NODETACH = 150;
 GQLLexer.NORMALIZE = 151;
 GQLLexer.NOT = 152;
 GQLLexer.NOTHING = 153;
-GQLLexer.NULL = 154;
+GQLLexer.NULL_KW = 154;
 GQLLexer.NULLS = 155;
 GQLLexer.NULLIF = 156;
 GQLLexer.OCTET_LENGTH = 157;
@@ -2056,7 +2057,7 @@ GQLLexer.FUNCTION = 253;
 GQLLexer.GQLSTATUS = 254;
 GQLLexer.GRANT = 255;
 GQLLexer.INSTANT = 256;
-GQLLexer.INFINITY = 257;
+GQLLexer.INFINITY_KW = 257;
 GQLLexer.NUMBER = 258;
 GQLLexer.NUMERIC = 259;
 GQLLexer.ON = 260;
