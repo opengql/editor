@@ -1624,10 +1624,10 @@ export default class GQLLexer extends antlr4.Lexer {
                           "INT256", "INTEGER256", "INTERSECT", "INTERVAL", 
                           "IS", "LEADING", "LEFT", "LET", "LIKE", "LIMIT", 
                           "LIST", "LN", "LOCAL", "LOCAL_DATETIME", "LOCAL_TIME", 
-                          "LOCAL_TIMESTAMP", "LOG", "LOG10", "LOWER", "LTRIM", 
-                          "MATCH", "MAX", "MIN", "MINUTE", "MOD", "MONTH", 
-                          "NEXT", "NODETACH", "NORMALIZE", "NOT", "NOTHING", 
-                          "NULL_KW", "NULLS", "NULLIF", "OCTET_LENGTH", 
+                          "LOCAL_TIMESTAMP", "LOG_KW", "LOG10", "LOWER", 
+                          "LTRIM", "MATCH", "MAX", "MIN", "MINUTE", "MOD", 
+                          "MONTH", "NEXT", "NODETACH", "NORMALIZE", "NOT", 
+                          "NOTHING", "NULL_KW", "NULLS", "NULLIF", "OCTET_LENGTH", 
                           "OF", "OFFSET", "OPTIONAL", "OR", "ORDER", "OTHERWISE", 
                           "PARAMETER", "PARAMETERS", "PATH", "PATH_LENGTH", 
                           "PATHS", "PERCENTILE_CONT", "PERCENTILE_DISC", 
@@ -1731,11 +1731,11 @@ export default class GQLLexer extends antlr4.Lexer {
                       "INTEGER128", "INT256", "INTEGER256", "INTERSECT", 
                       "INTERVAL", "IS", "LEADING", "LEFT", "LET", "LIKE", 
                       "LIMIT", "LIST", "LN", "LOCAL", "LOCAL_DATETIME", 
-                      "LOCAL_TIME", "LOCAL_TIMESTAMP", "LOG", "LOG10", "LOWER", 
-                      "LTRIM", "MATCH", "MAX", "MIN", "MINUTE", "MOD", "MONTH", 
-                      "NEXT", "NODETACH", "NORMALIZE", "NOT", "NOTHING", 
-                      "NULL_KW", "NULLS", "NULLIF", "OCTET_LENGTH", "OF", 
-                      "OFFSET", "OPTIONAL", "OR", "ORDER", "OTHERWISE", 
+                      "LOCAL_TIME", "LOCAL_TIMESTAMP", "LOG_KW", "LOG10", 
+                      "LOWER", "LTRIM", "MATCH", "MAX", "MIN", "MINUTE", 
+                      "MOD", "MONTH", "NEXT", "NODETACH", "NORMALIZE", "NOT", 
+                      "NOTHING", "NULL_KW", "NULLS", "NULLIF", "OCTET_LENGTH", 
+                      "OF", "OFFSET", "OPTIONAL", "OR", "ORDER", "OTHERWISE", 
                       "PARAMETER", "PARAMETERS", "PATH", "PATH_LENGTH", 
                       "PATHS", "PERCENTILE_CONT", "PERCENTILE_DISC", "POWER", 
                       "PRECISION", "PROPERTY_EXISTS", "RADIANS", "REAL", 
@@ -1939,7 +1939,7 @@ GQLLexer.LOCAL = 135;
 GQLLexer.LOCAL_DATETIME = 136;
 GQLLexer.LOCAL_TIME = 137;
 GQLLexer.LOCAL_TIMESTAMP = 138;
-GQLLexer.LOG = 139;
+GQLLexer.LOG_KW = 139;
 GQLLexer.LOG10 = 140;
 GQLLexer.LOWER = 141;
 GQLLexer.LTRIM = 142;
