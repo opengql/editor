@@ -669,10 +669,10 @@ const serializedATN = [4,1,391,4617,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,
 0,0,0,1395,1396,1,0,0,0,1396,1397,1,0,0,0,1397,1399,3,674,337,0,1398,1395,
 1,0,0,0,1398,1399,1,0,0,0,1399,1400,1,0,0,0,1400,1401,3,86,43,0,1401,85,
 1,0,0,0,1402,1403,5,365,0,0,1403,1404,3,818,409,0,1404,87,1,0,0,0,1405,1410,
-3,96,48,0,1406,1410,3,554,277,0,1407,1410,3,1058,529,0,1408,1410,3,90,45,
+3,554,277,0,1406,1410,3,96,48,0,1407,1410,3,1058,529,0,1408,1410,3,90,45,
 0,1409,1405,1,0,0,0,1409,1406,1,0,0,0,1409,1407,1,0,0,0,1409,1408,1,0,0,
 0,1410,89,1,0,0,0,1411,1412,7,1,0,0,1412,91,1,0,0,0,1413,1418,3,94,47,0,
-1414,1418,3,96,48,0,1415,1418,3,564,282,0,1416,1418,3,1058,529,0,1417,1413,
+1414,1418,3,564,282,0,1415,1418,3,96,48,0,1416,1418,3,1058,529,0,1417,1413,
 1,0,0,0,1417,1414,1,0,0,0,1417,1415,1,0,0,0,1417,1416,1,0,0,0,1418,93,1,
 0,0,0,1419,1420,3,56,28,0,1420,95,1,0,0,0,1421,1422,5,228,0,0,1422,1426,
 3,842,421,0,1423,1426,3,844,422,0,1424,1426,3,848,424,0,1425,1421,1,0,0,
@@ -3923,13 +3923,13 @@ export default class GQLParser extends antlr4.Parser {
 	        case 1:
 	            this.enterOuterAlt(localctx, 1);
 	            this.state = 1405;
-	            this.objectExpressionPrimary();
+	            this.graphReference();
 	            break;
 
 	        case 2:
 	            this.enterOuterAlt(localctx, 2);
 	            this.state = 1406;
-	            this.graphReference();
+	            this.objectExpressionPrimary();
 	            break;
 
 	        case 3:
@@ -4009,13 +4009,13 @@ export default class GQLParser extends antlr4.Parser {
 	        case 2:
 	            this.enterOuterAlt(localctx, 2);
 	            this.state = 1414;
-	            this.objectExpressionPrimary();
+	            this.bindingTableReference();
 	            break;
 
 	        case 3:
 	            this.enterOuterAlt(localctx, 3);
 	            this.state = 1415;
-	            this.bindingTableReference();
+	            this.objectExpressionPrimary();
 	            break;
 
 	        case 4:
@@ -28288,12 +28288,12 @@ class GraphExpressionContext extends antlr4.ParserRuleContext {
         this.ruleIndex = GQLParser.RULE_graphExpression;
     }
 
-	objectExpressionPrimary() {
-	    return this.getTypedRuleContext(ObjectExpressionPrimaryContext,0);
-	};
-
 	graphReference() {
 	    return this.getTypedRuleContext(GraphReferenceContext,0);
+	};
+
+	objectExpressionPrimary() {
+	    return this.getTypedRuleContext(ObjectExpressionPrimaryContext,0);
 	};
 
 	objectNameOrBindingVariable() {
@@ -28378,12 +28378,12 @@ class BindingTableExpressionContext extends antlr4.ParserRuleContext {
 	    return this.getTypedRuleContext(NestedBindingTableQuerySpecificationContext,0);
 	};
 
-	objectExpressionPrimary() {
-	    return this.getTypedRuleContext(ObjectExpressionPrimaryContext,0);
-	};
-
 	bindingTableReference() {
 	    return this.getTypedRuleContext(BindingTableReferenceContext,0);
+	};
+
+	objectExpressionPrimary() {
+	    return this.getTypedRuleContext(ObjectExpressionPrimaryContext,0);
 	};
 
 	objectNameOrBindingVariable() {
